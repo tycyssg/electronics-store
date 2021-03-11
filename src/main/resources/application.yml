@@ -2,8 +2,8 @@
 spring:
   datasource:
     url: ${SPRING_DATASOURCE_URL}
-    password: ${SPRING_DATASOURCE_USERNAME}
-    username: ${SPRING_DATASOURCE_PASSWORD}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+    username: ${SPRING_DATASOURCE_USERNAME}
   jpa:
     show-sql: true
     hibernate:
