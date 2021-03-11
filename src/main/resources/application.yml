@@ -1,0 +1,25 @@
+### DB Connection.
+spring:
+  datasource:
+    url: ${SPRING_DATASOURCE_URL}
+    password: ${SPRING_DATASOURCE_USERNAME}
+    username: ${SPRING_DATASOURCE_PASSWORD}
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        default_schema: 'public'
+        dialect: org.hibernate.dialect.PostgreSQL95Dialect
+
+###Server Port
+server:
+  port: 8085
+
+###JWT Key
+jwt:
+  production:
+    secret:
+  dev:
+    secret: '%2J6{bPc2u;rs.8NUdqd^L&WE#hFr$5E4`2O_ksOg<-6iaxx"wG1-eR^bW:33{E'
