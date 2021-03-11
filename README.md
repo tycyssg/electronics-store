@@ -2,7 +2,7 @@
 
 Electronics Store with Spring boot and Angular
 
-**Project Requirements**
+**Project Requirements and Installation details**
 
 1. Postgres SQL: Install link [Here](https://www.postgresql.org/download/ "PostgreSQL Downloads")
 2. Create a database called: "electronics-store"

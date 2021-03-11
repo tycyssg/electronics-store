@@ -1,0 +1,69 @@
+@import "src/styles/abstracts/variables";
+
+.mat-step-header .mat-step-icon-selected, {
+  background: $qa-color-primary !important;
+  font-size: 1.2rem;
+}
+
+.mat-step-header .mat-step-icon-state-done, .mat-step-icon-state-edit {
+  background: $qa-color-primary !important;
+  font-size: 1.2rem;
+}
+
+.mat-dialog-container {
+  padding: 0 !important;
+}
+
+.angular-material-input-outline-xs {
+  font-size: 12px !important;
+}
+
+.angular-material-input-outline-s {
+  font-size: 14px !important;
+}
+
+.mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+  color: $qa-menu-hover-color !important;
+}
+
+.mat-focused .mat-form-field-label {
+  /*change color of label*/
+  color: $qa-menu-hover-color !important;
+}
+
+
+.mat-radio-button {
+  margin-left: 1.4rem;
+}
+
+.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+  border-color: $qa-color-primary-2 !important;
+}
+
+.mat-radio-button.mat-accent .mat-radio-inner-circle {
+  color: $qa-color-primary-2 !important;
+  background-color: $qa-color-primary-2 !important;
+}
+
+
+.mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
+  background-color: $qa-menu-hover-color
+}
+
+.mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
+  background-color: $qa-color-primary-2
+}
+
+.mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar {
+  background: $qa-color-primary-2;
+  height: 3px;
+}
+
+.mat-checkbox-checked.mat-accent .mat-checkbox-ripple .mat-ripple-element {
+  opacity: 0.03 !important;
+  background-color: $qa-color-primary-2 !important;
+}
+
+.mat-checkbox-checked.mat-accent .mat-checkbox-background, .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+  background-color: $qa-color-primary-2;
+}

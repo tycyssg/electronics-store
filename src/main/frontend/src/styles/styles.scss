@@ -1,0 +1,21 @@
+/* You can add global styles to this file, and also import other style files */
+/* Import - Abstracts */
+@import 'src/styles/abstracts/variables';
+@import 'src/styles/abstracts/fonts';
+@import 'src/styles/abstracts/base';
+@import 'src/styles/abstracts/custom-angular-material';
+@import 'src/styles/abstracts/mixins';
+
+/* Import - Component */
+@import 'src/styles/components/buttons';
+@import 'src/styles/components/global-classes';
+@import 'src/styles/components/alerts';
+
+/* Import - Core */
+@import 'core/state';
+@import 'core/text';
+@import 'core/typgraphy';
+
+/* Import - Notifier */
+@import "~angular-notifier/styles";
+

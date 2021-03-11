@@ -1,0 +1,44 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 62.5%;
+  height: 100%;
+}
+
+body {
+  box-sizing: border-box;
+}
+
+a {
+  outline: 0 !important;
+  color: $qa-color-secondary;
+
+  &:link, :visited {
+    text-decoration: none;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 1rem;
+
+  &-track {
+    background: #f1f1f1;
+  }
+
+  &-thumb {
+    background: $qa-color-tertiary;
+
+    &:hover {
+      background: $qa-color-secondary;
+    }
+  }
+}
+
+

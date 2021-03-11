@@ -1,0 +1,413 @@
+@import 'src/styles/abstracts/variables';
+@import 'src/styles/abstracts/fonts';
+@import 'src/styles/abstracts/mixins';
+
+.qa-btn-icon {
+  display: inline-block;
+  justify-content: center;
+  outline: 0;
+  white-space: nowrap;
+  vertical-align: middle;
+  border: transparent;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: $qa-font-size-n-1;
+
+  &:disabled {
+    cursor: text;
+  }
+
+  &-xs {
+    font-size: $qa-font-size-xs !important;
+  }
+
+  &-s {
+    font-size: $qa-font-size-s !important;
+  }
+
+  &-n {
+    font-size: $qa-font-size-n !important;
+  }
+
+  &-n1 {
+    font-size: $qa-font-size-n-1 !important;
+  }
+
+  &-m {
+    font-size: $qa-font-size-m !important;
+  }
+
+  &-lg {
+    font-size: $qa-font-size-lg !important;
+  }
+
+  &-xlg {
+    font-size: $qa-font-size-xlg !important;
+  }
+
+  &-light {
+    color: $qa-color-tertiary;
+
+    &:hover {
+      color: darken($qa-color-tertiary, 10%);
+    }
+
+    &:disabled {
+      color: $qa-color-light;
+    }
+  }
+
+  &-primary {
+    color: $qa-color-primary;
+
+    &:hover {
+      color: darken($qa-color-primary, 10%);
+    }
+
+    &:disabled {
+      color: lighten($qa-color-primary, 10%);
+    }
+  }
+
+  &-info {
+    color: $qa-color-info;
+
+    &:hover {
+      color: darken($qa-color-info, 10%);
+    }
+
+    &:disabled {
+      color: lighten($qa-color-info, 10%);
+    }
+  }
+
+  &-warning {
+    color: $qa-color-warning;
+
+    &:hover {
+      color: darken($qa-color-warning, 10%);
+    }
+
+    &:disabled {
+      color: lighten($qa-color-warning, 10%);
+    }
+  }
+
+  &-success {
+    color: $qa-color-success;
+
+    &:hover {
+      color: darken($qa-color-success, 10%);
+    }
+
+    &:disabled {
+      color: lighten($qa-color-success, 10%);
+    }
+  }
+
+  &-danger {
+    color: $qa-color-danger;
+
+    &:hover {
+      color: darken($qa-color-danger, 10%);
+    }
+
+    &:disabled {
+      color: lighten($qa-color-danger, 10%);
+    }
+  }
+
+  &-default {
+    color: $qa-color-dark;
+
+    &:hover {
+      color: lighten($qa-color-dark, 10%);
+    }
+
+    &:disabled {
+      color: lighten($qa-color-dark, 15%) !important;
+    }
+  }
+
+}
+
+.qa-btn {
+  display: inline-block;
+  justify-content: center;
+  font: 400 1.2rem $qa-default-font;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  vertical-align: middle;
+  user-select: none;
+  border: 1px solid transparent;
+  padding: .50rem .85rem;
+  line-height: 1.5;
+  background-color: transparent;
+  border-radius: .5rem;
+  cursor: pointer;
+  outline: 0;
+  transition: all .15s ease-in-out;
+  box-shadow: 0 .3rem .6rem rgba($qa-color-black, .2);
+  letter-spacing: .05rem;
+
+  &:disabled {
+    cursor: text;
+  }
+
+  &-block {
+    display: block;
+    width: 100% !important;
+  }
+
+  &-xs {
+    padding: .25rem .70rem;
+    font-size: 1rem;
+    font-weight: 400;
+  }
+
+  &-s {
+    padding: .50rem .85rem;
+    font-size: 1.2rem;
+    font-weight: 400;
+  }
+
+  &-m {
+    padding: .80rem 1.2rem;
+    font-size: 1.6rem;
+  }
+
+  &-lg {
+    padding: 1rem 1.4rem;
+    font-size: 1.8rem;
+    font-weight: 700;
+  }
+
+  &-default {
+    background: $qa-color-dark;
+    color: $qa-color-white;
+
+    &:hover {
+      background: lighten($qa-color-dark, 7%);
+      color: $qa-color-white;
+    }
+
+    &:disabled {
+      background: lighten($qa-color-light, 10%) !important;
+      color: $qa-color-dark !important;
+    }
+
+  }
+
+  &-light {
+    background: $qa-color-light;
+    color: $qa-color-dark;
+
+    &:hover {
+      background: darken($qa-color-light, 15%);
+      color: $qa-color-dark;
+    }
+
+    &:disabled {
+      background: lighten($qa-color-light-dark, 10%) !important;
+      color: $qa-color-light !important;
+    }
+
+  }
+
+  &-secondary {
+    background: $qa-color-secondary;
+    color: $qa-color-white;
+
+    &:hover {
+      background: darken($qa-color-secondary, 15%);
+      color: $qa-color-white;
+    }
+
+    &:disabled {
+      background: lighten($qa-color-secondary, 10%) !important;
+      color: $qa-color-white !important;
+    }
+
+  }
+
+  &-primary {
+    background: $qa-color-primary;
+    color: $qa-color-white;
+
+    &:hover {
+      background: darken($qa-color-primary, 15%);
+      color: $qa-color-white;
+    }
+
+    &:disabled {
+      background: lighten($qa-color-primary, 10%) !important;
+      color: $qa-color-white !important;
+    }
+
+  }
+
+  &-success {
+    background: $qa-color-success;
+    color: $qa-color-white;
+
+    &:hover {
+      background: darken($qa-color-success, 15%);
+      color: $qa-color-white;
+    }
+
+    &:disabled {
+      background: lighten($qa-color-success, 10%) !important;
+      color: $qa-color-white !important;
+    }
+
+  }
+
+  &-danger {
+    background: $qa-color-danger;
+    color: $qa-color-white;
+
+    &:hover {
+      background: darken($qa-color-danger, 15%);
+      color: $qa-color-white;
+    }
+
+    &:disabled {
+      background: lighten($qa-color-danger, 10%) !important;
+      color: $qa-color-white !important;
+    }
+
+  }
+
+  &-warning {
+    background: $qa-color-warning;
+    color: $qa-color-white;
+
+    &:hover {
+      background: darken($qa-color-warning, 15%);
+      color: $qa-color-white;
+    }
+
+    &:disabled {
+      background: lighten($qa-color-warning, 10%) !important;
+      color: $qa-color-white !important;
+    }
+
+  }
+
+  &-info {
+    background: $qa-color-info;
+    color: $qa-color-white;
+
+    &:hover {
+      background: darken($qa-color-info, 15%);
+      color: $qa-color-white;
+    }
+
+    &:disabled {
+      background: lighten($qa-color-info, 10%) !important;
+      color: $qa-color-white !important;
+    }
+
+  }
+
+  &-outline {
+    background-color: transparent;
+    background-image: none;
+
+    &-default {
+      color: $qa-color-dark;
+      border-color: $qa-color-dark;
+
+      &:hover {
+        background-color: $qa-color-dark;
+        color: $qa-color-white;
+      }
+
+    }
+
+    &-secondary {
+      color: $qa-color-secondary;
+      border-color: $qa-color-secondary;
+
+      &:hover {
+        background-color: $qa-color-secondary;
+        color: $qa-color-white;
+      }
+
+    }
+
+    &-primary {
+      color: $qa-color-primary;
+      border-color: $qa-color-primary;
+
+      &:hover {
+        background-color: $qa-color-primary;
+        color: $qa-color-white;
+      }
+
+    }
+
+    &-success {
+      color: $qa-color-success;
+      border-color: $qa-color-success;
+
+      &:hover {
+        background-color: $qa-color-success;
+        color: $qa-color-white;
+      }
+
+    }
+
+    &-danger {
+      color: $qa-color-danger;
+      border-color: $qa-color-danger;
+
+      &:hover {
+        background-color: $qa-color-danger;
+        color: $qa-color-white;
+      }
+
+    }
+
+    &-warning {
+      color: $qa-color-warning;
+      border-color: $qa-color-warning;
+
+      &:hover {
+        background-color: $qa-color-warning;
+        color: $qa-color-white;
+      }
+
+    }
+
+    &-info {
+      color: $qa-color-info;
+      border-color: $qa-color-info;
+
+      &:hover {
+        background-color: $qa-color-info;
+        color: $qa-color-white;
+      }
+
+    }
+
+  }
+
+}
+
+.qa-link {
+  font-size: 1.3rem;
+  letter-spacing: .1rem;
+  transition: all .3s ease-in-out;
+  font-weight: 700;
+  color: $qa-color-dark;
+
+  &:link, :visited {
+    text-decoration: none;
+  }
+
+  &:hover {
+    color: $qa-menu-hover-color;
+  }
+}
