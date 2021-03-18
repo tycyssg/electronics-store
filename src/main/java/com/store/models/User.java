@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -26,6 +27,7 @@ public class User implements Serializable {
 
     @NotNull
     @Column(unique = true)
+    @Size(min = 4, max = 10)
     private String username;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
@@ -42,7 +44,6 @@ public class User implements Serializable {
     private Date lastLoginDate;
     private Date lastLoginDateDisplay;
     private Date joinDate;
-    private Boolean requiresPasswordChange;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "userId")
