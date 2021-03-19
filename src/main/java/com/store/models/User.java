@@ -49,6 +49,10 @@ public class User implements Serializable {
     @JoinColumn(name = "userId")
     private List<Authority> authorities;
 
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "userId")
+    private List<Address> addresses;
+
     @Transient
     private Long expiresIn;
     @Transient

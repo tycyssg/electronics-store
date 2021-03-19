@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -22,6 +23,11 @@ public class Product implements Serializable {
     private Integer stock;
     private Integer numOfRatingCustomers;
     private Integer totalRating;
+    private Double discountAmount;
+    private Date expireDiscount;
+
+    @Transient
+    private Double discountedPrice;
 
     @Transient
     private Double rating;

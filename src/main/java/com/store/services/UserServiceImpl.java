@@ -6,7 +6,6 @@ import com.store.exceptions.model.UsernameExistException;
 import com.store.models.User;
 import com.store.models.UserPrincipal;
 import com.store.repository.UserRepository;
-import com.store.services.serviceInterface.LoginAttemptService;
 import com.store.services.serviceInterface.UserService;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

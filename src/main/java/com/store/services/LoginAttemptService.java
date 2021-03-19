@@ -1,4 +1,4 @@
-package com.store.services.serviceInterface;
+package com.store.services;
 
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
