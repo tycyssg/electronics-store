@@ -1,0 +1,20 @@
+@import "src/styles/abstracts/variables";
+
+.not-found {
+  font-size: 10rem;
+  background: linear-gradient(to left bottom, $qa-color-danger, $qa-color-dark);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 700;
+  letter-spacing: 2rem;
+  text-shadow: 0 .3rem .4rem rgba($qa-color-black, .4);
+
+  & fa-icon {
+    font-size: 8rem;
+    color: #6D1313;
+  }
+
+  &-letter {
+    margin-left: 2rem;
+  }
+}

@@ -1,0 +1,15 @@
+@import "src/styles/abstracts/variables";
+
+.not-found {
+  font-size: 14rem;
+  background: linear-gradient(to left bottom, $qa-menu-hover-color, $qa-color-dark);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 700;
+  text-shadow: 0 .3rem .4rem rgba($qa-color-black, .3);
+
+  & fa-icon {
+    font-size: 13rem;
+    color: #2177A3;
+  }
+}

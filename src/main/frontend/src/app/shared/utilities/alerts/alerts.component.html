@@ -1,0 +1,27 @@
+<div *ngIf="showAlert" [ngClass]="{
+  'alert-success' : alertType === 'SUCCESS',
+  'alert-info' : alertType === 'INFO',
+  'alert-warning' : alertType === 'WARNING',
+  'alert-danger' : alertType === 'DANGER',
+  'alert-primary' : alertType === 'PRIMARY',
+  'alert-rounded' : rounded
+  }"
+     class="alert {{alertWidth}} {{alertHeight}}">
+
+  <div class="alert-icon">
+    <fa-icon *ngIf="alertType === 'INFO'" class="alert-icon-i" icon="info-circle"></fa-icon>
+    <fa-icon *ngIf="alertType === 'SUCCESS'" class="alert-icon-i" icon="check"></fa-icon>
+    <fa-icon *ngIf="alertType === 'WARNING'" class="alert-icon-i" icon="exclamation-triangle"></fa-icon>
+    <fa-icon *ngIf="alertType === 'DANGER'" class="alert-icon-i" icon="times"></fa-icon>
+    <fa-icon *ngIf="alertType === 'PRIMARY'" class="alert-icon-i" icon="info"></fa-icon>
+  </div>
+
+  <button (click)="hideErrorScreen()" *ngIf="showCloseButton" class="alert-close-button">
+    <mat-icon class="close-button-icon">close</mat-icon>
+  </button>
+
+  <div class="text-center"><strong>{{strongText}}</strong></div>
+  <p>{{alertText}}</p>
+</div>
+
+

@@ -1,0 +1,6 @@
+<ng-template [ngIf]="showError">
+  <div class="full-screen-bg">
+    <app-alerts [alertText]="errorMessage" [rounded]="true" [showAlert]="showError"
+                [showCloseButton]="allowToClose" [strongText]="strongTitle" alertType="DANGER"></app-alerts>
+  </div>
+</ng-template>

@@ -1,0 +1,14 @@
+<div [ngClass]="{
+  'alert-success' : alertType?.toUpperCase() === 'SUCCESS',
+  'alert-info' : alertType?.toUpperCase() === 'INFO',
+  'alert-warning' : alertType?.toUpperCase() === 'WARNING',
+  'alert-danger' : alertType?.toUpperCase() === 'DANGER',
+  'alert-primary' : alertType?.toUpperCase() === 'PRIMARY',
+  'alert-rounded' : rounded
+  }" class="alert">
+  <div class="alert-icon">
+    <fa-icon [icon]="alertIcon" class="alert-icon-i"></fa-icon>
+  </div>
+  <strong>{{strongText}}</strong>
+  <p>{{alertText}}</p>
+</div>

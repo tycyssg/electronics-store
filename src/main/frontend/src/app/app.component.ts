@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { select, Store } from '@ngrx/store';
+import { AuthState } from './auth/store/state/auth-state';
+import { getAuthSelector } from './auth/store/selectors/auth.selectors';
+import { SetLogoutTimerAction } from './auth/store/actions/auth.actions';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +10,17 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'frontend';
+  title = 'unitch';
+
+  public showMenu: boolean = false;
+
+  constructor(private readonly store: Store<AuthState>) {
+  }
+
+  ngOnInit(): void {
+    this.store.pipe(select(getAuthSelector)).subscribe(payload => {
+      this.showMenu = !!payload.authUser;
+      this.store.dispatch(SetLogoutTimerAction({authUser: payload.authUser}))
+    })
+  }
 }

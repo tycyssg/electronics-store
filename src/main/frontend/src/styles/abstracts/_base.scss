@@ -18,10 +18,11 @@ body {
 
 a {
   outline: 0 !important;
-  color: $qa-color-secondary;
+  color: $clr-secondary;
 
   &:link, :visited {
     text-decoration: none;
+    color: $clr-secondary;
   }
 }
 

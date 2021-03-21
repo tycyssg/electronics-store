@@ -1,0 +1,140 @@
+@import 'src/styles/abstracts/variables';
+@import 'src/styles/abstracts/fonts';
+
+.menu-section {
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+.header-class {
+  height: 7rem;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+}
+
+.main-nav {
+  margin-left: 9.5rem;
+  flex-grow: 1;
+  padding-right: 1em;
+}
+
+.nav-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  gap: 3em;
+}
+
+.nav-list li {
+  font-size: 1.4rem;
+  font-family: $menu-font;
+  text-transform: uppercase;
+  font-weight: 600;
+  word-spacing: -.3rem;
+
+  & a {
+    position: relative;
+    transition: all ease-in-out .5s;
+  }
+
+  & .nav-main-item::before {
+    content: '';
+    position: absolute;
+    height: 3px;
+    background: $clr-light-dark;
+    width: 0;
+    top: 100%;
+    transition: all ease-in-out .5s;
+  }
+
+  & a:hover {
+    color: black;
+  }
+
+  & .nav-main-item:hover::before {
+    width: 100%;
+  }
+}
+
+
+.nav-list li:nth-of-type(1) {
+  margin-left: auto;
+}
+
+.nav-list li:nth-of-type(5) {
+  margin-left: auto;
+}
+
+.logo-side {
+  background-color: $clr-light-dark;
+  width: 9.5rem;
+  height: 50rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: $clr-white;
+  padding: 1.3rem 1rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.logo-text {
+  font-size: 2.5rem;
+  font-family: $heavy-font;
+  font-weight: 500;
+
+  & a {
+    color: $clr-white;
+    transition: all ease-in-out .3s;
+  }
+
+  & a:hover {
+    color: $clr-secondary;
+  }
+
+}
+
+.social-nav {
+  flex-grow: 1;
+}
+
+.social-list {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+
+  & li {
+    font-size: 1.7rem;
+    margin-bottom: 2rem;
+
+    & a {
+      transition: all ease-in-out .3s;
+    }
+
+    & a:hover {
+      color: $clr-white;
+    }
+  }
+}
+
+.social-list li:nth-of-type(1) {
+  margin-top: auto;
+}
+
+.social-list li:nth-of-type(4) {
+  margin-bottom: auto;
+}
+
+.social-list li:nth-of-type(5),
+.social-list li:nth-of-type(6) {
+  margin-bottom: 0;
+  font-size: 1.4rem;
+}
+

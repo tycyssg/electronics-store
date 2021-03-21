@@ -1,0 +1,41 @@
+<section class="menu-section">
+  <header class="header-class">
+    <nav class="main-nav">
+      <ul class="nav-list">
+        <li><a class="nav-main-item" href="#">products</a></li>
+        <li><a class="nav-main-item" href="#">offers</a></li>
+        <li><a class="nav-main-item" href="#">who we are</a></li>
+        <li><a class="nav-main-item" href="#">contact</a></li>
+        <li><a href="#">
+          <fa-icon icon="search"></fa-icon>
+        </a></li>
+        <li><a href="#">
+          <fa-icon icon="shopping-cart"></fa-icon>
+        </a></li>
+      </ul>
+    </nav>
+  </header>
+
+
+  <div class="logo-side">
+    <div class="logo-text"><a [routerLink]="['/landing']">{{logoText}}</a></div>
+    <nav class="social-nav">
+      <ul class="social-list">
+        <li><a href="#">
+          <fa-icon [icon]="['fab', 'facebook-f']"></fa-icon>
+        </a></li>
+        <li><a href="#">
+          <fa-icon [icon]="['fab', 'twitter']"></fa-icon>
+        </a></li>
+        <li><a href="#">
+          <fa-icon [icon]="['fab', 'google']"></fa-icon>
+        </a></li>
+        <li><a href="#">
+          <fa-icon [icon]="['fab', 'youtube']"></fa-icon>
+        </a></li>
+        <li><a href="#">Login</a></li>
+      </ul>
+    </nav>
+  </div>
+</section>
+
