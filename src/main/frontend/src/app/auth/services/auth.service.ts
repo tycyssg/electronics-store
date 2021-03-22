@@ -17,7 +17,8 @@ import { ErrorHandlerAction } from '../../shared/state/actions/error-handler.act
 export class AuthService {
 
   private readonly urls = {
-    login: '/api/login'
+    login: '/api/login',
+    register: '/api/register'
   };
 
   private tokenExpirationTimer: any;
@@ -27,6 +28,10 @@ export class AuthService {
 
   public login(user: User): Observable<User> {
     return this.httpClient.post<User>(this.urls.login, user, {headers: HEADERS_FOR_POST});
+  }
+
+  public register(user: User): Observable<User> {
+    return this.httpClient.post<User>(this.urls.register, user, {headers: HEADERS_FOR_POST});
   }
 
   public setLogoutTimer(expirationDuration: number) {

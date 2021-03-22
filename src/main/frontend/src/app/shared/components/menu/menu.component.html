@@ -9,7 +9,7 @@
         <li><a href="#">
           <fa-icon icon="search"></fa-icon>
         </a></li>
-        <li><a href="#">
+        <li *ngIf="loggedUser"><a class="shopping-cart-notification" data-tooltip="22" href="#">
           <fa-icon icon="shopping-cart"></fa-icon>
         </a></li>
       </ul>
@@ -33,7 +33,15 @@
         <li><a href="#">
           <fa-icon [icon]="['fab', 'youtube']"></fa-icon>
         </a></li>
-        <li><a href="#">Login</a></li>
+        <li *ngIf="!loggedUser"><a [routerLink]="['/login']">Login</a></li>
+        <li *ngIf="loggedUser"><a [routerLink]="['/user']" class="profile-link">
+          <fa-icon icon="user-cog" title="Profile"></fa-icon>
+        </a></li>
+        <li *ngIf="loggedUser">
+          <button (click)="logOut()" class="qa-btn-icon qa-btn-icon-info" type="button">
+            <fa-icon icon="sign-out-alt" title="Logout"></fa-icon>
+          </button>
+        </li>
       </ul>
     </nav>
   </div>

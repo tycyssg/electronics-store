@@ -6,7 +6,12 @@ import { map, mergeMap, switchMap, tap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
-import { NOTIFICATION_TYPES, ROUTE_PATH_LOGIN, ROUTE_PATH_LOGIN_REDIRECT } from '../../../app-constants';
+import {
+  NOTIFICATION_TYPES,
+  ROUTE_PATH_LOGIN,
+  ROUTE_PATH_LOGIN_REDIRECT,
+  USER_REGISTERED
+} from '../../../app-constants';
 import { NotifierService } from 'angular-notifier';
 import { User } from '../../model/User';
 import { State } from '../../../store/model/root.state';
@@ -54,6 +59,12 @@ export class AuthEffects {
       return AuthActions.LogOutCompleteAction();
     })
   ));
+
+  private register$ = createEffect(() => this.actions$.pipe(
+    ofType(AuthActions.ApiActionTypes.registerUser),
+    switchMap((payload: any) => this.authService.register(payload)),
+    tap(() => this.notifier.notify(NOTIFICATION_TYPES.success, USER_REGISTERED))
+  ), {dispatch: false})
 
   constructor(private readonly actions$: Actions, private readonly authService: AuthService, private readonly router: Router, private readonly notifier: NotifierService, private readonly store: Store<State>) {
   }

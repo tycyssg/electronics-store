@@ -12,14 +12,11 @@ import { SetLogoutTimerAction } from './auth/store/actions/auth.actions';
 export class AppComponent {
   title = 'unitch';
 
-  public showMenu: boolean = false;
-
   constructor(private readonly store: Store<AuthState>) {
   }
 
   ngOnInit(): void {
     this.store.pipe(select(getAuthSelector)).subscribe(payload => {
-      this.showMenu = !!payload.authUser;
       this.store.dispatch(SetLogoutTimerAction({authUser: payload.authUser}))
     })
   }

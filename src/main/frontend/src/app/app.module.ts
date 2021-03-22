@@ -22,6 +22,11 @@ import { AuthState } from './auth/store/state/auth-state';
 import { getAuthenticatedUserReducer, logOutReducer } from './auth/store/reducers/auth.reducer';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NavigationActionTiming, StoreRouterConnectingModule } from '@ngrx/router-store';
+import { environment } from '../environments/environment';
+import { EffectsModule } from '@ngrx/effects';
+import { AuthEffects } from './auth/store/effects/auth.effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 
 @NgModule({
@@ -55,6 +60,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
         logout: logOutReducer
       }
     ),
+    StoreRouterConnectingModule.forRoot({navigationActionTiming: NavigationActionTiming.PostActivation}),
+    StoreDevtoolsModule.instrument({logOnly: environment.production}),
+    EffectsModule.forRoot([AuthEffects]),
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true},

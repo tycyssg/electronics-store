@@ -14,6 +14,7 @@ import { LOGO_TEXT } from '../../../app-constants';
 export class MenuComponent implements OnInit {
 
   public user: User = null as any;
+  public loggedUser: boolean = false;
   public logoText = LOGO_TEXT;
 
   constructor(private readonly store: Store<State>) {
@@ -21,6 +22,7 @@ export class MenuComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.pipe(select(getAuthSelector)).subscribe(payload => {
+      this.loggedUser = !!payload.authUser;
       this.user = payload.authUser;
     })
   }

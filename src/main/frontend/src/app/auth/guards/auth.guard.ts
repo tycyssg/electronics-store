@@ -43,7 +43,6 @@ export class AuthGuard implements CanActivate {
       take(1),
       map(state => state.authUser),
       map(user => {
-
         const isAuth = !!user;
         if (isAuth) {
           if (!user.isActive) {

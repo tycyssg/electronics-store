@@ -32,11 +32,14 @@
     "@ngrx/effects": "^11.0.1",
     "@ngrx/router-store": "^11.0.1",
     "@ngrx/store": "^11.0.1",
+    "@ngrx/store-devtools": "^11.0.1",
     "angular-notifier": "^6.0.1",
+    "angular-password-strength-meter": "^3.0.1",
     "moment": "^2.29.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
-    "zone.js": "~0.10.2"
+    "zone.js": "~0.10.2",
+    "zxcvbn3": "^0.1.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.1100.6",

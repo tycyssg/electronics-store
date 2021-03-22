@@ -68,6 +68,31 @@
   margin-left: auto;
 }
 
+.shopping-cart-notification[data-tooltip] {
+  position: relative;
+}
+
+.shopping-cart-notification[data-tooltip]::after {
+  content: attr(data-tooltip);
+  background-color: $clr-light-dark;
+  color: $clr-white;
+  border-radius: 20%;
+  width: 1.5rem;
+  height: 1.5rem;
+  position: absolute;
+  top: -1.2rem;
+  left: -.5rem;
+  display: block;
+  text-align: center;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  transition: all ease-in-out .5s;
+}
+
+.shopping-cart-notification[data-tooltip]:hover::after {
+  background-color: $clr-danger;
+}
+
 .logo-side {
   background-color: $clr-light-dark;
   width: 9.5rem;
@@ -138,3 +163,6 @@
   font-size: 1.4rem;
 }
 
+.profile-link {
+  color: $clr-success;
+}

@@ -1,6 +1,7 @@
 package com.store.services;
 
 
+import com.google.gson.Gson;
 import com.store.exceptions.model.EmailExistException;
 import com.store.exceptions.model.UsernameExistException;
 import com.store.models.User;
@@ -20,7 +21,7 @@ import javax.transaction.Transactional;
 import java.util.Date;
 
 import static com.store.constants.UserImplConstant.*;
-import static com.store.enums.Role.ROLE_SUPER_ADMIN;
+import static com.store.enums.Role.ROLE_USER;
 
 @Service
 @Transactional
@@ -43,17 +44,15 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public String register(User user) throws UsernameExistException, EmailExistException {
         validateNewUsernameAndEmail(user);
         user.setUserId(generateUserId());
-        // String passwordGenerated = generatePassword();
-        String passwordGenerated = "tycy";
-        user.setPassword(encodePassword(passwordGenerated));
+        user.setPassword(encodePassword(user.getPassword()));
         user.setJoinDate(new Date());
         user.setIsActive(true);
         user.setIsLocked(false);
-        user.setRole(ROLE_SUPER_ADMIN.name());
-        user.setAuthorities(ROLE_SUPER_ADMIN.getAuthorities());
+        user.setRole(ROLE_USER.name());
+        user.setAuthorities(ROLE_USER.getAuthorities());
 
         userRepository.save(user);
-        return USER_SUCCESSFULLY_CREATED;
+        return new Gson().toJson(USER_SUCCESSFULLY_CREATED);
     }
 
     @Override

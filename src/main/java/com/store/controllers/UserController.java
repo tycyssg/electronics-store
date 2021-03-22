@@ -59,7 +59,6 @@ public class UserController extends ExceptionHandling {
 
 
     @PostMapping("/register")
-    //@PreAuthorize("hasAnyAuthority('user:register')")
     public ResponseEntity<String> register(@Valid @RequestBody User user, BindingResult bindingResult) throws UsernameExistException, EmailExistException, InvalidDataFormatException {
         if (bindingResult.hasErrors()) throw new InvalidDataFormatException();
 

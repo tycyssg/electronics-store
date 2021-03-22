@@ -6,6 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './components/login/login.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { PasswordStrengthMeterModule } from 'angular-password-strength-meter';
 
 @NgModule({
   declarations: [LoginComponent],
@@ -15,7 +16,8 @@ import { MatInputModule } from '@angular/material/input';
     FontAwesomeModule,
     ReactiveFormsModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    PasswordStrengthMeterModule
   ]
 })
 export class AuthModule {

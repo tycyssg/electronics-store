@@ -63,6 +63,6 @@ hs_err_pid*
 /.mvn/
 
 
-/src/main/resources/frontend/node_modules/*
+/src/main/frontend/node_modules/*
 /src/main/resources/static/*
 /.settings
