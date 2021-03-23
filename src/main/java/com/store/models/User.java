@@ -38,6 +38,9 @@ public class User implements Serializable {
     @Column(unique = true)
     private String email;
 
+    @Column(unique = true)
+    private String phoneNo;
+
     private String role;
     private Boolean isActive;
     private Boolean isLocked;
@@ -52,6 +55,10 @@ public class User implements Serializable {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "userId")
     private List<Address> addresses;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "userId")
+    private List<PaymentDetails> paymentDetails;
 
     @Transient
     private Long expiresIn;

@@ -1,0 +1,34 @@
+<div class="qa-card">
+  <div class="qa-card-header">
+    <h1 class="qa-card-title-container qa-card-title">Edit User Details</h1>
+    <fa-icon class="qa-card-icon" icon="user-edit"></fa-icon>
+  </div>
+
+  <form (ngSubmit)="onEditUserDetails()" [formGroup]="updateUserForm" class="font-s">
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Username</mat-label>
+      <input formControlName="username" matInput placeholder="Username" type="text">
+      <mat-error *ngIf="updateUserForm.get('username')?.hasError('required')" class="font-xs">Username is required!
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Email</mat-label>
+      <input formControlName="email" matInput placeholder="Email" type="text">
+      <mat-error *ngIf="updateUserForm.get('email')?.hasError('required')" class="font-xs">Email is required!
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Phone Number</mat-label>
+      <input formControlName="phoneNo" matInput placeholder="Phone number" type="text">
+      <mat-error *ngIf="updateUserForm.get('phoneNo')?.hasError('required')" class="font-xs">Phone is required!
+      </mat-error>
+    </mat-form-field>
+
+    <button (click)="onDialogClose();" class="qa-btn qa-btn-s qa-btn-default" type="button">Close</button>
+    <button [disabled]="!updateUserForm.valid" class="qa-btn qa-btn-s qa-btn-primary pull-right" type="submit">Edit
+      User
+    </button>
+  </form>
+</div>

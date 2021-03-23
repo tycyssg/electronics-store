@@ -3,6 +3,8 @@ package com.store.services;
 
 import com.google.gson.Gson;
 import com.store.exceptions.model.EmailExistException;
+import com.store.exceptions.model.ExistException;
+import com.store.exceptions.model.InvalidDataFormatException;
 import com.store.exceptions.model.UsernameExistException;
 import com.store.models.User;
 import com.store.models.UserPrincipal;
@@ -65,6 +67,27 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return userRepository.findUserByEmail(email);
     }
 
+    @Override
+    public void updateUser(User user) throws InvalidDataFormatException, ExistException {
+        if (user.getUsername() == null || user.getEmail() == null || user.getPhoneNo() == null)
+            throw new InvalidDataFormatException();
+
+        if (!userRepository.existsByUserId(user.getUserId()))
+            throw new UsernameNotFoundException(INVALID_USER);
+
+        if (userRepository.existsByPhoneNo(user.getPhoneNo()))
+            throw new ExistException(PHONE_ALREADY_EXISTS);
+
+        if (userRepository.existsByUsernameAndUserIdNot(user.getUsername(), user.getUserId()))
+            throw new ExistException(USERNAME_ALREADY_EXISTS);
+
+        if (userRepository.existsByEmailAndUserIdNot(user.getEmail(), user.getUserId()))
+            throw new ExistException(EMAIL_ALREADY_EXISTS);
+
+
+        userRepository.updateUserDetails(user.getUsername(), user.getEmail(), user.getPhoneNo(), user.getUserId());
+    }
+
 
     private void validateLoginAttempt(User user) {
         if (!user.getIsLocked()) {
@@ -88,10 +111,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     private String encodePassword(String password) {
         return passwordEncoder.encode(password);
-    }
-
-    private String generatePassword() {
-        return RandomStringUtils.randomAlphanumeric(10);
     }
 
     private String generateUserId() {

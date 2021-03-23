@@ -2,6 +2,7 @@ package com.store.controllers;
 
 import com.store.exceptions.ExceptionHandling;
 import com.store.exceptions.model.EmailExistException;
+import com.store.exceptions.model.ExistException;
 import com.store.exceptions.model.InvalidDataFormatException;
 import com.store.exceptions.model.UsernameExistException;
 import com.store.models.User;
@@ -64,5 +65,12 @@ public class UserController extends ExceptionHandling {
 
         String response = userService.register(user);
         return new ResponseEntity<>(response, OK);
+    }
+
+
+    @PutMapping("/updateUser")
+    public ResponseEntity<User> updateUser(@RequestBody User user) throws UsernameExistException, EmailExistException, InvalidDataFormatException, ExistException {
+        userService.updateUser(user);
+        return new ResponseEntity<>(user, OK);
     }
 }

@@ -8,7 +8,17 @@ export const initialState: AuthUserModel = {authUser: null as any};
 
 const loginReducer: ActionReducer<AuthUserModel, Action> = createReducer(
   initialState,
-  on(AuthActions.GetLoginUserAction, (state: AuthUserModel, action: any) => ({...state, authUser: action.authUser}))
+  on(AuthActions.GetLoginUserAction, (state: AuthUserModel, action: any) => ({...state, authUser: action.authUser})),
+  on(AuthActions.UpdateUserDetailsAction, (state: AuthUserModel, action: any) =>
+    ({
+      ...state,
+      authUser: {
+        ...state.authUser,
+        username: action.authUser.username,
+        email: action.authUser.email,
+        phoneNo: action.authUser.phoneNo
+      }
+    })),
 );
 
 

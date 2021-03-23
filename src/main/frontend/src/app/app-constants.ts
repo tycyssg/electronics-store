@@ -33,7 +33,8 @@ export const FORBIDDEN_ACCESS_ERROR_INACTIVE = 'Oops! Access restricted. Your ac
 export const FORBIDDEN_ACCESS_ERROR_BLOCK = 'Oops! Access restricted. Your account was blocked';
 //User
 export const USER_REGISTERED = 'Your account was successfully created!';
-export const USER_REGISTERED_FAIL = 'Register Failed! Please try again';
+export const USER_LOGGED_OUT = 'Your successfully logged out!';
+export const USER_UPDATED = 'Details successfully updated!';
 
 
 // ##########################################
@@ -61,6 +62,6 @@ export const NGRX_STATE_CORE_APP = 'core';
 // #        Selects Options Constants       #
 // ##########################################
 export const OPTION_ROLES = {
-  USER_AUTHORITIES: 'Client',
-  SUPER_ADMIN_AUTHORITIES: 'Admin'
+  ROLE_USER: 'Client',
+  SUPER_ADMIN: 'Admin'
 }

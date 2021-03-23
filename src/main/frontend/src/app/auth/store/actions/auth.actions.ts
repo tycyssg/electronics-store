@@ -11,6 +11,8 @@ export const ApiActionTypes = {
   logOutUser: `${actionIdentifier} Logout User`,
   logOutComplete: `${actionIdentifier} Logout User complete`,
   registerUser: `${actionIdentifier} Register User`,
+  requestUpdateUserDetails: `${actionIdentifier} Request update User`,
+  updateUserDetails: `${actionIdentifier} Update User`,
 };
 
 export const GetLoginUserAction = createAction(ApiActionTypes.getLoginUser, props<AuthUserModel>());
@@ -19,3 +21,5 @@ export const SetLogoutTimerAction = createAction(ApiActionTypes.logOutTimer, pro
 export const LogOutUserAction = createAction(ApiActionTypes.logOutUser);
 export const LogOutCompleteAction = createAction(ApiActionTypes.logOutComplete);
 export const RegisterAction = createAction(ApiActionTypes.registerUser, props<User>());
+export const RequestUpdateUserDetailsAction = createAction(ApiActionTypes.requestUpdateUserDetails, props<User>());
+export const UpdateUserDetailsAction = createAction(ApiActionTypes.updateUserDetails, props<AuthUserModel>());

@@ -15,6 +15,8 @@ public class Address implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long addressId;
+    private String name;
+    private String surname;
     private String address1;
     private String address2;
     private String county;

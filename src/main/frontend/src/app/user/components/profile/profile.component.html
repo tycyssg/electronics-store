@@ -1,1 +1,56 @@
-<button class="qa-btn qa-btn-primary">dwd</button>
+<section class="qa-section">
+
+  <div class="top-grid">
+    <div class="qa-card">
+      <div class="qa-card-header">
+        <h1 class="qa-card-title-container qa-card-title">User Details</h1>
+        <fa-icon class="qa-card-icon" icon="user"></fa-icon>
+      </div>
+
+      <div class="top-grid">
+        <ul class="user-details">
+          <li>Username: {{currentUser.username}}</li>
+          <li>Email: {{currentUser.email}}</li>
+          <li>Phone No: {{currentUser.phoneNo}}</li>
+          <li>Role: {{roles[currentUser.role]}}</li>
+        </ul>
+
+        <ul class="user-details">
+          <li>Join Date: {{currentUser.joinDate | date}}</li>
+          <li>Last Login: {{currentUser.lastLoginDateDisplay | date}}</li>
+          <li>Is locked:
+            <fa-icon class="{{currentUser.isLocked ? 'qa-text-danger': 'qa-text-success'}}"
+                     icon="{{currentUser.isLocked ? 'check': 'times'}}"></fa-icon>
+          </li>
+          <li>Is Active:
+            <fa-icon class="{{currentUser.isActive ? 'qa-text-success': 'qa-text-danger'}}"
+                     icon="{{currentUser.isActive ? 'check': 'times'}}"></fa-icon>
+          </li>
+        </ul>
+      </div>
+
+      <button (click)="onEditUserDetails()" class="qa-btn qa-btn-primary qa-btn-s pull-right mt-s" type="button">Edit
+        User Details
+      </button>
+    </div>
+
+    <div class="qa-card">
+      <div class="qa-card-header">
+        <h1 class="qa-card-title-container qa-card-title">Payment Details</h1>
+        <fa-icon [icon]="['fab', 'cc-visa']" class="qa-card-icon"></fa-icon>
+      </div>
+
+
+    </div>
+  </div>
+
+  <div class="qa-card mt-s">
+    <div class="qa-card-header">
+      <h1 class="qa-card-title-container qa-card-title">Addresses</h1>
+      <fa-icon class="qa-card-icon" icon="location-arrow"></fa-icon>
+    </div>
+
+
+  </div>
+
+</section>

@@ -18,7 +18,8 @@ export class AuthService {
 
   private readonly urls = {
     login: '/api/login',
-    register: '/api/register'
+    register: '/api/register',
+    updateUser: '/api/updateUser'
   };
 
   private tokenExpirationTimer: any;
@@ -32,6 +33,10 @@ export class AuthService {
 
   public register(user: User): Observable<User> {
     return this.httpClient.post<User>(this.urls.register, user, {headers: HEADERS_FOR_POST});
+  }
+
+  public updateUser(user: User): Observable<User> {
+    return this.httpClient.put<User>(this.urls.updateUser, user, {headers: HEADERS_FOR_POST});
   }
 
   public setLogoutTimer(expirationDuration: number) {

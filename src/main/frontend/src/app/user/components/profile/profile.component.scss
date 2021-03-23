@@ -1,0 +1,17 @@
+@import 'src/styles/abstracts/variables';
+@import 'src/styles/abstracts/fonts';
+
+.top-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 3rem;
+}
+
+.user-details {
+  margin: 0 auto;
+  list-style: none;
+  color: $clr-light-dark;
+  font-family: $menu-font;
+  font-weight: 600;
+  letter-spacing: -.05rem;
+}

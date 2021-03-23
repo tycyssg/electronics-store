@@ -10,7 +10,9 @@ import {
   NOTIFICATION_TYPES,
   ROUTE_PATH_LOGIN,
   ROUTE_PATH_LOGIN_REDIRECT,
-  USER_REGISTERED
+  USER_LOGGED_OUT,
+  USER_REGISTERED,
+  USER_UPDATED
 } from '../../../app-constants';
 import { NotifierService } from 'angular-notifier';
 import { User } from '../../model/User';
@@ -29,12 +31,20 @@ export class AuthEffects {
     })
   ));
 
+  public updateNode$: Observable<Action> = createEffect(() => this.actions$.pipe(
+    ofType(AuthActions.ApiActionTypes.requestUpdateUserDetails),
+    switchMap((user: any) => this.authService.updateUser(user)),
+    map((user: User) => {
+      this.notifier.notify(NOTIFICATION_TYPES.success, USER_UPDATED);
+      return AuthActions.UpdateUserDetailsAction({authUser: user})
+    })
+  ));
+
   private setLogoutTimer$ = createEffect(() => this.actions$.pipe(
     ofType(AuthActions.ApiActionTypes.logOutTimer),
     tap((payload: any) => {
       const user: User = payload.authUser;
       if (!user) {
-        this.authService.setLogoutTimer(0);
         return;
       }
 
@@ -55,6 +65,7 @@ export class AuthEffects {
     ofType(AuthActions.ApiActionTypes.logOutUser),
     map(() => {
       this.authService.clearLogoutTimer();
+      this.notifier.notify(NOTIFICATION_TYPES.success, USER_LOGGED_OUT);
       this.router.navigate([ROUTE_PATH_LOGIN]);
       return AuthActions.LogOutCompleteAction();
     })

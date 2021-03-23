@@ -2,9 +2,9 @@ import { UserAuthority } from './UserAuthority';
 
 export interface User {
   userId: string
-  clientId: number;
   username: string;
   email: string;
+  phoneNo: string;
   password: string;
   role: string;
   authorities: UserAuthority[];
@@ -13,7 +13,6 @@ export interface User {
   lastLoginDate: Date;
   lastLoginDateDisplay: Date;
   joinDate: Date;
-  requiresPasswordChange: boolean;
   expiresIn: number;
   token: string;
   tokenExpirationDate: Date;
