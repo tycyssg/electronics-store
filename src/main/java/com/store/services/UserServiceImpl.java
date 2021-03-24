@@ -75,7 +75,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         if (!userRepository.existsByUserId(user.getUserId()))
             throw new UsernameNotFoundException(INVALID_USER);
 
-        if (userRepository.existsByPhoneNo(user.getPhoneNo()))
+        if (userRepository.existsByPhoneNoAndUserIdNot(user.getPhoneNo(), user.getUserId()))
             throw new ExistException(PHONE_ALREADY_EXISTS);
 
         if (userRepository.existsByUsernameAndUserIdNot(user.getUsername(), user.getUserId()))

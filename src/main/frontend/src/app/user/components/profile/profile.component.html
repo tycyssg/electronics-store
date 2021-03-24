@@ -50,7 +50,34 @@
       <fa-icon class="qa-card-icon" icon="location-arrow"></fa-icon>
     </div>
 
+    <div class="address-grid">
 
+      <div (click)="onAddAddress()" class="address-box address-box-add">
+        <fa-icon class="address-box-add-icon" icon="plus"></fa-icon>
+        <h3>Add Address</h3>
+      </div>
+
+      <div *ngFor="let address of currentUser?.addresses" class="address-box address-box-item">
+
+        <div class="address-box-item-name">
+          <strong>{{address.name}} {{address.surname}}</strong>
+          <fa-icon *ngIf="address.billingAddress" class="address-box-item-name-icon" icon="check-double"></fa-icon>
+        </div>
+
+        <ul>
+          <li>{{address.address1}} {{address.address2}}</li>
+          <li>{{address.city}}, {{address.county}}</li>
+          <li>{{address.eirCode}}</li>
+          <li>{{address.country}}</li>
+        </ul>
+
+        <div class="address-box-buttons">
+          <span (click)="onEditAddress(address)">Edit</span> |
+          <span (click)="onDeleteAddress(address.addressId)">Delete</span>
+          <span (click)="onSetDefaultAddress(address.addressId)" *ngIf="!address.billingAddress">| Set default</span>
+        </div>
+      </div>
+    </div>
   </div>
 
 </section>

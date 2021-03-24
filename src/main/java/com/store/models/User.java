@@ -64,4 +64,5 @@ public class User implements Serializable {
     private Long expiresIn;
     @Transient
     private String token;
+
 }

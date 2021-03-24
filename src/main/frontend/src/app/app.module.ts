@@ -27,6 +27,7 @@ import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from './auth/store/effects/auth.effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { AddressEffects } from './auth/store/effects/address.effects';
 
 
 @NgModule({
@@ -62,7 +63,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     ),
     StoreRouterConnectingModule.forRoot({navigationActionTiming: NavigationActionTiming.PostActivation}),
     StoreDevtoolsModule.instrument({logOnly: environment.production}),
-    EffectsModule.forRoot([AuthEffects]),
+    EffectsModule.forRoot([AuthEffects, AddressEffects]),
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true},

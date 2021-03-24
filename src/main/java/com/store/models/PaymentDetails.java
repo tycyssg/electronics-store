@@ -1,6 +1,7 @@
 package com.store.models;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -18,5 +19,7 @@ public class PaymentDetails implements Serializable {
     private String cardNo;
     private String expireDate;
     private String cvv;
+    private Boolean defaultPaymentMethod;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Long userId;
 }

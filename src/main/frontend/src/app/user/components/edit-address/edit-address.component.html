@@ -1,1 +1,67 @@
-<p>edit-address works!</p>
+<div class="qa-card">
+  <div class="qa-card-header">
+    <h1 class="qa-card-title-container qa-card-title">{{this.data ? 'Edit Address' : 'Add Address'}}</h1>
+    <fa-icon class="qa-card-icon" icon="address-card"></fa-icon>
+  </div>
+
+  <form (ngSubmit)="onSubmit()" [formGroup]="addressForm">
+    <div class="address-wrapper font-s">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Name</mat-label>
+        <input formControlName="name" matInput placeholder="Name" type="text">
+        <mat-error *ngIf="addressForm.get('name')?.hasError('required')" class="font-xs">Name is required!
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Surname</mat-label>
+        <input formControlName="surname" matInput placeholder="Surname" type="text">
+        <mat-error *ngIf="addressForm.get('surname')?.hasError('required')" class="font-xs">Surname is required!
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Address 1</mat-label>
+        <input formControlName="address1" matInput placeholder="Address 1" type="text">
+        <mat-error *ngIf="addressForm.get('address1')?.hasError('required')" class="font-xs">Address is required!
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Address 2</mat-label>
+        <input formControlName="address2" matInput placeholder="Address 2" type="text">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>City</mat-label>
+        <input formControlName="city" matInput placeholder="Name" type="text">
+        <mat-error *ngIf="addressForm.get('city')?.hasError('required')" class="font-xs">City is required!
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>County</mat-label>
+        <input formControlName="county" matInput placeholder="Surname" type="text">
+        <mat-error *ngIf="addressForm.get('county')?.hasError('required')" class="font-xs">County is required!
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>EIR CODE</mat-label>
+        <input formControlName="eirCode" matInput placeholder="Name" type="text">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Country</mat-label>
+        <input formControlName="country" matInput placeholder="Surname" type="text">
+        <mat-error *ngIf="addressForm.get('country')?.hasError('required')" class="font-xs">Country is required!
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+
+    <button (click)="onDialogClose();" class="qa-btn qa-btn-s qa-btn-default" type="button">Close</button>
+    <button [disabled]="!addressForm.valid" class="qa-btn qa-btn-s qa-btn-primary pull-right"
+            type="submit">{{this.data?.address ? 'Edit Address' : 'Add Address'}}</button>
+  </form>
+</div>

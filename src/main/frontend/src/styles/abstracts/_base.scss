@@ -24,6 +24,12 @@ a {
     text-decoration: none;
     color: $clr-secondary;
   }
+
+  & :hover,
+  :focus, {
+    text-decoration: none;
+    color: $clr-info;
+  }
 }
 
 ::-webkit-scrollbar {

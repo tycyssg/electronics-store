@@ -15,3 +15,70 @@
   font-weight: 600;
   letter-spacing: -.05rem;
 }
+
+.address-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  justify-items: center;
+}
+
+.address-box {
+  display: flex;
+  width: 22rem;
+  height: 22rem;
+  border: 1px solid $clr-secondary;
+  border-radius: .5rem;
+  cursor: pointer;
+  padding: 1rem;
+  flex-direction: column;
+  overflow: hidden;
+  flex-grow: 1;
+
+  &-add {
+    align-items: center;
+    justify-content: center;
+
+    border: 2px dashed $clr-secondary !important;
+
+    &-icon {
+      font-size: 2.5rem;
+    }
+
+    &:hover {
+      color: $clr-info !important;
+      border-color: $clr-info !important;
+    }
+  }
+
+  &-buttons {
+    margin-top: auto;
+    letter-spacing: .1rem;
+    font-weight: 500;
+    color: $clr-light-dark;
+
+    & span:hover {
+      color: $clr-info !important;
+    }
+  }
+
+  &-item {
+
+    & ul {
+      list-style: none;
+      color: $clr-light-dark;
+      font-weight: 500;
+      margin-top: 1.5rem
+    }
+
+    &-name {
+      display: flex;
+
+      &-icon {
+        margin-left: auto;
+        color: $clr-success;
+        font-size: 1.3rem;
+      }
+    }
+  }
+}
+

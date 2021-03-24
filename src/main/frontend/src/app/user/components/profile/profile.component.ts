@@ -3,9 +3,12 @@ import { select, Store } from '@ngrx/store';
 import { getAuthSelector } from '../../../auth/store/selectors/auth.selectors';
 import { AuthState } from '../../../auth/store/state/auth-state';
 import { User } from '../../../auth/model/User';
-import { OPTION_ROLES } from '../../../app-constants';
+import { DEFAULT_CONFIRM_MESSAGE, OPTION_ROLES } from '../../../app-constants';
 import { MatDialog } from '@angular/material/dialog';
 import { EditUserComponent } from '../edit-user/edit-user.component';
+import { Address } from '../../../auth/model/Address';
+import { EditAddressComponent } from '../edit-address/edit-address.component';
+import { RequestChangeBillingAction, RequestDeleteAddressAction } from '../../../auth/store/actions/address.actions';
 
 @Component({
   selector: 'app-profile',
@@ -37,4 +40,34 @@ export class ProfileComponent implements OnInit {
     })
   }
 
+
+  public onAddAddress() {
+    this.dialog.open(EditAddressComponent, {
+      width: '650px',
+      disableClose: true,
+      data: {userId: this.currentUser.userId}
+    });
+  }
+
+  public onEditAddress(address: Address) {
+    this.dialog.open(EditAddressComponent, {
+      width: '650px',
+      disableClose: true,
+      data: {address: address, userId: this.currentUser.userId}
+    });
+  }
+
+
+  public onDeleteAddress(addressId: number | undefined) {
+    if (!confirm(DEFAULT_CONFIRM_MESSAGE) || addressId == null) return;
+
+    this.store.dispatch(RequestDeleteAddressAction({id: addressId!}));
+  }
+
+  public onSetDefaultAddress(addressId: number) {
+    this.store.dispatch(RequestChangeBillingAction({id: addressId, secondId: this.currentUser.userId}))
+  }
+
 }
+
+

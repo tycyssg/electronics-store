@@ -1,17 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Store } from '@ngrx/store';
+
+import { Router } from '@angular/router';
+import { AppState } from '../../../store/model/appState';
+import { ErrorHandlerAction } from '../../state/actions/error-handler.action';
+import { LogOutCompleteAction } from '../../../auth/store/actions/auth.actions';
 import {
   DEFAULT_ERROR_MESSAGE,
   NO_SERVER_ACCESS_ERROR,
   ROUTE_PATH_ERROR,
   ROUTE_PATH_LOGIN,
   ROUTE_PATH_NOT_FOUND
-} from '../../../../../../../../../../PersonalWorkspace/qality.tech-wrapper-ui/src/main/frontend/src/app/app-constants';
-import { Router } from '@angular/router';
-import { AppState } from '../../../store/model/appState';
-import { ErrorHandlerAction } from '../../state/actions/error-handler.action';
-import { LogOutCompleteAction } from '../../../auth/store/actions/auth.actions';
+} from '../../../app-constants';
 
 
 @Injectable({

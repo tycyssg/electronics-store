@@ -35,6 +35,11 @@ export const FORBIDDEN_ACCESS_ERROR_BLOCK = 'Oops! Access restricted. Your accou
 export const USER_REGISTERED = 'Your account was successfully created!';
 export const USER_LOGGED_OUT = 'Your successfully logged out!';
 export const USER_UPDATED = 'Details successfully updated!';
+//Address
+export const ADDRESS_ADDED = 'Address successfully registered!';
+export const ADDRESS_UPDATED = 'Address successfully updated!';
+export const ADDRESS_DELETED = 'Address successfully deleted!';
+export const ADDRESS_BILLED_CHANGED = 'Billed address successfully changed!';
 
 
 // ##########################################
