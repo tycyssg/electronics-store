@@ -72,6 +72,9 @@ public class AddressServiceImpl implements AddressService {
         if (user == null)
             throw new NotExistException(NO_USER_FOUND_BY_USERNAME);
 
+        if (!addressRepository.existsById(addressId))
+            throw new NotExistException(ADDRESS_NOT_EXIST);
+
         addressRepository.findByBillingAddressAndUserId(true, user.getId())
                 .ifPresent(currentBillingAddress -> addressRepository.makeAddressBillingAddress(false, currentBillingAddress.getAddressId()));
 

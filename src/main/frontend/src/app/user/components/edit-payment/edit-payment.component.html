@@ -1,1 +1,59 @@
-<p>edit-payment works!</p>
+<div class="qa-card">
+  <div class="qa-card-header">
+    <h1 class="qa-card-title-container qa-card-title">{{this.data ? 'Edit Address' : 'Add Address'}}</h1>
+    <fa-icon class="qa-card-icon" icon="address-card"></fa-icon>
+  </div>
+
+  <form (ngSubmit)="onSubmit()" [formGroup]="paymentForm">
+    <div class="address-wrapper font-s">
+
+      <mat-form-field appearance="outline" class="w-100 full-row">
+        <mat-label>Card No.</mat-label>
+        <input formControlName="cardNo" matInput placeholder="Card No." type="tel">
+        <mat-hint align="end">{{paymentForm.get('cardNo')?.value?.length}} / 16</mat-hint>
+        <mat-error *ngIf="paymentForm.get('cardNo')?.hasError('required')" class="font-xs">Card number is required!
+        </mat-error>
+        <mat-error *ngIf="
+        paymentForm.get('cardNo')?.hasError('minlength') ||
+        paymentForm.get('cardNo')?.hasError('maxlength') ||
+        paymentForm.get('cardNo')?.hasError('pattern')
+        " class="font-xs">Invalid card number format!
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Expire Date</mat-label>
+        <input formControlName="expireDate" matInput placeholder="Expire Date" type="text">
+        <mat-hint align="end"> MM / YY</mat-hint>
+        <mat-error *ngIf="paymentForm.get('expireDate')?.hasError('required')" class="font-xs">Expire Date is
+          required!
+        </mat-error>
+        <mat-error *ngIf="
+        paymentForm.get('expireDate')?.hasError('minlength') ||
+        paymentForm.get('expireDate')?.hasError('maxlength') ||
+        paymentForm.get('expireDate')?.hasError('pattern')
+        " class="font-xs">Invalid date format!
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>CVV</mat-label>
+        <input formControlName="cvv" matInput placeholder="CVV" type="tel">
+        <mat-hint align="end">{{paymentForm.get('cvv')?.value?.length}} / 3</mat-hint>
+        <mat-error *ngIf="paymentForm.get('cvv')?.hasError('required')" class="font-xs">CVV is required</mat-error>
+        <mat-error *ngIf="
+        paymentForm.get('cvv')?.hasError('minlength') ||
+        paymentForm.get('cvv')?.hasError('maxlength') ||
+        paymentForm.get('cvv')?.hasError('pattern')
+        " class="font-xs">Invalid CVV format!
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+
+    <button (click)="onDialogClose();" class="qa-btn qa-btn-s qa-btn-default" type="button">Close</button>
+    <button [disabled]="!paymentForm.valid" class="qa-btn qa-btn-s qa-btn-primary pull-right" type="submit">Add
+      Payment
+    </button>
+  </form>
+</div>

@@ -40,6 +40,10 @@ export const ADDRESS_ADDED = 'Address successfully registered!';
 export const ADDRESS_UPDATED = 'Address successfully updated!';
 export const ADDRESS_DELETED = 'Address successfully deleted!';
 export const ADDRESS_BILLED_CHANGED = 'Billed address successfully changed!';
+//Payment
+export const PAYMENT_ADDED = 'PAYMENT successfully registered!';
+export const PAYMENT_DELETED = 'PAYMENT successfully deleted!';
+export const PAYMENT_DEFAULT_CHANGED = 'Default payment successfully changed!';
 
 
 // ##########################################

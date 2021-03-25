@@ -82,3 +82,31 @@
   }
 }
 
+.display-card-wrapper {
+  display: grid;
+  grid-template-columns: 3rem 1.5fr .5fr 1fr;
+  border: 2px solid $clr-secondary;
+  border-radius: .6rem;
+  padding-left: .5rem;
+  grid-gap: 1rem;
+  margin-bottom: .5rem;
+}
+
+
+.display-card-wrapper div:nth-of-type(2),
+.display-card-wrapper div:nth-of-type(3) {
+  align-self: center;
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+.display-card-wrapper div:nth-of-type(4), {
+  align-self: center;
+  text-align: right;
+  padding-right: 1rem;
+
+  & :hover {
+    color: $clr-info !important;
+    cursor: pointer;
+  }
+}

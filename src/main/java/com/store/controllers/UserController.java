@@ -3,9 +3,11 @@ package com.store.controllers;
 import com.store.exceptions.ExceptionHandling;
 import com.store.exceptions.model.*;
 import com.store.models.Address;
+import com.store.models.PaymentDetails;
 import com.store.models.User;
 import com.store.models.UserPrincipal;
 import com.store.services.serviceInterface.AddressService;
+import com.store.services.serviceInterface.PaymentService;
 import com.store.services.serviceInterface.UserService;
 import com.store.utility.JWTTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,13 +32,15 @@ public class UserController extends ExceptionHandling {
     private final AuthenticationManager authenticationManager;
     private final JWTTokenProvider jwtTokenProvider;
     private final AddressService addressService;
+    private final PaymentService paymentService;
 
     @Autowired
-    public UserController(UserService userService, AuthenticationManager authenticationManager, JWTTokenProvider jwtTokenProvider, AddressService addressService) {
+    public UserController(UserService userService, AuthenticationManager authenticationManager, JWTTokenProvider jwtTokenProvider, AddressService addressService, PaymentService paymentService) {
         this.userService = userService;
         this.authenticationManager = authenticationManager;
         this.jwtTokenProvider = jwtTokenProvider;
         this.addressService = addressService;
+        this.paymentService = paymentService;
     }
 
 
@@ -95,9 +99,30 @@ public class UserController extends ExceptionHandling {
         return new ResponseEntity<>(addressId, OK);
     }
 
-    @GetMapping("/deleteAddress/{addressId}")
+    @DeleteMapping("/deleteAddress/{addressId}")
     public ResponseEntity<Long> deleteAddress(@PathVariable("addressId") Long addressId) throws NotExistException {
         addressService.deleteAddress(addressId);
         return new ResponseEntity<>(addressId, OK);
+    }
+
+
+    @PostMapping("/addPayment")
+    public ResponseEntity<PaymentDetails> addPayment(@Valid @RequestBody PaymentDetails paymentDetails, BindingResult bindingResult) throws InvalidDataFormatException, NotExistException {
+        if (bindingResult.hasErrors()) throw new InvalidDataFormatException();
+
+        return new ResponseEntity<>(paymentService.addPayment(paymentDetails), OK);
+    }
+
+
+    @GetMapping("/makeDefaultPayment/{paymentId}/{userId}")
+    public ResponseEntity<Long> makeDefaultPayment(@PathVariable("paymentId") Long paymentId, @PathVariable("userId") String userId) throws NotExistException {
+        paymentService.makeDefaultPayment(paymentId, userId);
+        return new ResponseEntity<>(paymentId, OK);
+    }
+
+    @DeleteMapping("/deletePayment/{paymentId}")
+    public ResponseEntity<Long> deletePayment(@PathVariable("paymentId") Long paymentId) throws NotExistException {
+        paymentService.deletePayment(paymentId);
+        return new ResponseEntity<>(paymentId, OK);
     }
 }

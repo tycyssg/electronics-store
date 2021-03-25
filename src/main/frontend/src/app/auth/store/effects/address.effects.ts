@@ -44,7 +44,7 @@ export class AddressEffects {
     ofType(AddressAction.AddressTypes.requestDeleteAddress),
     switchMap((payload: any) => this.addressService.deleteAddress(payload.id)),
     map((id: number) => {
-      this.notifier.notify(NOTIFICATION_TYPES.success, ADDRESS_DELETED);
+      this.notifier.notify(NOTIFICATION_TYPES.error, ADDRESS_DELETED);
       return AddressAction.DeleteAddressAction({id: id})
     })
   ));
@@ -53,7 +53,7 @@ export class AddressEffects {
     ofType(AddressAction.AddressTypes.requestChangeBillingAddress),
     switchMap((payload: any) => this.addressService.makeBillingAddress(payload.id, payload.secondId)),
     map((id: number) => {
-      this.notifier.notify(NOTIFICATION_TYPES.success, ADDRESS_BILLED_CHANGED);
+      this.notifier.notify(NOTIFICATION_TYPES.info, ADDRESS_BILLED_CHANGED);
       return AddressAction.ChangeBillingAddressAction({id: id})
     })
   ));

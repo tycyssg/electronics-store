@@ -2,6 +2,7 @@ import { Action, ActionReducer, createReducer, on } from '@ngrx/store';
 import * as AuthActions from '../../../auth/store/actions/auth.actions';
 import { AuthUserModel } from '../models/authUser.model';
 import * as AddressAction from '../../../auth/store/actions/address.actions';
+import * as PaymentAction from '../../../auth/store/actions/payment.actions';
 
 export const initialState: AuthUserModel = {authUser: null as any};
 
@@ -58,6 +59,35 @@ const loginReducer: ActionReducer<AuthUserModel, Action> = createReducer(
       authUser: {
         ...state.authUser,
         addresses: modifiedAddresses
+      }
+    })
+  }),
+  on(PaymentAction.AddPaymentAction, (state: AuthUserModel, action: any) => ({
+    ...state,
+    authUser: {
+      ...state.authUser,
+      paymentDetails: [...state.authUser.paymentDetails, action]
+    }
+  })),
+  on(PaymentAction.DeletePaymentAction, (state: AuthUserModel, action: any) => ({
+    ...state,
+    authUser: {
+      ...state.authUser,
+      paymentDetails: state.authUser.paymentDetails.filter(p => p.paymentId !== action.id)
+    }
+  })),
+  on(PaymentAction.ChangePaymentAction, (state: AuthUserModel, action: any) => {
+    const currentPayments = [...state.authUser.paymentDetails];
+    const modifiedPayments = currentPayments.map(a => a.paymentId === action.id ? {
+      ...a,
+      defaultPaymentMethod: true
+    } : {...a, defaultPaymentMethod: false})
+
+    return ({
+      ...state,
+      authUser: {
+        ...state.authUser,
+        paymentDetails: modifiedPayments
       }
     })
   }),

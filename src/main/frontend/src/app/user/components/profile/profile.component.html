@@ -40,7 +40,23 @@
         <fa-icon [icon]="['fab', 'cc-visa']" class="qa-card-icon"></fa-icon>
       </div>
 
+      <div *ngFor="let payment of currentUser.paymentDetails" class="display-card-wrapper">
+        <div>
+          <fa-icon [icon]="['fab', 'cc-visa']" class="qa-card-icon"></fa-icon>
+        </div>
+        <div>{{payment.cardNoDisplay}}</div>
+        <div>{{payment.expireDate}}</div>
+        <div class="payment-box-buttons">
+          <span (click)="onMakePaymentDefault(payment.paymentId)"
+                *ngIf="!payment.defaultPaymentMethod">Make Default |</span>
+          <span (click)="onDeletePayment(payment.paymentId)"> Delete</span>
+        </div>
+      </div>
 
+
+      <button (click)="onAddPayment()" class="qa-btn qa-btn-primary qa-btn-s pull-right mt-s add-p-b" type="button">Add
+        Payment Method
+      </button>
     </div>
   </div>
 

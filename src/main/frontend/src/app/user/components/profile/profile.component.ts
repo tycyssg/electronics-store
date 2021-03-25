@@ -9,6 +9,8 @@ import { EditUserComponent } from '../edit-user/edit-user.component';
 import { Address } from '../../../auth/model/Address';
 import { EditAddressComponent } from '../edit-address/edit-address.component';
 import { RequestChangeBillingAction, RequestDeleteAddressAction } from '../../../auth/store/actions/address.actions';
+import { EditPaymentComponent } from '../edit-payment/edit-payment.component';
+import { RequestChangePaymentAction, RequestDeletePaymentAction } from '../../../auth/store/actions/payment.actions';
 
 @Component({
   selector: 'app-profile',
@@ -68,6 +70,24 @@ export class ProfileComponent implements OnInit {
     this.store.dispatch(RequestChangeBillingAction({id: addressId, secondId: this.currentUser.userId}))
   }
 
+
+  public onAddPayment() {
+    this.dialog.open(EditPaymentComponent, {
+      width: '650px',
+      disableClose: true,
+      data: {userId: this.currentUser.userId}
+    });
+  }
+
+  public onMakePaymentDefault(paymentId: number) {
+    this.store.dispatch(RequestChangePaymentAction({id: paymentId, secondId: this.currentUser.userId}))
+  }
+
+  onDeletePayment(paymentId: number | undefined) {
+    if (!confirm(DEFAULT_CONFIRM_MESSAGE) || paymentId == null) return;
+
+    this.store.dispatch(RequestDeletePaymentAction({id: paymentId}));
+  }
 }
 
 
