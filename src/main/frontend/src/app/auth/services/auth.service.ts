@@ -55,10 +55,10 @@ export class AuthService {
 
   public dispatch403Action() {
     this.store.dispatch(ErrorHandlerAction({
-      showError: true,
+      showError: false,
       errorMessage: UNAUTHORIZED_ACCESS_ERROR,
       strongTitle: '403',
-      allowToClose: true
+      allowToClose: false
     }));
   }
 
