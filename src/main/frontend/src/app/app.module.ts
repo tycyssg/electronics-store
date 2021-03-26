@@ -19,7 +19,7 @@ import { NGRX_STATE_FEATURE_APP, NGRX_STATE_FEATURE_AUTH } from './app-constants
 import { loaderReducer } from './shared/state/reducers/loader.reducer';
 import { errorHandlerReducer } from './shared/state/reducers/errorHandler.reducer';
 import { AuthState } from './auth/store/state/auth-state';
-import { getAuthenticatedUserReducer, logOutReducer } from './auth/store/reducers/auth.reducer';
+import { getAuthenticatedUserReducer } from './auth/store/reducers/auth.reducer';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavigationActionTiming, StoreRouterConnectingModule } from '@ngrx/router-store';
@@ -58,8 +58,7 @@ import { PaymentEffects } from './auth/store/effects/payment.effects';
     StoreModule.forFeature<ActionReducer<AuthState, Action>, Action>(
       NGRX_STATE_FEATURE_AUTH,
       {
-        authUser: getAuthenticatedUserReducer,
-        logout: logOutReducer
+        authUser: getAuthenticatedUserReducer
       }
     ),
     StoreRouterConnectingModule.forRoot({navigationActionTiming: NavigationActionTiming.PostActivation}),

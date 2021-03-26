@@ -34,9 +34,9 @@ public class Product implements Serializable {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "productId")
-    private List<ProductImages> images;
+    private List<ProductComments> images;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "productId")
-    private List<ProductComments> productComments;
+    private List<ProductImages> productComments;
 }

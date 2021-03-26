@@ -12,6 +12,10 @@ spring:
       hibernate:
         default_schema: 'public'
         dialect: org.hibernate.dialect.PostgreSQL95Dialect
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
 
 ###Server Port
 server:
@@ -23,3 +27,5 @@ jwt:
     secret:
   dev:
     secret: '%2J6{bPc2u;rs.8NUdqd^L&WE#hFr$5E4`2O_ksOg<-6iaxx"wG1-eR^bW:33{E'
+
+

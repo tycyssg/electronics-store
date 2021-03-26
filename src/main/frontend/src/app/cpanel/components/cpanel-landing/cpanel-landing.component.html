@@ -1,1 +1,32 @@
-<p>cpanel-landing works!</p>
+<section class="qa-section">
+
+  <div class="form-file">
+    <label class="form-file-btn" for="input-file">
+      <fa-icon icon="upload"></fa-icon>
+      Upload Images</label>
+    <input (change)="sendData($event)" id="input-file" multiple type="file"/>
+  </div>
+
+  <div>
+    <div *ngFor="let img of imagesToUpload;let i = index" class="upload-item">
+      <span class="upload-item-filename">{{img.image.name}}</span>
+      <span class="upload-item-size">[{{img.image.size / 1024 | number}} Kb]</span>
+      <button (click)="deleteItemFromUpload(i)" *ngIf="!img.complete" class="qa-btn-icon qa-btn-icon-danger pull-right">
+        <fa-icon icon="times"></fa-icon>
+      </button>
+      <button *ngIf="img.complete" class="qa-btn-icon qa-btn-icon-success pull-right">
+        <fa-icon icon="check"></fa-icon>
+      </button>
+      <mat-progress-bar mode="determinate" value="{{img.progress}}"></mat-progress-bar>
+    </div>
+
+    <button (click)="startUploadFiles()" *ngIf="imagesToUpload.length > 0"
+            class="qa-btn qa-btn-primary qa-btn-s pull-right"> Upload Files
+    </button>
+  </div>
+
+  <button (click)="displayImages()">Display</button>
+  <div *ngFor="let im of images">
+    <img [src]='im' id="myimage"/>
+  </div>
+</section>

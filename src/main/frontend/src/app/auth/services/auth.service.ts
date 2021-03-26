@@ -7,11 +7,14 @@ import {
   UNAUTHORIZED_ACCESS_ERROR
 } from '../../app-constants';
 import { Observable } from 'rxjs';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { User } from '../model/User';
 import { AuthState } from '../store/state/auth-state';
 import { LogOutUserAction } from '../store/actions/auth.actions';
 import { ErrorHandlerAction } from '../../shared/state/actions/error-handler.action';
+import { getAuthSelector } from '../store/selectors/auth.selectors';
+import { map, take } from 'rxjs/operators';
+import { Authorities } from '../model/Authorities';
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
@@ -37,6 +40,10 @@ export class AuthService {
 
   public updateUser(user: User): Observable<User> {
     return this.httpClient.put<User>(this.urls.updateUser, user, {headers: HEADERS_FOR_POST});
+  }
+
+  public isAdmin(): Observable<boolean> {
+    return this.store.pipe(select(getAuthSelector)).pipe(take(1), map(authU => !!authU.authUser.authorities.find(a => a.authority === Authorities.USER_A)))
   }
 
   public setLogoutTimer(expirationDuration: number) {

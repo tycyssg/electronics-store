@@ -6,19 +6,26 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
 
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "PRODUCT_COMMENTS")
+@Table(name = "PRODUCT_IMAGES")
 public class ProductImages implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long pImageId;
-    private Long dateCreated = new Date().getTime();
-    private String commentedBy;
-    private String commentContent;
+    private String path;
+    private String name;
+    @Lob
+    private byte[] image;
     private Long productId;
+
+    public ProductImages(String path, String name, byte[] image, Long productId) {
+        this.path = path;
+        this.name = name;
+        this.image = image;
+        this.productId = productId;
+    }
 }

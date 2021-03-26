@@ -11,6 +11,7 @@ import { EditAddressComponent } from '../edit-address/edit-address.component';
 import { RequestChangeBillingAction, RequestDeleteAddressAction } from '../../../auth/store/actions/address.actions';
 import { EditPaymentComponent } from '../edit-payment/edit-payment.component';
 import { RequestChangePaymentAction, RequestDeletePaymentAction } from '../../../auth/store/actions/payment.actions';
+import { AuthService } from '../../../auth/services/auth.service';
 
 @Component({
   selector: 'app-profile',
@@ -25,6 +26,7 @@ export class ProfileComponent implements OnInit {
   constructor(
     private readonly store: Store<AuthState>,
     private readonly dialog: MatDialog,
+    public readonly authService: AuthService
   ) {
   }
 

@@ -29,6 +29,8 @@
         </ul>
       </div>
 
+      <a *ngIf="authService.isAdmin() | async" [routerLink]="['/cpanel']" class="qa-btn qa-btn-info qa-btn-s mt-s"
+         type="button">CPanel</a>
       <button (click)="onEditUserDetails()" class="qa-btn qa-btn-primary qa-btn-s pull-right mt-s" type="button">Edit
         User Details
       </button>
