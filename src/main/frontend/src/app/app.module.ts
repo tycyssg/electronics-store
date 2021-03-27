@@ -15,7 +15,7 @@ import { Action, ActionReducer, StoreModule } from '@ngrx/store';
 import { State } from './store/model/root.state';
 import { sessionStorageMetaReducer } from './store/reducer/sessionStorage.meta-reducer';
 import { AppState } from './store/model/appState';
-import { NGRX_STATE_FEATURE_APP, NGRX_STATE_FEATURE_AUTH } from './app-constants';
+import { NGRX_STATE_CPANEL_APP, NGRX_STATE_FEATURE_APP, NGRX_STATE_FEATURE_AUTH } from './app-constants';
 import { loaderReducer } from './shared/state/reducers/loader.reducer';
 import { errorHandlerReducer } from './shared/state/reducers/errorHandler.reducer';
 import { AuthState } from './auth/store/state/auth-state';
@@ -29,6 +29,10 @@ import { AuthEffects } from './auth/store/effects/auth.effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AddressEffects } from './auth/store/effects/address.effects';
 import { PaymentEffects } from './auth/store/effects/payment.effects';
+import { CpanelState } from './cpanel/store/models/cpanel-state';
+import { categoryReducer } from './cpanel/store/reducers/cpanel.reducer';
+import { CategoryEffects } from './cpanel/store/effects/category.effects';
+import { MatSelectModule } from '@angular/material/select';
 
 
 @NgModule({
@@ -41,6 +45,7 @@ import { PaymentEffects } from './auth/store/effects/payment.effects';
     SharedModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    MatSelectModule,
     NotifierModule.withConfig(NOTIFIER_OPTIONS),
     StoreModule.forRoot<State, Action>({
         app: null as any,
@@ -61,9 +66,15 @@ import { PaymentEffects } from './auth/store/effects/payment.effects';
         authUser: getAuthenticatedUserReducer
       }
     ),
+    StoreModule.forFeature<ActionReducer<CpanelState, Action>, Action>(
+      NGRX_STATE_CPANEL_APP,
+      {
+        categories: categoryReducer
+      }
+    ),
     StoreRouterConnectingModule.forRoot({navigationActionTiming: NavigationActionTiming.PostActivation}),
     StoreDevtoolsModule.instrument({logOnly: environment.production}),
-    EffectsModule.forRoot([AuthEffects, AddressEffects, PaymentEffects]),
+    EffectsModule.forRoot([AuthEffects, AddressEffects, PaymentEffects, CategoryEffects]),
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true},

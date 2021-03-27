@@ -3,6 +3,7 @@ import { select, Store } from '@ngrx/store';
 import { AuthState } from './auth/store/state/auth-state';
 import { getAuthSelector } from './auth/store/selectors/auth.selectors';
 import { SetLogoutTimerAction } from './auth/store/actions/auth.actions';
+import { RequestGetCategoriesAction } from './cpanel/store/actions/categories.actions';
 
 @Component({
   selector: 'app-root',
@@ -19,5 +20,6 @@ export class AppComponent {
     this.store.pipe(select(getAuthSelector)).subscribe(payload => {
       this.store.dispatch(SetLogoutTimerAction({authUser: payload.authUser}))
     })
+    this.store.dispatch(RequestGetCategoriesAction());
   }
 }

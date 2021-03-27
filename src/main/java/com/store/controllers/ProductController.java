@@ -15,7 +15,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:4900")
 public class ProductController extends ExceptionHandling {
 
     @Autowired
@@ -30,7 +29,7 @@ public class ProductController extends ExceptionHandling {
 
     @GetMapping("/getAllImages")
     @ResponseBody
-    public ResponseEntity<List<ProductImages>> getAllImages() throws IOException {
+    public ResponseEntity<List<ProductImages>> getAllImages() {
         return new ResponseEntity<>(productImagesRepository.findAll(), HttpStatus.OK);
     }
 }

@@ -1,32 +1,90 @@
 <section class="qa-section">
+  <div class="main-wrapper">
+    <div class="qa-card">
+      <div class="qa-card-header">
+        <h1 class="qa-card-title-container qa-card-title">Products</h1>
+        <div class="qa-card-settings-box">
+          <button (click)="addProduct()" class="qa-btn-icon qa-btn-icon-primary qa-btn-icon-lg" title="Add Product">
+            <fa-icon icon="plus-square"></fa-icon>
+          </button>
+        </div>
+      </div>
 
-  <div class="form-file">
-    <label class="form-file-btn" for="input-file">
-      <fa-icon icon="upload"></fa-icon>
-      Upload Images</label>
-    <input (change)="sendData($event)" id="input-file" multiple type="file"/>
-  </div>
-
-  <div>
-    <div *ngFor="let img of imagesToUpload;let i = index" class="upload-item">
-      <span class="upload-item-filename">{{img.image.name}}</span>
-      <span class="upload-item-size">[{{img.image.size / 1024 | number}} Kb]</span>
-      <button (click)="deleteItemFromUpload(i)" *ngIf="!img.complete" class="qa-btn-icon qa-btn-icon-danger pull-right">
-        <fa-icon icon="times"></fa-icon>
-      </button>
-      <button *ngIf="img.complete" class="qa-btn-icon qa-btn-icon-success pull-right">
-        <fa-icon icon="check"></fa-icon>
-      </button>
-      <mat-progress-bar mode="determinate" value="{{img.progress}}"></mat-progress-bar>
     </div>
 
-    <button (click)="startUploadFiles()" *ngIf="imagesToUpload.length > 0"
-            class="qa-btn qa-btn-primary qa-btn-s pull-right"> Upload Files
-    </button>
+    <div class="qa-card">
+      <div class="qa-card-header">
+        <h1 class="qa-card-title-container qa-card-title">Categories</h1>
+        <fa-icon class="qa-card-icon" icon="boxes"></fa-icon>
+      </div>
+
+      <form (ngSubmit)="onAddCategory()" [formGroup]="categoryForm" class="font-xs">
+        <div class="form-button-inline">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Category Name</mat-label>
+            <input formControlName="categoryName" matInput placeholder="Category Name" type="text">
+            <mat-error *ngIf="categoryForm.get('categoryName')?.hasError('required')" class="font-xs">Name is required!
+            </mat-error>
+          </mat-form-field>
+          <button class="qa-btn qa-btn-primary qa-btn-s mt-4" title="Add Category" type="submit">
+            <fa-icon icon="plus"></fa-icon>
+          </button>
+        </div>
+      </form>
+
+      <div *ngIf="categoryList.length > 0" class="category-container mt-s">
+        <ul class="cat-list">
+          <li *ngFor="let category of categoryList">
+            <div class="cat-row">
+              <span>{{category.categoryName}}</span>
+              <button (click)="onEditCategory(category)" class="qa-btn-icon qa-btn-icon-info mr-5" title="Edit Category"
+                      type="button">
+                <fa-icon icon="pencil-alt"></fa-icon>
+              </button>
+              <button (click)="onDeleteCategory(category.categoryId)" class="qa-btn-icon qa-btn-icon-danger"
+                      title="Delete Category" type="button">
+                <fa-icon icon="trash"></fa-icon>
+              </button>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+
+    </div>
   </div>
 
-  <button (click)="displayImages()">Display</button>
-  <div *ngFor="let im of images">
-    <img [src]='im' id="myimage"/>
-  </div>
+
 </section>
+
+
+<!--  <div class="form-file">-->
+<!--    <label class="form-file-btn" for="input-file">-->
+<!--      <fa-icon icon="upload"></fa-icon>-->
+<!--      Upload Images</label>-->
+<!--    <input (change)="sendData($event)" id="input-file" multiple type="file"/>-->
+<!--  </div>-->
+
+<!--  <div>-->
+<!--    <div *ngFor="let img of imagesToUpload;let i = index" class="upload-item">-->
+<!--      <span class="upload-item-filename">{{img.image.name}}</span>-->
+<!--      <span class="upload-item-size">[{{img.image.size / 1024 | number}} Kb]</span>-->
+<!--      <button (click)="deleteItemFromUpload(i)" *ngIf="!img.complete" class="qa-btn-icon qa-btn-icon-danger pull-right">-->
+<!--        <fa-icon icon="times"></fa-icon>-->
+<!--      </button>-->
+<!--      <button *ngIf="img.complete" class="qa-btn-icon qa-btn-icon-success pull-right">-->
+<!--        <fa-icon icon="check"></fa-icon>-->
+<!--      </button>-->
+<!--      <mat-progress-bar mode="determinate" value="{{img.progress}}"></mat-progress-bar>-->
+<!--    </div>-->
+
+<!--    <button (click)="startUploadFiles()" *ngIf="imagesToUpload.length > 0"-->
+<!--            class="qa-btn qa-btn-primary qa-btn-s pull-right"> Upload Files-->
+<!--    </button>-->
+<!--  </div>-->
+
+<!--  <button (click)="displayImages()">Display</button>-->
+<!--  <div *ngFor="let im of images">-->
+<!--    <img [src]='im' id="myimage"/>-->
+<!--  </div>-->
+

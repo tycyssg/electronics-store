@@ -1,0 +1,64 @@
+<div class="qa-card">
+  <div class="qa-card-header">
+    <h1 class="qa-card-title-container qa-card-title">Add Product</h1>
+    <fa-icon class="qa-card-icon" icon="plus"></fa-icon>
+  </div>
+
+  <form (ngSubmit)="onAddProduct()" [formGroup]="productForm">
+    <div class="product-wrapper font-xs">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Product Category</mat-label>
+        <mat-select formControlName="categoryId">
+          <mat-option *ngFor="let c of categoryList" [value]="c.categoryId">{{c.categoryName}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="productForm.get('categoryId')?.hasError('required')" class="font-xs">Category is required!
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Manufacturer</mat-label>
+        <input formControlName="manufactured" matInput placeholder="Manufacturer" type="text">
+        <mat-error *ngIf="productForm.get('manufactured')?.hasError('required')" class="font-xs">Manufacturer is
+          required!
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-100 full-row">
+        <mat-label>Product Title</mat-label>
+        <input formControlName="title" matInput placeholder="Title" type="text">
+        <mat-error *ngIf="productForm.get('title')?.hasError('required')" class="font-xs">Product title is required!
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-100 full-row">
+        <mat-label>Product Description</mat-label>
+        <textarea formControlName="title" matInput placeholder="Title"></textarea>
+        <mat-error *ngIf="productForm.get('title')?.hasError('required')" class="font-xs">Product title is required!
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Price</mat-label>
+        <input formControlName="price" matInput placeholder="Price" type="number">
+        <mat-error *ngIf="productForm.get('price')?.hasError('required')" class="font-xs">Price is required!
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Stock</mat-label>
+        <input formControlName="stock" matInput placeholder="Price" type="number">
+        <mat-error *ngIf="productForm.get('stock')?.hasError('required')" class="font-xs">Stock is required!
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+
+    <button (click)="onDialogClose();" class="qa-btn qa-btn-s qa-btn-default" type="button">Close</button>
+    <button [disabled]="!productForm.valid" class="qa-btn qa-btn-s qa-btn-primary pull-right" type="submit">Add
+      Product
+    </button>
+    <button (click)="onClearProductForm()" class="qa-btn qa-btn-s qa-btn-danger pull-right mr-3" type="button">Clear
+    </button>
+  </form>
+</div>
+

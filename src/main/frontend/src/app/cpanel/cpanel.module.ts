@@ -8,10 +8,11 @@ import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { CreateProductComponent } from './components/create-product/create-product.component';
 
 
 @NgModule({
-  declarations: [CpanelLandingComponent],
+  declarations: [CpanelLandingComponent, CreateProductComponent],
   imports: [
     CommonModule,
     CpanelRouterModule,

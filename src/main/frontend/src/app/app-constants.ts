@@ -44,6 +44,10 @@ export const ADDRESS_BILLED_CHANGED = 'Billed address successfully changed!';
 export const PAYMENT_ADDED = 'PAYMENT successfully registered!';
 export const PAYMENT_DELETED = 'PAYMENT successfully deleted!';
 export const PAYMENT_DEFAULT_CHANGED = 'Default payment successfully changed!';
+//Category
+export const CATEGORY_ADDED = 'Category successfully added!';
+export const CATEGORY_DELETED = 'Category successfully deleted!';
+export const CATEGORY_UPDATED = 'Category successfully  updated!';
 
 
 // ##########################################
@@ -64,6 +68,7 @@ export const ROUTE_PATH_USER = 'user';
 export const NGRX_STATE_FEATURE_AUTH = 'auth';
 export const NGRX_STATE_FEATURE_APP = 'app';
 export const NGRX_STATE_CORE_APP = 'core';
+export const NGRX_STATE_CPANEL_APP = 'cpanel';
 
 
 
