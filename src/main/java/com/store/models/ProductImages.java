@@ -16,14 +16,12 @@ public class ProductImages implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long pImageId;
-    private String path;
     private String name;
     @Lob
     private byte[] image;
     private Long productId;
 
-    public ProductImages(String path, String name, byte[] image, Long productId) {
-        this.path = path;
+    public ProductImages(String name, byte[] image, Long productId) {
         this.name = name;
         this.image = image;
         this.productId = productId;

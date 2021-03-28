@@ -1,7 +1,7 @@
 import { Action, ActionReducer, createReducer, on } from '@ngrx/store';
 import { CategoryState } from '../models/category-state';
 import * as CategoryAction from '../../../cpanel/store/actions/categories.actions';
-
+import * as ProductAction from '../../../cpanel/store/actions/products.actions';
 
 export const initialState: CategoryState = {categories: []};
 
@@ -35,6 +35,98 @@ const cpReducer: ActionReducer<CategoryState, Action> = createReducer(
     ...state,
     categories: state.categories.filter(c => c.categoryId !== action.id)
   })),
+  on(ProductAction.AddProductAction, (state: CategoryState, action: any) => {
+    const categoryIndex = state.categories.findIndex(c => c.categoryId == action.categoryId);
+
+    const updatedCategory = {
+      ...state.categories[categoryIndex],
+      products: [...state.categories[categoryIndex].products, action]
+    };
+
+    return ({
+      ...state,
+      categories: [
+        ...state.categories.slice(0, categoryIndex),
+        updatedCategory,
+        ...state.categories.slice(categoryIndex + 1, state.categories.length),
+      ]
+    })
+  }),
+  on(ProductAction.UpdateProductAction, (state: CategoryState, action: any) => {
+    const categoryIndex = state.categories.findIndex(c => c.products.some(p => p.productId === action.productId));
+    const productIndex = state.categories[categoryIndex].products.findIndex(p => p.productId === action.productId);
+    const currentProduct = state.categories[categoryIndex].products[productIndex];
+
+    const updatedProduct = {
+      ...currentProduct,
+      title: action.title,
+      manufactured: action.manufactured,
+      description: action.description,
+      price: action.price,
+      stock: action.stock
+    }
+
+    const updatedCategory = {
+      ...state.categories[categoryIndex],
+      products: [
+        ...state.categories[categoryIndex].products.slice(0, productIndex),
+        updatedProduct,
+        ...state.categories[categoryIndex].products.slice(productIndex, state.categories[categoryIndex].products.length)
+      ]
+    };
+
+    return ({
+      ...state,
+      categories: [
+        ...state.categories.slice(0, categoryIndex),
+        updatedCategory,
+        ...state.categories.slice(categoryIndex + 1, state.categories.length),
+      ]
+    })
+  }),
+  on(ProductAction.DeleteProductAction, (state: CategoryState, action: any) => {
+    const categoryIndex = state.categories.findIndex(c => c.products.some(p => p.productId === action.productId));
+
+    const updatedCategory = {
+      ...state.categories[categoryIndex],
+      products: state.categories[categoryIndex].products.filter(p => p.productId !== action.id)
+    };
+
+    return ({
+      ...state,
+      categories: [
+        ...state.categories.slice(0, categoryIndex),
+        updatedCategory,
+        ...state.categories.slice(categoryIndex + 1, state.categories.length),
+      ]
+    })
+  }),
+  on(ProductAction.UpdateProductStockAction, (state: CategoryState, action: any) => {
+    const categoryIndex = state.categories.findIndex(c => c.products.some(p => p.productId === action.productId));
+    const productIndex = state.categories[categoryIndex].products.findIndex(p => p.productId === action.productId);
+    const currentProduct = state.categories[categoryIndex].products[productIndex];
+
+    const updatedCategory = {
+      ...state.categories[categoryIndex],
+      products: [
+        ...state.categories[categoryIndex].products.slice(0, productIndex),
+        {
+          ...currentProduct,
+          stock: action.stock
+        },
+        ...state.categories[categoryIndex].products.slice(productIndex + 1, state.categories[categoryIndex].products.length)
+      ]
+    };
+
+    return ({
+      ...state,
+      categories: [
+        ...state.categories.slice(0, categoryIndex),
+        updatedCategory,
+        ...state.categories.slice(categoryIndex + 1, state.categories.length),
+      ]
+    })
+  }),
 );
 
 

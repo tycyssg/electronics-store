@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { getAuthSelector } from '../../../auth/store/selectors/auth.selectors';
 import { State } from '../../../store/model/root.state';
 import { UploadFilesModel } from '../../model/upload-files.model';
 import { HttpEventType } from '@angular/common/http';
@@ -17,6 +16,10 @@ import { getCategoriesSelector } from '../../store/selectors/cpanel.selector';
 import { DEFAULT_CONFIRM_MESSAGE } from '../../../app-constants';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateProductComponent } from '../create-product/create-product.component';
+import { MatSelectChange } from '@angular/material/select';
+import { Product } from '../../model/product.model';
+import { MatTableDataSource } from '@angular/material/table';
+import { RequestDeleteProductAction, RequestUpdateProductStockAction } from '../../store/actions/products.actions';
 
 @Component({
   selector: 'app-cpanel-landing',
@@ -29,18 +32,25 @@ export class CpanelLandingComponent implements OnInit {
     categoryId: new FormControl(null),
     categoryName: new FormControl(null, Validators.required),
   });
+
   public categoryList: Category[] = [];
+  public productList: Product[] = [];
   private categoryEdit: boolean = false;
   public imagesToUpload: UploadFilesModel[] = [];
   public images: any[] = [];
+  public displayedColumns: string[] = ['position', 'friendly', 'manufactured', 'stock', 'price', 'goTo', 'delete'];
+  public dataSource: any;
 
   constructor(private readonly store: Store<State>, private readonly cpanelService: CpanelService, private readonly sanitizer: DomSanitizer, private readonly dialog: MatDialog) {
   }
 
   ngOnInit(): void {
-    this.store.pipe(select(getAuthSelector)).subscribe(payload => {
-    })
-    this.store.pipe(select(getCategoriesSelector)).subscribe(payload => this.categoryList = payload.categories);
+    this.store.pipe(select(getCategoriesSelector)).subscribe(payload => {
+      this.categoryList = payload.categories;
+      let products = [];
+      this.categoryList.forEach(c => products = [...products, ...c.products])
+      this.dataSource = new MatTableDataSource(products);
+    });
   }
 
 
@@ -117,5 +127,36 @@ export class CpanelLandingComponent implements OnInit {
 
   public addProduct() {
     this.dialog.open(CreateProductComponent, {width: '650px', disableClose: true});
+  }
+
+  public filterByCategory(event: MatSelectChange) {
+    let products: Product[] = [];
+    this.categoryList.forEach(c => products = [...products, ...c.products])
+
+    if (event.value == 0) {
+      this.dataSource = new MatTableDataSource(products);
+      return;
+    }
+
+    const filteredValue = products.slice().filter(p => p.categoryId == event.value);
+    this.dataSource = new MatTableDataSource(filteredValue);
+  }
+
+  public onDeleteProduct(productId: number) {
+    if (!confirm(DEFAULT_CONFIRM_MESSAGE) || productId == null) return;
+
+    this.store.dispatch(RequestDeleteProductAction({id: productId}));
+  }
+
+  public applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  changeStock(event: any, productId: number) {
+    const stockValue = event.value;
+    if (stockValue < 0) return;
+
+    this.store.dispatch(RequestUpdateProductStockAction({productId: productId, stock: stockValue}))
   }
 }

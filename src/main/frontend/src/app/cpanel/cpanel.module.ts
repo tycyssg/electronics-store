@@ -9,6 +9,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { CreateProductComponent } from './components/create-product/create-product.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 
 @NgModule({
@@ -24,7 +26,9 @@ import { CreateProductComponent } from './components/create-product/create-produ
     MatInputModule,
     ReactiveFormsModule,
     FontAwesomeModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatTableModule,
+    MatExpansionModule
   ],
   providers: []
 })

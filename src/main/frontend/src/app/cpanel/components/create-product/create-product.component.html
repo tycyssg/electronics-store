@@ -30,13 +30,6 @@
         </mat-error>
       </mat-form-field>
 
-      <mat-form-field appearance="outline" class="w-100 full-row">
-        <mat-label>Product Description</mat-label>
-        <textarea formControlName="title" matInput placeholder="Title"></textarea>
-        <mat-error *ngIf="productForm.get('title')?.hasError('required')" class="font-xs">Product title is required!
-        </mat-error>
-      </mat-form-field>
-
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Price</mat-label>
         <input formControlName="price" matInput placeholder="Price" type="number">
@@ -48,6 +41,14 @@
         <mat-label>Stock</mat-label>
         <input formControlName="stock" matInput placeholder="Price" type="number">
         <mat-error *ngIf="productForm.get('stock')?.hasError('required')" class="font-xs">Stock is required!
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-100 full-row">
+        <mat-label>Product Description</mat-label>
+        <textarea formControlName="description" matInput placeholder="Description"></textarea>
+        <mat-error *ngIf="productForm.get('description')?.hasError('required')" class="font-xs">Product description is
+          required!
         </mat-error>
       </mat-form-field>
     </div>

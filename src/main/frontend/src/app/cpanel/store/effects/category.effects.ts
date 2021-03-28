@@ -19,7 +19,7 @@ export class CategoryEffects {
 
   public addCategory$: Observable<Action> = createEffect(() => this.actions$.pipe(
     ofType(CategoryAction.CategoryTypes.requestAddCategory),
-    switchMap((Category: any) => this.cpanelService.addCategory(Category)),
+    switchMap((category: any) => this.cpanelService.addCategory(category)),
     map((category: Category) => {
       this.notifier.notify(NOTIFICATION_TYPES.success, CATEGORY_ADDED);
       return CategoryAction.AddCategoryAction(category)
@@ -28,7 +28,7 @@ export class CategoryEffects {
 
   public updateCategory$: Observable<Action> = createEffect(() => this.actions$.pipe(
     ofType(CategoryAction.CategoryTypes.requestUpdateCategory),
-    switchMap((Category: any) => this.cpanelService.updateCategory(Category)),
+    switchMap((category: any) => this.cpanelService.updateCategory(category)),
     map((category: Category) => {
       this.notifier.notify(NOTIFICATION_TYPES.success, CATEGORY_UPDATED);
       return CategoryAction.UpdateCategoryAction(category)

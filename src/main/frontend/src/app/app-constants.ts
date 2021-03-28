@@ -48,6 +48,11 @@ export const PAYMENT_DEFAULT_CHANGED = 'Default payment successfully changed!';
 export const CATEGORY_ADDED = 'Category successfully added!';
 export const CATEGORY_DELETED = 'Category successfully deleted!';
 export const CATEGORY_UPDATED = 'Category successfully  updated!';
+//Category
+export const PRODUCT_ADDED = 'Product successfully added!';
+export const PRODUCT_DELETED = 'Product successfully deleted!';
+export const PRODUCT_UPDATED = 'Product successfully  updated!';
+export const PRODUCT_STOCK_UPDATED = 'Product stock successfully  updated!';
 
 
 // ##########################################

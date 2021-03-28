@@ -1,59 +1,153 @@
 <section class="qa-section">
-  <div class="main-wrapper">
-    <div class="qa-card">
-      <div class="qa-card-header">
-        <h1 class="qa-card-title-container qa-card-title">Products</h1>
-        <div class="qa-card-settings-box">
-          <button (click)="addProduct()" class="qa-btn-icon qa-btn-icon-primary qa-btn-icon-lg" title="Add Product">
-            <fa-icon icon="plus-square"></fa-icon>
-          </button>
+
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Categories
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="qa-card">
+        <div class="qa-card-header">
+          <h1 class="qa-card-title-container qa-card-title">Categories</h1>
+          <fa-icon class="qa-card-icon" icon="boxes"></fa-icon>
         </div>
+
+        <form (ngSubmit)="onAddCategory()" [formGroup]="categoryForm" class="font-xs">
+          <div class="form-button-inline">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Category Name</mat-label>
+              <input formControlName="categoryName" matInput placeholder="Category Name" type="text">
+              <mat-error *ngIf="categoryForm.get('categoryName')?.hasError('required')" class="font-xs">Name is
+                required!
+              </mat-error>
+            </mat-form-field>
+            <button class="qa-btn qa-btn-primary qa-btn-s mt-4" title="Add Category" type="submit">
+              <fa-icon icon="plus"></fa-icon>
+            </button>
+          </div>
+        </form>
+
+        <div *ngIf="categoryList.length > 0" class="category-container mt-s">
+          <ul class="cat-list">
+            <li *ngFor="let category of categoryList">
+              <div class="cat-row">
+                <span>{{category.categoryName}}</span>
+                <button (click)="onEditCategory(category)" class="qa-btn-icon qa-btn-icon-info mr-5"
+                        title="Edit Category" type="button">
+                  <fa-icon icon="pencil-alt"></fa-icon>
+                </button>
+                <button (click)="onDeleteCategory(category.categoryId)" class="qa-btn-icon qa-btn-icon-danger"
+                        title="Delete Category" type="button">
+                  <fa-icon icon="trash"></fa-icon>
+                </button>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+
       </div>
+    </mat-expansion-panel>
 
-    </div>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Products
+        </mat-panel-title>
+      </mat-expansion-panel-header>
 
-    <div class="qa-card">
-      <div class="qa-card-header">
-        <h1 class="qa-card-title-container qa-card-title">Categories</h1>
-        <fa-icon class="qa-card-icon" icon="boxes"></fa-icon>
-      </div>
+      <div class="qa-card">
+        <div class="qa-card-header">
+          <h1 class="qa-card-title-container qa-card-title">Products</h1>
+          <div class="qa-card-settings-box">
+            <button (click)="addProduct()" class="qa-btn-icon qa-btn-icon-primary qa-btn-icon-lg" title="Add Product">
+              <fa-icon icon="plus-square"></fa-icon>
+            </button>
+          </div>
+        </div>
 
-      <form (ngSubmit)="onAddCategory()" [formGroup]="categoryForm" class="font-xs">
-        <div class="form-button-inline">
+        <div class="font-xs">
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Category Name</mat-label>
-            <input formControlName="categoryName" matInput placeholder="Category Name" type="text">
-            <mat-error *ngIf="categoryForm.get('categoryName')?.hasError('required')" class="font-xs">Name is required!
-            </mat-error>
+            <mat-label>Filter By Category</mat-label>
+            <mat-select (selectionChange)="filterByCategory($event)" [value]="0">
+              <mat-option [value]="0">All Categories</mat-option>
+              <mat-option *ngFor="let c of categoryList" [value]="c.categoryId">{{c.categoryName}}</mat-option>
+            </mat-select>
           </mat-form-field>
-          <button class="qa-btn qa-btn-primary qa-btn-s mt-4" title="Add Category" type="submit">
-            <fa-icon icon="plus"></fa-icon>
-          </button>
+
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Search by product title...</mat-label>
+            <input #searchInput (keyup)="applyFilter($event)" matInput type="text">
+          </mat-form-field>
         </div>
-      </form>
 
-      <div *ngIf="categoryList.length > 0" class="category-container mt-s">
-        <ul class="cat-list">
-          <li *ngFor="let category of categoryList">
-            <div class="cat-row">
-              <span>{{category.categoryName}}</span>
-              <button (click)="onEditCategory(category)" class="qa-btn-icon qa-btn-icon-info mr-5" title="Edit Category"
-                      type="button">
-                <fa-icon icon="pencil-alt"></fa-icon>
+        <table [dataSource]="dataSource" class="w-100" mat-table>
+          <ng-container matColumnDef="position">
+            <th *matHeaderCellDef mat-header-cell> No.</th>
+            <td *matCellDef="let element;let i = index" class="qa-bold" mat-cell> {{i + 1}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="friendly">
+            <th *matHeaderCellDef mat-header-cell> Title</th>
+            <td *matCellDef="let element" class="qa-bold" mat-cell> {{element['title']}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="manufactured">
+            <th *matHeaderCellDef mat-header-cell> Manufactured</th>
+            <td *matCellDef="let element" class="qa-bold" mat-cell> {{element['manufactured']}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="stock">
+            <th *matHeaderCellDef mat-header-cell> Stock</th>
+            <td *matCellDef="let element" class="qa-bold font-xs stock-cell" mat-cell>
+              <mat-form-field class="w-100">
+                <input #stockInput [value]="element['stock']" matInput type="number">
+                <fa-icon (click)="changeStock(stockInput,element['productId'])" class="change-stock-icon"
+                         icon="pencil-alt" matSuffix title="Change Stock"></fa-icon>
+              </mat-form-field>
+
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="price">
+            <th *matHeaderCellDef mat-header-cell> Price</th>
+            <td *matCellDef="let element" class="qa-bold" mat-cell> {{element['price']}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="goTo">
+            <th *matHeaderCellDef mat-header-cell> Go To</th>
+            <td *matCellDef="let element" mat-cell>
+              <a [routerLink]="['/product',element['productId']]"
+                 class="qa-btn-icon qa-btn-icon-primary qa-btn-icon-s" title="Go To">
+                <fa-icon icon="external-link-alt"></fa-icon>
+              </a>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="delete">
+            <th *matHeaderCellDef mat-header-cell> Delete</th>
+            <td *matCellDef="let element" mat-cell>
+              <button (click)="onDeleteProduct(element['productId'])"
+                      class="qa-btn-icon qa-btn-icon-danger qa-btn-icon-s"
+                      title="Delete">
+                <fa-icon icon="trash-alt"></fa-icon>
               </button>
-              <button (click)="onDeleteCategory(category.categoryId)" class="qa-btn-icon qa-btn-icon-danger"
-                      title="Delete Category" type="button">
-                <fa-icon icon="trash"></fa-icon>
-              </button>
-            </div>
-          </li>
-        </ul>
+            </td>
+          </ng-container>
+
+          <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+          <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+
+          <tr *matNoDataRow class="mat-row">
+            <td class="mat-cell" colspan="4">No data matching the filter "{{searchInput.value}}"</td>
+          </tr>
+        </table>
+
       </div>
+    </mat-expansion-panel>
 
-
-    </div>
-  </div>
-
+  </mat-accordion>
 
 </section>
 

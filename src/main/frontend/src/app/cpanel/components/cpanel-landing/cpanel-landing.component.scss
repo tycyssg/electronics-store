@@ -130,3 +130,18 @@
 .cat-row button:nth-of-type(1) {
   margin-left: auto;
 }
+
+.cat-row button:nth-of-type(2) {
+  margin-left: 2rem;
+}
+
+.stock-cell {
+  padding: 0 2rem;
+  max-width: 3rem
+}
+
+.change-stock-icon {
+  margin-left: .2rem;
+  color: $clr-info;
+  cursor: pointer;
+}

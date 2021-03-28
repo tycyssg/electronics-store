@@ -8,5 +8,6 @@ public class ErrorConstants {
     public static final String PAYMENT_NOT_EXIST = "Payment method not found!";
     public static final String CATEGORY_EXIST = "Category already exist!";
     public static final String CATEGORY_NOT_EXIST = "Category not found!";
+    public static final String PRODUCT_NOT_EXIST = "Product not found!";
 
 }

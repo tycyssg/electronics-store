@@ -7,6 +7,7 @@ import { getCategoriesSelector } from '../../store/selectors/cpanel.selector';
 import { NavigationStart, Router } from '@angular/router';
 import { MatDialogRef } from '@angular/material/dialog';
 import { filter, take, tap } from 'rxjs/operators';
+import { RequestAddProductAction } from '../../store/actions/products.actions';
 
 @Component({
   selector: 'app-create-product',
@@ -39,7 +40,11 @@ export class CreateProductComponent implements OnInit {
   }
 
   public onAddProduct() {
+    if (!this.productForm.valid) return;
 
+    this.store.dispatch(RequestAddProductAction(this.productForm.value));
+    this.onClearProductForm();
+    this.onDialogClose();
   }
 
 

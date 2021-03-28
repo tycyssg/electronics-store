@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -18,7 +19,9 @@ public class ProductComments implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long commentId;
     private Long dateCreated = new Date().getTime();
+    @NotNull
     private String commentedBy;
+    @NotNull
     private String commentContent;
     private Long productId;
 }
