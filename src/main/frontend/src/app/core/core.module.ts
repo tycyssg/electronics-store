@@ -6,6 +6,8 @@ import { CommonModule } from '@angular/common';
 import { DisplayProductsComponent } from './components/display-products/display-products.component';
 import { BarRatingModule } from 'ngx-bar-rating';
 import { ViewProductComponent } from './components/view-product/view-product.component';
+import { NgImageSliderModule } from 'ng-image-slider';
+import { MatTabsModule } from '@angular/material/tabs';
 
 
 @NgModule({
@@ -14,7 +16,9 @@ import { ViewProductComponent } from './components/view-product/view-product.com
     CommonModule,
     CoreRoutingModule,
     FontAwesomeModule,
-    BarRatingModule
+    BarRatingModule,
+    NgImageSliderModule,
+    MatTabsModule
   ],
   providers: []
 })

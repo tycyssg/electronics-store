@@ -61,4 +61,7 @@ export class ViewProductComponent implements OnInit {
     });
   }
 
+  onRatingChange($event: number) {
+
+  }
 }

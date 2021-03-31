@@ -5,6 +5,41 @@
       <fa-icon class="qa-card-icon" icon="address-card"></fa-icon>
     </div>
 
+    <div class="single-product-wrapper">
+      <div>
+        <ng-image-slider [imageSize]="{width:'100%', height: '65%'}" [images]="imageObject"></ng-image-slider>
+      </div>
+      <div class="single-product-option">
+        <div>{{currentProduct.price}}</div>
+        <div>
+          <button class="qa-btn qa-btn-success">
+            <fa-icon icon="cart-plus"></fa-icon>
+            Add to card
+          </button>
+          <button class="qa-btn qa-btn-info pull-right">
+            <fa-icon icon="heart"></fa-icon>
+            Add to wishlist
+          </button>
+        </div>
 
+        <div>
+          <bar-rating (rateChange)="onRatingChange($event)"
+                      [(rate)]="currentProduct.totalRating / currentProduct.numOfRatingCustomers"
+                      [max]="5"></bar-rating>
+          <a href="#"><span>{{currentProduct.totalRating / currentProduct.numOfRatingCustomers}}</span>
+            /<span>{{currentProduct.numOfRatingCustomers}}</span></a>
+        </div>
+
+      </div>
+    </div>
+
+    <mat-tab-group class="mb-s" mat-align-tabs="center">
+      <mat-tab label="Reviews">
+
+      </mat-tab>
+      <mat-tab label="Description">
+        {{currentProduct.description}}
+      </mat-tab>
+    </mat-tab-group>
   </div>
 </section>

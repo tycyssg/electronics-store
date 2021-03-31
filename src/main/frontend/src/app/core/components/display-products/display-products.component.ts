@@ -23,7 +23,4 @@ export class DisplayProductsComponent implements OnInit {
     });
   }
 
-  public onRatingChange(event: number) {
-    console.log(event)
-  }
 }
