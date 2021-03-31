@@ -1,0 +1,117 @@
+<section class="qa-section">
+
+  <div class="qa-card">
+    <div class="qa-card-header">
+      <h1 class="qa-card-title-container qa-card-title">{{categoryAsMap.get(productForm.get('categoryId')?.value)}}</h1>
+      <fa-icon class="qa-card-icon" icon="pencil-alt"></fa-icon>
+    </div>
+
+    <form (ngSubmit)="onEditProduct()" [formGroup]="productForm">
+      <div class="product-wrapper font-xs">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Product Title</mat-label>
+          <input formControlName="title" matInput placeholder="Title" type="text">
+          <mat-error *ngIf="productForm.get('title')?.hasError('required')" class="font-xs">Product title is required!
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Manufacturer</mat-label>
+          <input formControlName="manufactured" matInput placeholder="Manufacturer" type="text">
+          <mat-error *ngIf="productForm.get('manufactured')?.hasError('required')" class="font-xs">Manufacturer is
+            required!
+          </mat-error>
+        </mat-form-field>
+
+
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Price</mat-label>
+          <input formControlName="price" matInput placeholder="Price" type="number">
+          <mat-error *ngIf="productForm.get('price')?.hasError('required')" class="font-xs">Price is required!
+          </mat-error>
+        </mat-form-field>
+
+
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Stock</mat-label>
+          <input formControlName="stock" matInput placeholder="Price" type="number">
+          <mat-error *ngIf="productForm.get('stock')?.hasError('required')" class="font-xs">Stock is required!
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Discount amount in %</mat-label>
+          <input formControlName="discountAmount" matInput placeholder="Discount amount in %" type="number">
+          <mat-error *ngIf="productForm.get('discountAmount')?.hasError('required')" class="font-xs">Price is required!
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Choose expire discount date</mat-label>
+          <input (dateChange)="onSelectedDate($event)" [disabled]="this.productForm.disabled" [matDatepicker]="picker"
+                 matInput>
+          <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-100 full-row">
+          <mat-label>Product Description</mat-label>
+          <textarea formControlName="description" matInput placeholder="Description" rows="5"></textarea>
+          <mat-error *ngIf="productForm.get('description')?.hasError('required')" class="font-xs">Product description is
+            required!
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <button *ngIf="!this.productForm.disabled" [disabled]="!productForm.valid"
+              class="qa-btn qa-btn-s qa-btn-primary pull-right" type="submit">Edit Product
+      </button>
+      <button (click)="cancelProductEdit()" *ngIf="!this.productForm.disabled"
+              class="qa-btn qa-btn-s qa-btn-secondary pull-right mr-5" type="button">Cancel
+      </button>
+      <button (click)="allowProductForEdit()" *ngIf="this.productForm.disabled" class="qa-btn qa-btn-s qa-btn-info"
+              type="button">Edit
+      </button>
+    </form>
+
+    <div class="mt-s">
+      <ng-image-slider #nav [images]="imageObject"></ng-image-slider>
+    </div>
+  </div>
+
+  <div class="qa-card mt-s">
+    <div class="qa-card-header">
+      <h1 class="qa-card-title-container qa-card-title">Add Images for this product</h1>
+      <fa-icon class="qa-card-icon" icon="images"></fa-icon>
+    </div>
+
+    <div class="form-file">
+      <label class="form-file-btn" for="input-file">
+        <fa-icon icon="upload"></fa-icon>
+        Upload Images</label>
+      <input (change)="sendData($event)" id="input-file" multiple type="file"/>
+    </div>
+
+    <div>
+      <div *ngFor="let img of imagesToUpload;let i = index" class="upload-item">
+        <span class="upload-item-filename">{{img.image.name}}</span>
+        <span class="upload-item-size">[{{img.image.size / 1024 | number}} Kb]</span>
+        <button (click)="deleteItemFromUpload(i)" *ngIf="!img.complete"
+                class="qa-btn-icon qa-btn-icon-danger pull-right">
+          <fa-icon icon="times"></fa-icon>
+        </button>
+        <button *ngIf="img.complete" class="qa-btn-icon qa-btn-icon-success pull-right">
+          <fa-icon icon="check"></fa-icon>
+        </button>
+        <mat-progress-bar mode="determinate" value="{{img.progress}}"></mat-progress-bar>
+      </div>
+
+      <button (click)="startUploadFiles()" *ngIf="imagesToUpload.length > 0 && !uploadFilesPress"
+              class="qa-btn qa-btn-primary qa-btn-s pull-right"> Upload Files
+      </button>
+    </div>
+
+
+  </div>
+
+</section>

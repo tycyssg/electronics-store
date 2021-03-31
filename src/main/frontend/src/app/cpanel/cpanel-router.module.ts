@@ -1,16 +1,18 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CpanelLandingComponent } from './components/cpanel-landing/cpanel-landing.component';
-import { AuthGuard } from '../auth/guards/auth.guard';
-import { Authorities } from '../auth/model/Authorities';
+import { EditProductComponent } from './components/edit-product/edit-product.component';
+import { ROUTE_PATH_CP_EDIT_PRODUCT } from '../app-constants';
 
 const routes: Routes = [
   {
     path: '',
-    component: CpanelLandingComponent,
-    canActivate: [AuthGuard],
-    data: {authorities: [Authorities.USER_A]},
-  }
+    component: CpanelLandingComponent
+  },
+  {
+    path: ROUTE_PATH_CP_EDIT_PRODUCT + ':productId',
+    component: EditProductComponent,
+  },
 ];
 
 @NgModule({

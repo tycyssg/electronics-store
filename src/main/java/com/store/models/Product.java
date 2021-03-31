@@ -1,8 +1,9 @@
 package com.store.models;
 
 
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
@@ -11,7 +12,8 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @Entity
 @Table(name = "PRODUCTS")
@@ -40,11 +42,11 @@ public class Product implements Serializable {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "productId")
-    private List<ProductComments> images;
+    private List<ProductImages> images;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "productId")
-    private List<ProductImages> productComments;
+    private List<ProductComments> productComments;
 
 
 }

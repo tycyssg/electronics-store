@@ -1,13 +1,15 @@
 package com.store.models;
 
 
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @Entity
 @Table(name = "PRODUCT_IMAGES")
@@ -17,11 +19,13 @@ public class ProductImages implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long pImageId;
     private String name;
-    @Lob
-    private byte[] image;
+    //    @Lob
+//    private byte[] image;
+    @Column(columnDefinition = "TEXT")
+    private String image;
     private Long productId;
 
-    public ProductImages(String name, byte[] image, Long productId) {
+    public ProductImages(String name, String image, Long productId) {
         this.name = name;
         this.image = image;
         this.productId = productId;

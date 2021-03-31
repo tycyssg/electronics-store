@@ -10,9 +10,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository
+@Transactional
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
     UpdatedRating findUpdatedRatingByProductId(Long productId);
@@ -41,6 +43,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     @Modifying
     @Transactional
-    @Query("update Product p set p.title = ?1,p.manufactured = ?2,p.description = ?3,p.price = ?4,p.stock = ?5 where p.productId = ?6")
-    void updateProduct(String title, String manufactured, String description, Double price, Integer stock, Long productId);
+    @Query("update Product p set p.title = ?1,p.manufactured = ?2,p.description = ?3,p.price = ?4,p.stock = ?5,p.discountAmount = ?6 ,p.expireDiscount = ?7  where p.productId = ?8")
+    void updateProduct(String title, String manufactured, String description, Double price, Integer stock, Double discountAmount, Date expireDiscount, Long productId);
 }

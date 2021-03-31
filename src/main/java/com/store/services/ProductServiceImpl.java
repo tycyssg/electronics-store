@@ -14,6 +14,7 @@ import com.store.selectInterfaces.UpdatedStock;
 import com.store.services.serviceInterface.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,6 +22,7 @@ import static com.store.constants.ErrorConstants.CATEGORY_NOT_EXIST;
 import static com.store.constants.ErrorConstants.PRODUCT_NOT_EXIST;
 
 @Service
+@Transactional
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
@@ -56,7 +58,7 @@ public class ProductServiceImpl implements ProductService {
         if (!productRepository.existsById(product.getProductId()))
             throw new NotExistException(PRODUCT_NOT_EXIST);
 
-        productRepository.updateProduct(product.getTitle(), product.getManufactured(), product.getDescription(), product.getPrice(), product.getStock(), product.getProductId());
+        productRepository.updateProduct(product.getTitle(), product.getManufactured(), product.getDescription(), product.getPrice(), product.getStock(), product.getDiscountAmount(), product.getExpireDiscount(), product.getProductId());
         return product;
     }
 
@@ -116,6 +118,13 @@ public class ProductServiceImpl implements ProductService {
             throw new NotExistException(PRODUCT_NOT_EXIST);
 
         return productCommentRepository.save(productComments);
+    }
+
+    @Override
+    public Product getProduct(Long productId) {
+        Product p = productRepository.findById(productId).orElse(null);
+        // p.setImages(productImagesRepository.findAllByProductId(p.getProductId()));
+        return p;
     }
 
     @Override

@@ -2,6 +2,7 @@ import { createAction, props } from '@ngrx/store';
 import { IdModel } from '../../../store/model/id.model';
 import { Product } from '../../model/product.model';
 import { UpdatedStock } from '../../model/updated-stock.model';
+import { ProductImageModel } from '../../model/product-image.model';
 
 export const actionIdentifier = '[App User Product] active';
 
@@ -14,6 +15,7 @@ export const ProductTypes = {
   deleteProduct: `${actionIdentifier} delete Product`,
   requestUpdateProductStock: `${actionIdentifier} Request update Product stock`,
   updateProductStock: `${actionIdentifier} update Product stock`,
+  updateProductImage: `${actionIdentifier} update Product image`,
 };
 
 export const RequestAddProductAction = createAction(ProductTypes.requestAddProduct, props<Product>());
@@ -27,4 +29,6 @@ export const DeleteProductAction = createAction(ProductTypes.deleteProduct, prop
 
 export const RequestUpdateProductStockAction = createAction(ProductTypes.requestUpdateProductStock, props<UpdatedStock>());
 export const UpdateProductStockAction = createAction(ProductTypes.updateProductStock, props<UpdatedStock>());
+
+export const UpdateProductImageAction = createAction(ProductTypes.updateProductImage, props<ProductImageModel>());
 

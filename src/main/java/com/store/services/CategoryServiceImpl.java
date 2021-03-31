@@ -5,6 +5,7 @@ import com.store.exceptions.model.InvalidDataFormatException;
 import com.store.exceptions.model.NotExistException;
 import com.store.models.Category;
 import com.store.repository.CategoryRepository;
+import com.store.repository.ProductImagesRepository;
 import com.store.services.serviceInterface.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,10 +19,12 @@ import static com.store.constants.ErrorConstants.CATEGORY_NOT_EXIST;
 public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryRepository categoryRepository;
+    private final ProductImagesRepository productImagesRepository;
 
     @Autowired
-    public CategoryServiceImpl(CategoryRepository categoryRepository) {
+    public CategoryServiceImpl(CategoryRepository categoryRepository, ProductImagesRepository productImagesRepository) {
         this.categoryRepository = categoryRepository;
+        this.productImagesRepository = productImagesRepository;
     }
 
     @Override

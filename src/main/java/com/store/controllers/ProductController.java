@@ -9,6 +9,7 @@ import com.store.models.ProductImages;
 import com.store.selectInterfaces.UpdatedRating;
 import com.store.selectInterfaces.UpdatedStock;
 import com.store.services.serviceInterface.ProductService;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 
 @RestController
@@ -36,7 +38,8 @@ public class ProductController extends ExceptionHandling {
     @ResponseBody
     @PreAuthorize("hasAnyAuthority('u:a')")
     public ResponseEntity<ProductImages> uploadImages(@PathVariable("productId") Long productId, @RequestParam("image") MultipartFile image) throws IOException, NotExistException {
-        ProductImages p = new ProductImages(image.getOriginalFilename(), image.getBytes(), productId);
+
+        ProductImages p = new ProductImages(image.getOriginalFilename(), new String(Base64.encodeBase64(image.getBytes()), StandardCharsets.UTF_8), productId);
 
         return new ResponseEntity<>(productService.addProductImage(p), HttpStatus.OK);
     }
@@ -92,6 +95,12 @@ public class ProductController extends ExceptionHandling {
     @ResponseBody
     public ResponseEntity<UpdatedRating> updateRating(@PathVariable("productId") Long productId, @RequestParam("customerRating") Integer rating) throws NotExistException, InvalidDataFormatException {
         return new ResponseEntity<>(productService.updateRating(rating, productId), HttpStatus.OK);
+    }
+
+    @GetMapping("/getProduct/{productId}")
+    @ResponseBody
+    public ResponseEntity<Product> getProduct(@PathVariable("productId") Long productId) throws NotExistException, InvalidDataFormatException {
+        return new ResponseEntity<>(productService.getProduct(productId), HttpStatus.OK);
     }
 
 }

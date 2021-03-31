@@ -1,0 +1,43 @@
+<section class="qa-section">
+  <div class="qa-card">
+    <div class="qa-card-header">
+      <h1 class="qa-card-title-container qa-card-title">All Products</h1>
+      <fa-icon class="qa-card-icon" icon="address-card"></fa-icon>
+    </div>
+
+    <div *ngFor="let prod of productsList" class="product-container">
+      <div *ngIf="prod.images.length > 0" class="product-img">
+        <a [routerLink]="['/landing', 'products', prod.productId]">
+          <img [src]="'data:image/jpeg;base64,'+ prod.images[0].image">
+        </a>
+      </div>
+
+      <div class="product-content">
+        <div class="product-title"><a [routerLink]="['/landing', 'products', prod.productId]">{{prod.title}}</a></div>
+        <div class="product-characteristics">
+          <div class="product-options">
+            <p *ngIf="prod.discountAmount == 0" class="price">{{prod.price}}</p>
+            <p *ngIf="prod.discountAmount != 0" [attr.data-after]="prod.expireDiscount | date:'dd / MMM'"
+               class="price-discounted">{{prod.price - ((prod.price * prod.discountAmount) / 100)}}
+              <del data-tooltip="&euro;">{{prod.price}}</del>
+            </p>
+
+            <div>
+              <bar-rating (rateChange)="onRatingChange($event)" [(rate)]="prod.totalRating / prod.numOfRatingCustomers"
+                          [max]="5" [readOnly]="true"></bar-rating>
+              <a href="#"><span>{{prod.totalRating / prod.numOfRatingCustomers}}</span> /
+                <span>{{prod.numOfRatingCustomers}}</span></a>
+            </div>
+            <small *ngIf="prod.stock == 0">Product out of stock</small>
+            <small *ngIf="prod.stock > 0 && prod.stock < 5" class="text-danger">{{prod.stock}} products left in the
+              stock</small>
+          </div>
+
+          <div class="product-description">{{prod.description}}</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</section>

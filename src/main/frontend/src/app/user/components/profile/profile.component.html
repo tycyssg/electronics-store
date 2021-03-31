@@ -19,11 +19,11 @@
           <li>Join Date: {{currentUser.joinDate | date}}</li>
           <li>Last Login: {{currentUser.lastLoginDateDisplay | date}}</li>
           <li>Is locked:
-            <fa-icon class="{{currentUser.isLocked ? 'qa-text-danger': 'qa-text-success'}}"
+            <fa-icon class="{{currentUser.isLocked ? 'text-danger': 'text-success'}}"
                      icon="{{currentUser.isLocked ? 'check': 'times'}}"></fa-icon>
           </li>
           <li>Is Active:
-            <fa-icon class="{{currentUser.isActive ? 'qa-text-success': 'qa-text-danger'}}"
+            <fa-icon class="{{currentUser.isActive ? 'text-success': 'text-danger'}}"
                      icon="{{currentUser.isActive ? 'check': 'times'}}"></fa-icon>
           </li>
         </ul>

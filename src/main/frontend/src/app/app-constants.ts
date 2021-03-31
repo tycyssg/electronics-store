@@ -66,6 +66,8 @@ export const ROUTE_PATH_UNKNOWN = '**';
 export const ROUTE_PATH_LOGIN_REDIRECT = 'landing';
 export const ROUTE_PATH_CPANEL = 'cpanel';
 export const ROUTE_PATH_USER = 'user';
+export const ROUTE_PATH_DISPLAY_PRODUCTS = 'products';
+export const ROUTE_PATH_CP_EDIT_PRODUCT = 'edit-product/';
 
 // ##########################################
 // #             NGRX Constants             #

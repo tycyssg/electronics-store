@@ -13,6 +13,7 @@ import {
 import { ErrorComponent } from './shared/components/error/error.component';
 import { NotFoundComponent } from './shared/components/not-found/not-found.component';
 import { AuthGuard } from './auth/guards/auth.guard';
+import { Authorities } from './auth/model/Authorities';
 
 const routes: Routes = [
   {path: ROUTE_PATH_DEFAULT, redirectTo: ROUTE_PATH_LOGIN_REDIRECT, pathMatch: 'full'},
@@ -27,6 +28,8 @@ const routes: Routes = [
   {
     path: ROUTE_PATH_CPANEL,
     loadChildren: () => import('./cpanel/cpanel.module').then((module) => module.CpanelModule),
+    canActivate: [AuthGuard],
+    data: {authorities: [Authorities.USER_A]},
   },
   {
     path: ROUTE_PATH_USER,

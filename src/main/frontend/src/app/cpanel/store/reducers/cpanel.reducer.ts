@@ -63,7 +63,9 @@ const cpReducer: ActionReducer<CategoryState, Action> = createReducer(
       manufactured: action.manufactured,
       description: action.description,
       price: action.price,
-      stock: action.stock
+      stock: action.stock,
+      discountAmount: action.discountAmount,
+      expireDiscount: action.expireDiscount
     }
 
     const updatedCategory = {
@@ -71,7 +73,7 @@ const cpReducer: ActionReducer<CategoryState, Action> = createReducer(
       products: [
         ...state.categories[categoryIndex].products.slice(0, productIndex),
         updatedProduct,
-        ...state.categories[categoryIndex].products.slice(productIndex, state.categories[categoryIndex].products.length)
+        ...state.categories[categoryIndex].products.slice(productIndex + 1, state.categories[categoryIndex].products.length)
       ]
     };
 
@@ -114,6 +116,34 @@ const cpReducer: ActionReducer<CategoryState, Action> = createReducer(
           ...currentProduct,
           stock: action.stock
         },
+        ...state.categories[categoryIndex].products.slice(productIndex + 1, state.categories[categoryIndex].products.length)
+      ]
+    };
+
+    return ({
+      ...state,
+      categories: [
+        ...state.categories.slice(0, categoryIndex),
+        updatedCategory,
+        ...state.categories.slice(categoryIndex + 1, state.categories.length),
+      ]
+    })
+  }),
+  on(ProductAction.UpdateProductImageAction, (state: CategoryState, action: any) => {
+    const categoryIndex = state.categories.findIndex(c => c.products.some(p => p.productId === action.productId));
+    const productIndex = state.categories[categoryIndex].products.findIndex(p => p.productId === action.productId);
+    const currentProduct = state.categories[categoryIndex].products[productIndex];
+
+    const updatedProduct = {
+      ...currentProduct,
+      images: [...currentProduct.images, action]
+    }
+
+    const updatedCategory = {
+      ...state.categories[categoryIndex],
+      products: [
+        ...state.categories[categoryIndex].products.slice(0, productIndex),
+        updatedProduct,
         ...state.categories[categoryIndex].products.slice(productIndex + 1, state.categories[categoryIndex].products.length)
       ]
     };

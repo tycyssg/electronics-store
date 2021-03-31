@@ -44,13 +44,10 @@ export class AuthEffects {
     ofType(AuthActions.ApiActionTypes.logOutTimer),
     tap((payload: any) => {
       const user: User = payload.authUser;
-      if (!user) {
-        return;
+      if (user) {
+        const expDate = new Date(user.tokenExpirationDate);
+        this.authService.setLogoutTimer(expDate.getTime() - new Date().getTime());
       }
-
-      const expDate = new Date(user.tokenExpirationDate);
-      this.authService.setLogoutTimer(expDate.getTime() - new Date().getTime());
-      return;
     })
   ), {dispatch: false})
 

@@ -2,6 +2,6 @@ export interface ProductImageModel {
   pImageId: number;
   path: string;
   name: string;
-  image: Blob;
+  image: string;
   productId: number;
 }
