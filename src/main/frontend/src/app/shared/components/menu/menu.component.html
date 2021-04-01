@@ -6,6 +6,9 @@
         <li><a [routerLink]="['/landing', 'sale-products']" class="nav-main-item">offers</a></li>
         <li><a class="nav-main-item" href="#">who we are</a></li>
         <li><a class="nav-main-item" href="#">contact</a></li>
+        <li *ngIf="loggedUser"><a class="shopping-cart-notification" data-tooltip="22" href="#">
+          <fa-icon icon="shopping-cart"></fa-icon>
+        </a></li>
         <li class="nav-main-search">
           <div class="search-bar">
             <input aria-label="search" class="search-bar-input" placeholder="Enter your search" type="text"/>
@@ -14,9 +17,6 @@
             </button>
           </div>
         </li>
-        <li *ngIf="loggedUser"><a class="shopping-cart-notification" data-tooltip="22" href="#">
-          <fa-icon icon="shopping-cart"></fa-icon>
-        </a></li>
       </ul>
     </nav>
   </header>

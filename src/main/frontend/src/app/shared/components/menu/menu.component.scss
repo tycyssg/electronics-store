@@ -68,6 +68,10 @@
   margin-left: auto;
 }
 
+.shopping-cart-notification {
+  font-size: 1.8rem;
+}
+
 .shopping-cart-notification[data-tooltip] {
   position: relative;
 }
@@ -80,7 +84,7 @@
   width: 1.5rem;
   height: 1.5rem;
   position: absolute;
-  top: -1.2rem;
+  top: -1rem;
   left: -.5rem;
   display: block;
   text-align: center;
