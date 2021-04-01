@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { getAuthSelector } from '../../../auth/store/selectors/auth.selectors';
 import { AuthState } from '../../../auth/store/state/auth-state';
@@ -12,16 +12,18 @@ import { RequestChangeBillingAction, RequestDeleteAddressAction } from '../../..
 import { EditPaymentComponent } from '../edit-payment/edit-payment.component';
 import { RequestChangePaymentAction, RequestDeletePaymentAction } from '../../../auth/store/actions/payment.actions';
 import { AuthService } from '../../../auth/services/auth.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy {
 
   public currentUser: User = undefined;
   public roles: any = OPTION_ROLES;
+  private subs: Subscription = undefined;
 
   constructor(
     private readonly store: Store<AuthState>,
@@ -38,12 +40,15 @@ export class ProfileComponent implements OnInit {
     this.dialog.open(EditUserComponent, {width: '650px', disableClose: true, data: {user: this.currentUser}});
   }
 
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
+  }
+
   private _loadCurrentUser() {
-    this.store.pipe(select(getAuthSelector)).subscribe(payload => {
+    this.subs = this.store.pipe(select(getAuthSelector)).subscribe(payload => {
       this.currentUser = payload.authUser;
     })
   }
-
 
   public onAddAddress() {
     this.dialog.open(EditAddressComponent, {

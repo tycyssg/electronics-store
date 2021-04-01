@@ -30,7 +30,7 @@ public interface ProductService {
 
     ProductImages addProductImage(ProductImages productImages) throws NotExistException;
 
-    ProductComments addProductComment(ProductComments productComments) throws NotExistException;
+    ProductComments addProductComment(ProductComments productComments) throws NotExistException, InvalidDataFormatException;
 
     Product getProduct(Long productId);
 }

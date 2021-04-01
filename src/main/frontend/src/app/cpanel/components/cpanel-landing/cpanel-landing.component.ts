@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { State } from '../../../store/model/root.state';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -16,13 +16,14 @@ import { MatSelectChange } from '@angular/material/select';
 import { Product } from '../../model/product.model';
 import { MatTableDataSource } from '@angular/material/table';
 import { RequestDeleteProductAction, RequestUpdateProductStockAction } from '../../store/actions/products.actions';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-cpanel-landing',
   templateUrl: './cpanel-landing.component.html',
   styleUrls: ['./cpanel-landing.component.scss']
 })
-export class CpanelLandingComponent implements OnInit {
+export class CpanelLandingComponent implements OnInit, OnDestroy {
 
   public categoryForm: FormGroup = new FormGroup({
     categoryId: new FormControl(null),
@@ -33,12 +34,13 @@ export class CpanelLandingComponent implements OnInit {
   private categoryEdit: boolean = false;
   public displayedColumns: string[] = ['position', 'friendly', 'manufactured', 'stock', 'price', 'goTo', 'delete'];
   public dataSource: any;
+  private subs: Subscription = undefined;
 
   constructor(private readonly store: Store<State>, private readonly dialog: MatDialog) {
   }
 
   ngOnInit(): void {
-    this.store.pipe(select(getCategoriesSelector)).subscribe(payload => {
+    this.subs = this.store.pipe(select(getCategoriesSelector)).subscribe(payload => {
       this.categoryList = payload.categories;
       let products = [];
       this.categoryList.forEach(c => products = [...products, ...c.products])
@@ -46,6 +48,9 @@ export class CpanelLandingComponent implements OnInit {
     });
   }
 
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
+  }
 
   public onAddCategory() {
     if (this.categoryEdit) {

@@ -1,0 +1,29 @@
+<div class="qa-card">
+  <div class="qa-card-header">
+    <h1 class="qa-card-title-container qa-card-title">Add Product</h1>
+    <fa-icon class="qa-card-icon" icon="plus"></fa-icon>
+  </div>
+
+  <form (ngSubmit)="onAddComment()" [formGroup]="commentForm">
+    <mat-form-field appearance="outline" class="w-100 full-row">
+      <mat-label>First Impression</mat-label>
+      <input formControlName="firstImpression" matInput placeholder="First impression about product" type="text">
+      <mat-error *ngIf="commentForm.get('firstImpression')?.hasError('required')" class="font-xs">First impression
+        matter!
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-100 full-row">
+      <mat-label>Review Content</mat-label>
+      <textarea formControlName="commentContent" matInput placeholder="Review Content" rows="7"></textarea>
+      <mat-error *ngIf="commentForm.get('commentContent')?.hasError('required')" class="font-xs">Your opinion is
+        required
+      </mat-error>
+    </mat-form-field>
+
+    <button (click)="onDialogClose();" class="qa-btn qa-btn-s qa-btn-default" type="button">Close</button>
+    <button [disabled]="!commentForm.valid" class="qa-btn qa-btn-s qa-btn-primary pull-right" type="submit">Add
+      Product
+    </button>
+  </form>
+</div>

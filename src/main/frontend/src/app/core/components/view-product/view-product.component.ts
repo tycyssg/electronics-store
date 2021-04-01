@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Product } from '../../../cpanel/model/product.model';
 import { select, Store } from '@ngrx/store';
 import { State } from '../../../store/model/root.state';
@@ -6,22 +6,39 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { getCategoriesSelector } from '../../../cpanel/store/selectors/cpanel.selector';
 import { Category } from '../../../cpanel/model/category.model';
 import { ProductImageModel } from '../../../cpanel/model/product-image.model';
+import { getAuthSelector } from '../../../auth/store/selectors/auth.selectors';
+import { User } from '../../../auth/model/User';
+import { CpanelService } from '../../../cpanel/service/cpanel.service';
+import { RequestAddProductRatingAction } from '../../../cpanel/store/actions/products.actions';
+import { MatDialog } from '@angular/material/dialog';
+import { AddCommentComponent } from '../add-comment/add-comment.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-view-product',
   templateUrl: './view-product.component.html',
   styleUrls: ['./view-product.component.scss']
 })
-export class ViewProductComponent implements OnInit {
+export class ViewProductComponent implements OnInit, OnDestroy {
   public currentProduct: Product | undefined = undefined;
   public categoryList: Category[] = [];
   public imageObject: Array<object> = [];
+  public currentUser: User | undefined = undefined;
+  public categoryAsMap: Map<number, string> = new Map<number, string>();
+  private subs: Array<Subscription> = [];
 
-  constructor(private readonly store: Store<State>, private readonly route: ActivatedRoute, private readonly router: Router) {
+  constructor(private readonly store: Store<State>, private readonly route: ActivatedRoute, private readonly router: Router, public cpanelService: CpanelService, private readonly dialog: MatDialog) {
   }
 
   ngOnInit(): void {
     this._loadCategories();
+    this._loadUser();
+  }
+
+  public onRatingChange(event: number) {
+    if (this.currentProduct == undefined || isNaN(event)) return;
+
+    this.store.dispatch(RequestAddProductRatingAction({totalRating: event, productId: this.currentProduct.productId}));
   }
 
   public sanitizeImage(image: any): any {
@@ -39,10 +56,11 @@ export class ViewProductComponent implements OnInit {
     }));
   }
 
-  private _loadCategories() {
-    this.store.pipe(select(getCategoriesSelector)).subscribe(payload => {
-      this.categoryList = payload.categories;
-      this._getParamFromRoute();
+  public onAddComment() {
+    this.dialog.open(AddCommentComponent, {
+      width: '650px',
+      disableClose: true,
+      data: {productId: this.currentProduct.productId}
     });
   }
 
@@ -61,7 +79,20 @@ export class ViewProductComponent implements OnInit {
     });
   }
 
-  onRatingChange($event: number) {
+  ngOnDestroy(): void {
+    this.subs.forEach(s => s.unsubscribe());
+  }
 
+  private _loadUser() {
+    this.subs.push(this.store.pipe(select(getAuthSelector)).subscribe(payload => this.currentUser = payload.authUser));
+  }
+
+  private _loadCategories() {
+    this.subs.push(this.store.pipe(select(getCategoriesSelector)).subscribe(payload => {
+      this.categoryList = payload.categories;
+      this.categoryAsMap = new Map<number, string>();
+      this.categoryList.forEach(c => this.categoryAsMap.set(c.categoryId, c.categoryName));
+      this._getParamFromRoute();
+    }));
   }
 }

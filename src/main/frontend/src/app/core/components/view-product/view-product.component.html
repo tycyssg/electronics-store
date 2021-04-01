@@ -2,7 +2,7 @@
   <div class="qa-card">
     <div class="qa-card-header">
       <h1 class="qa-card-title-container qa-card-title">{{currentProduct.title}}</h1>
-      <fa-icon class="qa-card-icon" icon="address-card"></fa-icon>
+      <fa-icon class="qa-card-icon" icon="box"></fa-icon>
     </div>
 
     <div class="single-product-wrapper">
@@ -10,9 +10,18 @@
         <ng-image-slider [imageSize]="{width:'100%', height: '65%'}" [images]="imageObject"></ng-image-slider>
       </div>
       <div class="single-product-option">
-        <div>{{currentProduct.price}}</div>
-        <div>
-          <button class="qa-btn qa-btn-success">
+        <div *ngIf="!cpanelService.discountExpired(currentProduct.expireDiscount)" class="single-product-option-price">
+          <h2>{{currentProduct.price}}</h2></div>
+        <div *ngIf="cpanelService.discountExpired(currentProduct.expireDiscount)"
+             class="single-product-option-discounted-price">
+          <h2>{{currentProduct.price - ((currentProduct.price * currentProduct.discountAmount) / 100)}}
+            <del>{{currentProduct.price}}</del>
+          </h2>
+          <p>Offer valid until: {{currentProduct.expireDiscount | date:'dd / MMM'}}</p>
+        </div>
+
+        <div *ngIf="currentUser != undefined" class="mt-s">
+          <button *ngIf="currentProduct.stock > 0" class="qa-btn qa-btn-success">
             <fa-icon icon="cart-plus"></fa-icon>
             Add to card
           </button>
@@ -22,23 +31,65 @@
           </button>
         </div>
 
+        <div *ngIf="currentUser == undefined" class="mt-s">
+          <h3 class="text-warning">Log In is required to use cart actions!</h3>
+          <hr>
+        </div>
+
         <div>
           <bar-rating (rateChange)="onRatingChange($event)"
-                      [(rate)]="currentProduct.totalRating / currentProduct.numOfRatingCustomers"
-                      [max]="5"></bar-rating>
+                      [max]="5"
+                      [rate]="currentProduct.totalRating / currentProduct.numOfRatingCustomers"
+                      [readOnly]="currentUser == undefined"></bar-rating>
           <a href="#"><span>{{currentProduct.totalRating / currentProduct.numOfRatingCustomers}}</span>
-            /<span>{{currentProduct.numOfRatingCustomers}}</span></a>
+            / <span>{{currentProduct.numOfRatingCustomers}}</span></a>
         </div>
+
+        <p *ngIf="currentProduct.stock == 0" class="text-danger bold">Product out of stock</p>
+        <p *ngIf="currentProduct.stock > 0 && currentProduct.stock < 5"
+           class="text-warning font-s">{{currentProduct.stock}} products left in the stock</p>
+
+        <ul class="cat-list">
+          <li>Category: {{categoryAsMap.get(currentProduct.categoryId)}}</li>
+          <li>Manufactured By: {{currentProduct.manufactured}}</li>
+          <li>Warranty: {{currentProduct.warranty}} years</li>
+        </ul>
 
       </div>
     </div>
 
+
     <mat-tab-group class="mb-s" mat-align-tabs="center">
       <mat-tab label="Reviews">
+        <div class="qa-card">
+          <div class="qa-card-header">
+            <h1 class="qa-card-title-container qa-card-title">Product Reviews</h1>
+            <fa-icon class="qa-card-icon" icon="chalkboard-teacher"></fa-icon>
+          </div>
+
+          <button (click)="onAddComment()" class="qa-btn qa-btn-warning">Add review for this product</button>
+
+          <div *ngFor="let com of currentProduct.productComments" class="comment-wrapper">
+            <div>
+              <h3>{{com.commentedBy}}</h3>
+              <p class="text-dark">{{com.dateCreated | date: 'dd/MM/yyyy'}}</p>
+            </div>
+            <div>
+              <h3>{{com.firstImpression}}</h3>
+              {{com.commentContent}}
+            </div>
+          </div>
+        </div>
 
       </mat-tab>
       <mat-tab label="Description">
-        {{currentProduct.description}}
+        <div class="qa-card">
+          <div class="qa-card-header">
+            <h1 class="qa-card-title-container qa-card-title">Product Description</h1>
+            <fa-icon class="qa-card-icon" icon="box"></fa-icon>
+          </div>
+          {{currentProduct.description}}
+        </div>
       </mat-tab>
     </mat-tab-group>
   </div>

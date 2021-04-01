@@ -86,11 +86,11 @@
   text-align: center;
   font-size: 1rem;
   line-height: 1.5rem;
-  transition: all ease-in-out .5s;
+  transition: all ease-in-out .2s;
 }
 
 .shopping-cart-notification[data-tooltip]:hover::after {
-  background-color: $clr-danger;
+  background-color: $clr-info;
 }
 
 .logo-side {
@@ -165,4 +165,74 @@
 
 .profile-link {
   color: $clr-success;
+}
+
+.nav-main-search {
+  width: 20rem;
+}
+
+//Search Input Style
+.search-bar {
+  --size: 2.5rem;
+  border: 2px solid $clr-info;
+  display: flex;
+  border-radius: 5rem;
+  height: var(--size);
+  line-height: var(--size);
+  width: var(--size);
+  padding: .2rem;
+  position: relative;
+  transition: width .3s cubic-bezier(.18, .89, .32, 1);
+  overflow: hidden;
+
+  &-input {
+    flex-grow: 1;
+    font-size: 1.3rem;
+    padding: 0 .5em;
+    border: 0;
+    background: transparent;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    opacity: 0;
+    cursor: pointer;
+
+    &:focus {
+      outline: 0;
+    }
+  }
+
+  &-submit {
+    font-size: 1.3rem;
+    cursor: pointer;
+    border: 0;
+    background: transparent;
+    border-radius: 50%;
+    width: calc(var(--size) - .8rem);
+    height: calc(var(--size) - .8rem);
+    margin-left: auto;
+    transition: background-color 150ms ease-in-out;
+  }
+
+  &:focus-within {
+    width: 100%;
+
+    .search-bar-input {
+      opacity: 1;
+      cursor: initial;
+      width: calc(100% - var(--size));
+    }
+
+    .search-bar-submit {
+      background: $clr-info;
+      color: $clr-white;
+
+      &:focus,
+      &:hover {
+        outline: 0;
+        box-shadow: 0 0 .5rem rgba($clr-black, .55);
+      }
+    }
+  }
 }

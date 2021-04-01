@@ -31,6 +31,7 @@ public class Product implements Serializable {
     private Double price = 0.0;
     @Min(value = 0)
     private Integer stock = 0;
+    private Integer warranty = 0;
     private Integer numOfRatingCustomers = 0;
     private Integer totalRating = 0;
     @Min(value = 0)

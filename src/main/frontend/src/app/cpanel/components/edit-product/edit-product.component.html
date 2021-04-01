@@ -46,12 +46,20 @@
           </mat-error>
         </mat-form-field>
 
+
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Choose expire discount date</mat-label>
           <input (dateChange)="onSelectedDate($event)" [disabled]="this.productForm.disabled" [matDatepicker]="picker"
                  matInput>
           <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Product warranty</mat-label>
+          <input formControlName="warranty" matInput placeholder="Product warranty in years" type="number">
+          <mat-error *ngIf="productForm.get('warranty')?.hasError('required')" class="font-xs">Warranty is required!
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="w-100 full-row">

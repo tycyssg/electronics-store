@@ -20,6 +20,8 @@ public class ProductComments implements Serializable {
     private Long commentId;
     private Long dateCreated = new Date().getTime();
     @NotNull
+    private String firstImpression;
+    @NotNull
     private String commentedBy;
     @NotNull
     private String commentContent;

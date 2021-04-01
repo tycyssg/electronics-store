@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ProductImageModel } from '../model/product-image.model';
 import { HEADERS_FOR_POST } from '../../app-constants';
 import { Category } from '../model/category.model';
 import { Product } from '../model/product.model';
 import { ProductComments } from '../model/product-comments.model';
 import { UpdatedStock } from '../model/updated-stock.model';
+import { UpdatedRating } from '../model/updated-rating.model';
 
 
 @Injectable({providedIn: 'root'})
@@ -14,7 +14,6 @@ export class CpanelService {
 
   private readonly urls = {
     uploadImages: '/api/uploadImages',
-    getAllImages: '/api/getAllImages',
     addCategory: '/api/addCategory',
     updateCategory: '/api/updateCategory',
     getAllCategories: '/api/getAllCategories',
@@ -34,10 +33,6 @@ export class CpanelService {
   public uploadImages(f: any, productId: number): Observable<any> {
     const url = `${this.urls.uploadImages}/${productId}`;
     return this.httpClient.post<any>(url, f, {reportProgress: true, observe: 'events'});
-  }
-
-  public getAllImages(): Observable<ProductImageModel[]> {
-    return this.httpClient.get<ProductImageModel[]>(this.urls.getAllImages);
   }
 
   public addCategory(category: Category): Observable<Category> {
@@ -77,14 +72,19 @@ export class CpanelService {
     return this.httpClient.put<Product>(url, null, {headers: HEADERS_FOR_POST, params: body});
   }
 
-  public updateRating(customerRating: number, productId: number): Observable<Product> {
-    const url = `${this.urls.updateRating}/${productId}`;
+  public updateRating(updatedRating: UpdatedRating): Observable<Product> {
+    const url = `${this.urls.updateRating}/${updatedRating.productId}`;
     let body = new HttpParams();
-    body = body.set('customerRating', customerRating + '');
-    return this.httpClient.put<Product>(url, body, {headers: HEADERS_FOR_POST});
+    body = body.set('customerRating', updatedRating.totalRating + '');
+    return this.httpClient.put<Product>(url, null, {headers: HEADERS_FOR_POST, params: body});
   }
 
   public addProductComment(comment: ProductComments): Observable<ProductComments> {
     return this.httpClient.post<ProductComments>(this.urls.addProductComment, comment, {headers: HEADERS_FOR_POST});
+  }
+
+  public discountExpired(date: Date | undefined): boolean {
+    if (!date) return false;
+    return new Date(date).setHours(0, 0, 0, 0) > new Date().setHours(0, 0, 0, 0);
   }
 }

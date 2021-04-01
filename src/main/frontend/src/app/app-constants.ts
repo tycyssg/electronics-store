@@ -53,6 +53,8 @@ export const PRODUCT_ADDED = 'Product successfully added!';
 export const PRODUCT_DELETED = 'Product successfully deleted!';
 export const PRODUCT_UPDATED = 'Product successfully  updated!';
 export const PRODUCT_STOCK_UPDATED = 'Product stock successfully  updated!';
+export const PRODUCT_RATED_UPDATED = 'Rating successfully received!';
+export const PRODUCT_REVIEW_ADD = 'Your review was successfully received!';
 
 
 // ##########################################
@@ -67,6 +69,7 @@ export const ROUTE_PATH_LOGIN_REDIRECT = 'landing';
 export const ROUTE_PATH_CPANEL = 'cpanel';
 export const ROUTE_PATH_USER = 'user';
 export const ROUTE_PATH_DISPLAY_PRODUCTS = 'products';
+export const ROUTE_PATH_DISPLAY_SALE_PRODUCTS = 'sale-products';
 export const ROUTE_PATH_CP_EDIT_PRODUCT = 'edit-product/';
 
 // ##########################################

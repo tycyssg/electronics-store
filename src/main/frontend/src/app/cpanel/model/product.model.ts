@@ -8,14 +8,13 @@ export interface Product {
   description: string;
   price: number;
   stock: number;
+  warranty: number;
   numOfRatingCustomers: number;
   totalRating: number;
   discountAmount: number;
   expireDiscount: Date;
   categoryId: number;
   dateCreated: Date;
-  discountedPrice: number;
-  rating: number;
   images: ProductImageModel[];
   productComments: ProductComments[];
 }

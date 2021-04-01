@@ -45,6 +45,13 @@
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="w-100 full-row">
+        <mat-label>Product warranty</mat-label>
+        <input formControlName="warranty" matInput placeholder="Product warranty" type="number">
+        <mat-error *ngIf="productForm.get('warranty')?.hasError('required')" class="font-xs">Warranty is required!
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-100 full-row">
         <mat-label>Product Description</mat-label>
         <textarea formControlName="description" matInput placeholder="Description"></textarea>
         <mat-error *ngIf="productForm.get('description')?.hasError('required')" class="font-xs">Product description is

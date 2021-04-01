@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { User } from '../../model/User';
 import { select, Store } from '@ngrx/store';
@@ -7,14 +7,16 @@ import { AuthState } from '../../store/state/auth-state';
 import { getAuthSelector } from '../../store/selectors/auth.selectors';
 import { ROUTE_PATH_LOGIN_REDIRECT } from '../../../app-constants';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   public showRegister: boolean = false;
+  private subs: Subscription = undefined;
 
   public loginForm: FormGroup = new FormGroup({
     username: new FormControl('', Validators.required),
@@ -32,11 +34,15 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.store.pipe(select(getAuthSelector)).subscribe(payload => {
+    this.subs = this.store.pipe(select(getAuthSelector)).subscribe(payload => {
       if (payload.authUser) {
         this.router.navigate([ROUTE_PATH_LOGIN_REDIRECT]);
       }
     })
+  }
+
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
   }
 
   public login() {

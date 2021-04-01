@@ -65,7 +65,8 @@ const cpReducer: ActionReducer<CategoryState, Action> = createReducer(
       price: action.price,
       stock: action.stock,
       discountAmount: action.discountAmount,
-      expireDiscount: action.expireDiscount
+      expireDiscount: action.expireDiscount,
+      warranty: action.warranty
     }
 
     const updatedCategory = {
@@ -137,6 +138,61 @@ const cpReducer: ActionReducer<CategoryState, Action> = createReducer(
     const updatedProduct = {
       ...currentProduct,
       images: [...currentProduct.images, action]
+    }
+
+    const updatedCategory = {
+      ...state.categories[categoryIndex],
+      products: [
+        ...state.categories[categoryIndex].products.slice(0, productIndex),
+        updatedProduct,
+        ...state.categories[categoryIndex].products.slice(productIndex + 1, state.categories[categoryIndex].products.length)
+      ]
+    };
+
+    return ({
+      ...state,
+      categories: [
+        ...state.categories.slice(0, categoryIndex),
+        updatedCategory,
+        ...state.categories.slice(categoryIndex + 1, state.categories.length),
+      ]
+    })
+  }),
+  on(ProductAction.AddProductRatingAction, (state: CategoryState, action: any) => {
+    const categoryIndex = state.categories.findIndex(c => c.products.some(p => p.productId === action.productId));
+    const productIndex = state.categories[categoryIndex].products.findIndex(p => p.productId === action.productId);
+    const currentProduct = state.categories[categoryIndex].products[productIndex];
+
+    const updatedCategory = {
+      ...state.categories[categoryIndex],
+      products: [
+        ...state.categories[categoryIndex].products.slice(0, productIndex),
+        {
+          ...currentProduct,
+          numOfRatingCustomers: action.numOfRatingCustomers,
+          totalRating: action.totalRating
+        },
+        ...state.categories[categoryIndex].products.slice(productIndex + 1, state.categories[categoryIndex].products.length)
+      ]
+    };
+
+    return ({
+      ...state,
+      categories: [
+        ...state.categories.slice(0, categoryIndex),
+        updatedCategory,
+        ...state.categories.slice(categoryIndex + 1, state.categories.length),
+      ]
+    })
+  }),
+  on(ProductAction.AddProductCommentAction, (state: CategoryState, action: any) => {
+    const categoryIndex = state.categories.findIndex(c => c.products.some(p => p.productId === action.productId));
+    const productIndex = state.categories[categoryIndex].products.findIndex(p => p.productId === action.productId);
+    const currentProduct = state.categories[categoryIndex].products[productIndex];
+
+    const updatedProduct = {
+      ...currentProduct,
+      productComments: [...currentProduct.productComments, action]
     }
 
     const updatedCategory = {

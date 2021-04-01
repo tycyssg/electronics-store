@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Category } from '../../model/category.model';
 import { select, Store } from '@ngrx/store';
@@ -8,13 +8,14 @@ import { NavigationStart, Router } from '@angular/router';
 import { MatDialogRef } from '@angular/material/dialog';
 import { filter, take, tap } from 'rxjs/operators';
 import { RequestAddProductAction } from '../../store/actions/products.actions';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-create-product',
   templateUrl: './create-product.component.html',
   styleUrls: ['./create-product.component.scss']
 })
-export class CreateProductComponent implements OnInit {
+export class CreateProductComponent implements OnInit, OnDestroy {
 
   public categoryList: Category[] = [];
   public productForm: FormGroup = new FormGroup({
@@ -22,10 +23,12 @@ export class CreateProductComponent implements OnInit {
     title: new FormControl(null, Validators.required),
     manufactured: new FormControl(null, Validators.required),
     description: new FormControl(null, Validators.required),
+    warranty: new FormControl(null, Validators.required),
     price: new FormControl(null, Validators.required),
     stock: new FormControl(null, Validators.required),
     categoryId: new FormControl(null, Validators.required)
   });
+  private subs: Subscription = undefined;
 
   constructor(
     private readonly store: Store<State>,
@@ -36,7 +39,11 @@ export class CreateProductComponent implements OnInit {
 
   ngOnInit(): void {
     this._closeDialogOnNavigate();
-    this.store.pipe(select(getCategoriesSelector)).subscribe(payload => this.categoryList = payload.categories);
+    this.subs = this.store.pipe(select(getCategoriesSelector)).subscribe(payload => this.categoryList = payload.categories);
+  }
+
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
   }
 
   public onAddProduct() {

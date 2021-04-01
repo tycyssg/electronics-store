@@ -17,6 +17,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SortFilterComponent } from './utilities/sort-filter/sort-filter.component';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     NotFoundComponent,
     MenuComponent,
     NotificationErrorComponent,
+    SortFilterComponent,
   ],
   imports: [
     CommonModule,
@@ -39,13 +42,15 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatDialogModule,
     MatInputModule,
     MatFormFieldModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatSelectModule
   ],
   exports: [
     LoaderComponent,
     MenuComponent,
     NotificationErrorComponent,
-    CustomAlertComponent
+    CustomAlertComponent,
+    SortFilterComponent
   ]
 })
 export class SharedModule {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Product } from '../../model/product.model';
 import { select, Store } from '@ngrx/store';
 import { State } from '../../../store/model/root.state';
@@ -14,20 +14,20 @@ import { UploadFilesModel } from '../../model/upload-files.model';
 import { CpanelService } from '../../service/cpanel.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ProductImageModel } from '../../model/product-image.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-edit-product',
   templateUrl: './edit-product.component.html',
   styleUrls: ['./edit-product.component.scss']
 })
-export class EditProductComponent implements OnInit {
+export class EditProductComponent implements OnInit, OnDestroy {
   public editProduct: Product | undefined = undefined;
   public categoryList: Category[] = [];
   public categoryAsMap: Map<number, string> = new Map<number, string>();
   public imagesToUpload: UploadFilesModel[] = [];
   public uploadFilesPress: boolean = false;
   public imageObject: Array<object> = [];
-
   public productForm: FormGroup = new FormGroup({
     productId: new FormControl(null),
     title: new FormControl(null, Validators.required),
@@ -35,10 +35,12 @@ export class EditProductComponent implements OnInit {
     description: new FormControl(null, Validators.required),
     price: new FormControl(null, Validators.required),
     stock: new FormControl(null, Validators.required),
+    warranty: new FormControl(null, Validators.required),
     discountAmount: new FormControl(null),
     expireDiscount: new FormControl(null),
     categoryId: new FormControl(null, Validators.required)
   });
+  private subs: Subscription = undefined;
 
 
   constructor(private readonly store: Store<State>, private readonly route: ActivatedRoute, private readonly router: Router, private readonly cpanelService: CpanelService, private readonly sanitizer: DomSanitizer) {
@@ -124,12 +126,8 @@ export class EditProductComponent implements OnInit {
     }));
   }
 
-  private _loadCategories() {
-    this.store.pipe(select(getCategoriesSelector)).subscribe(payload => {
-      this.categoryList = payload.categories;
-      this.categoryList.forEach(c => this.categoryAsMap.set(c.categoryId, c.categoryName));
-      this._getParamFromRoute();
-    });
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
   }
 
   private _getParamFromRoute() {
@@ -146,6 +144,15 @@ export class EditProductComponent implements OnInit {
       this.productForm.patchValue(this.editProduct);
       this.productForm.disable({onlySelf: true})
       this.prepareImageToDisplay(this.editProduct.images);
+    });
+  }
+
+  private _loadCategories() {
+    this.subs = this.store.pipe(select(getCategoriesSelector)).subscribe(payload => {
+      this.categoryList = payload.categories;
+      this.categoryAsMap = new Map<number, string>();
+      this.categoryList.forEach(c => this.categoryAsMap.set(c.categoryId, c.categoryName));
+      this._getParamFromRoute();
     });
   }
 }

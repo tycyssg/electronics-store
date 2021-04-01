@@ -34,8 +34,8 @@
             </p>
 
             <div>
-              <bar-rating [rate]="prod.totalRating / prod.numOfRatingCustomers"
-                          [max]="5" [readOnly]="true"></bar-rating>
+              <bar-rating [max]="5"
+                          [rate]="prod.totalRating / prod.numOfRatingCustomers" [readOnly]="true"></bar-rating>
               <a href="#"><span>{{prod.totalRating / prod.numOfRatingCustomers}}</span> /
                 <span>{{prod.numOfRatingCustomers}}</span></a>
             </div>
@@ -52,3 +52,4 @@
   </div>
 
 </section>
+

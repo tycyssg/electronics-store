@@ -58,7 +58,7 @@ public class ProductServiceImpl implements ProductService {
         if (!productRepository.existsById(product.getProductId()))
             throw new NotExistException(PRODUCT_NOT_EXIST);
 
-        productRepository.updateProduct(product.getTitle(), product.getManufactured(), product.getDescription(), product.getPrice(), product.getStock(), product.getDiscountAmount(), product.getExpireDiscount(), product.getProductId());
+        productRepository.updateProduct(product.getTitle(), product.getManufactured(), product.getDescription(), product.getPrice(), product.getStock(), product.getDiscountAmount(), product.getExpireDiscount(), product.getWarranty(), product.getProductId());
         return product;
     }
 
@@ -113,7 +113,10 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductComments addProductComment(ProductComments productComments) throws NotExistException {
+    public ProductComments addProductComment(ProductComments productComments) throws NotExistException, InvalidDataFormatException {
+        if (productComments.getProductId() == null)
+            throw new InvalidDataFormatException();
+
         if (!productRepository.existsById(productComments.getProductId()))
             throw new NotExistException(PRODUCT_NOT_EXIST);
 
@@ -122,9 +125,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product getProduct(Long productId) {
-        Product p = productRepository.findById(productId).orElse(null);
-        // p.setImages(productImagesRepository.findAllByProductId(p.getProductId()));
-        return p;
+        return productRepository.findById(productId).orElse(null);
     }
 
     @Override

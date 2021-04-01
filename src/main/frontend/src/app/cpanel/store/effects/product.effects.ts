@@ -9,12 +9,16 @@ import {
   NOTIFICATION_TYPES,
   PRODUCT_ADDED,
   PRODUCT_DELETED,
+  PRODUCT_RATED_UPDATED,
+  PRODUCT_REVIEW_ADD,
   PRODUCT_STOCK_UPDATED,
   PRODUCT_UPDATED,
 } from '../../../app-constants';
 import { CpanelService } from '../../service/cpanel.service';
 import { Product } from '../../model/product.model';
 import { UpdatedStock } from '../../model/updated-stock.model';
+import { UpdatedRating } from '../../model/updated-rating.model';
+import { ProductComments } from '../../model/product-comments.model';
 
 
 @Injectable()
@@ -48,6 +52,24 @@ export class ProductEffects {
     map((stock: UpdatedStock) => {
       this.notifier.notify(NOTIFICATION_TYPES.info, PRODUCT_STOCK_UPDATED);
       return ProductAction.UpdateProductStockAction(stock);
+    })
+  ));
+
+  public updateProductRating$: Observable<Action> = createEffect(() => this.actions$.pipe(
+    ofType(ProductAction.ProductTypes.requestAddProductRating),
+    switchMap((rating: any) => this.cpanelService.updateRating(rating)),
+    map((rating: UpdatedRating) => {
+      this.notifier.notify(NOTIFICATION_TYPES.info, PRODUCT_RATED_UPDATED);
+      return ProductAction.AddProductRatingAction(rating);
+    })
+  ));
+
+  public addProductComment$: Observable<Action> = createEffect(() => this.actions$.pipe(
+    ofType(ProductAction.ProductTypes.requestAddProductComment),
+    switchMap((comment: any) => this.cpanelService.addProductComment(comment)),
+    map((comment: ProductComments) => {
+      this.notifier.notify(NOTIFICATION_TYPES.info, PRODUCT_REVIEW_ADD);
+      return ProductAction.AddProductCommentAction(comment);
     })
   ));
 
