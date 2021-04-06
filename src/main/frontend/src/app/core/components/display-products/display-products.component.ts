@@ -28,6 +28,7 @@ export class DisplayProductsComponent implements OnInit, OnDestroy {
     });
   }
 
+
   ngOnDestroy(): void {
     this.subs.unsubscribe();
   }

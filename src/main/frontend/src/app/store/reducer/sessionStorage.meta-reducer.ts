@@ -36,7 +36,6 @@ export function sessionStorageMetaReducer(reducer: ActionReducer<any>): ActionRe
     }
 
     setSessionState(nextState);
-
     return nextState;
   };
 

@@ -5,5 +5,4 @@ export interface ProductComments {
   commentedBy: string;
   commentContent: string;
   productId: number;
-
 }

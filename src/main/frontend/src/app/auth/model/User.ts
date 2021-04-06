@@ -1,6 +1,7 @@
 import { UserAuthority } from './UserAuthority';
 import { PaymentDetails } from './PaymentDetails';
 import { Address } from './Address';
+import { CartItems } from './CartItems';
 
 export interface User {
   userId: string
@@ -11,6 +12,7 @@ export interface User {
   role: string;
   authorities: UserAuthority[];
   paymentDetails: PaymentDetails[];
+  cartItems: CartItems[];
   addresses: Address[];
   isActive: boolean;
   isLocked: boolean;

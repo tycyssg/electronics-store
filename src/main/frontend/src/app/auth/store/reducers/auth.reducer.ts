@@ -3,6 +3,7 @@ import * as AuthActions from '../../../auth/store/actions/auth.actions';
 import { AuthUserModel } from '../models/authUser.model';
 import * as AddressAction from '../../../auth/store/actions/address.actions';
 import * as PaymentAction from '../../../auth/store/actions/payment.actions';
+import * as CartActions from '../../../auth/store/actions/cart.actions';
 
 export const initialState: AuthUserModel = {authUser: null as any};
 
@@ -89,6 +90,60 @@ const loginReducer: ActionReducer<AuthUserModel, Action> = createReducer(
       authUser: {
         ...state.authUser,
         paymentDetails: modifiedPayments
+      }
+    })
+  }),
+  on(CartActions.AddCartItemAction, (state: AuthUserModel, action: any) => ({
+    ...state,
+    authUser: {
+      ...state.authUser,
+      cartItems: [...state.authUser.cartItems, action]
+    }
+  })),
+  on(CartActions.DeleteCartItemAction, (state: AuthUserModel, action: any) => ({
+    ...state,
+    authUser: {
+      ...state.authUser,
+      cartItems: state.authUser.cartItems.filter(c => c.cartItemId !== action.id)
+    }
+  })),
+  on(CartActions.UpdateCartItemQuantityPlusAction, (state: AuthUserModel, action: any) => {
+    const itemIndex = state.authUser.cartItems.findIndex(c => c.cartItemId === action.id);
+    const currentItem = {...state.authUser.cartItems[itemIndex]}
+
+    const updatedItem = {
+      ...currentItem,
+      productQuantity: currentItem.productQuantity + 1
+    }
+    return ({
+      ...state,
+      authUser: {
+        ...state.authUser,
+        cartItems: [
+          ...state.authUser.cartItems.slice(0, itemIndex),
+          updatedItem,
+          ...state.authUser.cartItems.slice(itemIndex + 1, state.authUser.cartItems.length),
+        ]
+      }
+    })
+  }),
+  on(CartActions.UpdateCartItemQuantityMinusAction, (state: AuthUserModel, action: any) => {
+    const itemIndex = state.authUser.cartItems.findIndex(c => c.cartItemId === action.id);
+    const currentItem = {...state.authUser.cartItems[itemIndex]}
+
+    const updatedItem = {
+      ...currentItem,
+      productQuantity: currentItem.productQuantity - 1
+    }
+    return ({
+      ...state,
+      authUser: {
+        ...state.authUser,
+        cartItems: [
+          ...state.authUser.cartItems.slice(0, itemIndex),
+          updatedItem,
+          ...state.authUser.cartItems.slice(itemIndex + 1, state.authUser.cartItems.length),
+        ]
       }
     })
   }),

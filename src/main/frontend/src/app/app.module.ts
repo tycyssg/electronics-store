@@ -34,6 +34,7 @@ import { categoryReducer } from './cpanel/store/reducers/cpanel.reducer';
 import { CategoryEffects } from './cpanel/store/effects/category.effects';
 import { MatSelectModule } from '@angular/material/select';
 import { ProductEffects } from './cpanel/store/effects/product.effects';
+import { CartEffects } from './auth/store/effects/cart.effects';
 
 
 @NgModule({
@@ -75,7 +76,7 @@ import { ProductEffects } from './cpanel/store/effects/product.effects';
     ),
     StoreRouterConnectingModule.forRoot({navigationActionTiming: NavigationActionTiming.PostActivation}),
     StoreDevtoolsModule.instrument({logOnly: environment.production}),
-    EffectsModule.forRoot([AuthEffects, AddressEffects, PaymentEffects, CategoryEffects, ProductEffects]),
+    EffectsModule.forRoot([AuthEffects, AddressEffects, PaymentEffects, CategoryEffects, ProductEffects, CartEffects]),
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true},

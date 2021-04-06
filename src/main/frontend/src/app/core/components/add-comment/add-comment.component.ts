@@ -14,7 +14,8 @@ import { RequestAddProductCommentAction } from '../../../cpanel/store/actions/pr
   styleUrls: ['./add-comment.component.scss']
 })
 export class AddCommentComponent implements OnInit {
-  commentForm: FormGroup = new FormGroup({
+
+  public commentForm: FormGroup = new FormGroup({
     productId: new FormControl(null, Validators.required),
     firstImpression: new FormControl(null, Validators.required),
     commentedBy: new FormControl(null, Validators.required),

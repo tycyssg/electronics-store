@@ -9,5 +9,7 @@ public class ErrorConstants {
     public static final String CATEGORY_EXIST = "Category already exist!";
     public static final String CATEGORY_NOT_EXIST = "Category not found!";
     public static final String PRODUCT_NOT_EXIST = "Product not found!";
+    public static final String ITEM_EXIST_IN_CART = "Item already exists in the cart!";
+    public static final String ITEM_NOT_EXIST_IN_CART = "Item does not exist in the cart!";
 
 }

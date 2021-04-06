@@ -21,7 +21,8 @@
         </div>
 
         <div *ngIf="currentUser != undefined" class="mt-s">
-          <button *ngIf="currentProduct.stock > 0" class="qa-btn qa-btn-success">
+          <button (click)="addProductToCart(currentProduct.productId)" *ngIf="currentProduct.stock > 0"
+                  class="qa-btn qa-btn-success" type="button">
             <fa-icon icon="cart-plus"></fa-icon>
             Add to card
           </button>
@@ -67,7 +68,9 @@
             <fa-icon class="qa-card-icon" icon="chalkboard-teacher"></fa-icon>
           </div>
 
-          <button (click)="onAddComment()" class="qa-btn qa-btn-warning">Add review for this product</button>
+          <button (click)="onAddComment()" *ngIf="currentUser" class="qa-btn qa-btn-warning">Add review for this
+            product
+          </button>
 
           <div *ngFor="let com of currentProduct.productComments" class="comment-wrapper">
             <div>

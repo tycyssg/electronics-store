@@ -8,7 +8,6 @@ import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import {
   NOTIFICATION_TYPES,
-  ROUTE_PATH_LOGIN,
   ROUTE_PATH_LOGIN_REDIRECT,
   USER_LOGGED_OUT,
   USER_REGISTERED,
@@ -63,7 +62,7 @@ export class AuthEffects {
     map(() => {
       this.authService.clearLogoutTimer();
       this.notifier.notify(NOTIFICATION_TYPES.success, USER_LOGGED_OUT);
-      this.router.navigate([ROUTE_PATH_LOGIN]);
+      this.router.navigate(['/']);
       return AuthActions.LogOutCompleteAction();
     })
   ));

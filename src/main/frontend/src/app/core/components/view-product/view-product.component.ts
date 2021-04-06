@@ -13,6 +13,7 @@ import { RequestAddProductRatingAction } from '../../../cpanel/store/actions/pro
 import { MatDialog } from '@angular/material/dialog';
 import { AddCommentComponent } from '../add-comment/add-comment.component';
 import { Subscription } from 'rxjs';
+import { RequestAddCartItemAction } from '../../../auth/store/actions/cart.actions';
 
 @Component({
   selector: 'app-view-product',
@@ -46,8 +47,18 @@ export class ViewProductComponent implements OnInit, OnDestroy {
   }
 
   public prepareImageToDisplay(images: ProductImageModel[]) {
-    if (!images) return;
     this.imageObject = [];
+
+    if (images.length == 0) {
+      this.imageObject.push({
+        image: 'assets/images/nophoto.png',
+        thumbImage: 'assets/images/nophoto.png',
+        title: 'No Photo',
+        alt: 'No Photo'
+      });
+      return;
+    }
+
     images.forEach(i => this.imageObject.push({
       image: this.sanitizeImage(i.image),
       thumbImage: this.sanitizeImage(i.image),
@@ -94,5 +105,14 @@ export class ViewProductComponent implements OnInit, OnDestroy {
       this.categoryList.forEach(c => this.categoryAsMap.set(c.categoryId, c.categoryName));
       this._getParamFromRoute();
     }));
+  }
+
+  public addProductToCart(productId: number) {
+    this.store.dispatch(RequestAddCartItemAction({
+      cartItemId: null,
+      productQuantity: null,
+      productId: productId,
+      userId: this.currentUser.userId
+    }))
   }
 }

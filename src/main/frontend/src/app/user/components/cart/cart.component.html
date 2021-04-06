@@ -1,0 +1,66 @@
+<section class="qa-section">
+  <div class="qa-card">
+    <div class="qa-card-header">
+      <h1 class="qa-card-title-container qa-card-title">Your Shopping Cart</h1>
+      <div class="qa-card-settings-box">
+        <span class="total">{{cartTotal}}</span>
+        <fa-icon class="qa-card-icon" icon="shopping-cart"></fa-icon>
+      </div>
+
+    </div>
+
+    <div *ngIf="currentUser.cartItems.length == 0" class="empty-cart">
+      <h1>Your cart is empty :(</h1>
+      <img src="assets/images/empty_cart.jpeg">
+      <a [routerLink]="['/landing', 'products']" class="qa-btn qa-btn-primary qa-btn-m">Start Shopping</a>
+    </div>
+
+    <div class="cart-container">
+      <div>
+        <div *ngFor="let item of currentUser.cartItems" class="cart-row">
+          <div class="cart-row-img">
+            <img *ngIf="productsAsMap.get(item.productId).images.length > 0"
+                 [src]="'data:image/jpeg;base64,'+ productsAsMap.get(item.productId).images[0]?.image">
+            <img *ngIf="productsAsMap.get(item.productId).images.length == 0" src="assets/images/nophoto.png">
+          </div>
+          <div class="cart-row-title">{{productsAsMap.get(item.productId).title}}</div>
+          <div class="cart-row-quantity-wrapper">
+            <div>
+              <button (click)="decreaseQuantity(item.cartItemId)" [disabled]="item.productQuantity <= 1"
+                      class="qa-btn-icon qa-btn-icon-info qa-btn-icon-xlg" type="button">
+                <fa-icon icon="minus-square"></fa-icon>
+              </button>
+            </div>
+            <div class="cart-row-quantity-wrapper-price">{{item.productQuantity}}</div>
+            <div>
+              <button (click)="increaseQuantity(item.cartItemId)" class="qa-btn-icon qa-btn-icon-info qa-btn-icon-xlg"
+                      type="button">
+                <fa-icon icon="plus-square"></fa-icon>
+              </button>
+            </div>
+          </div>
+          <div class="cart-row-price">
+            <p *ngIf="!cpanelService.discountExpired(productsAsMap.get(item.productId).expireDiscount)"
+               class="cart-row-price-n">{{productsAsMap.get(item.productId).price}}</p>
+            <p *ngIf="cpanelService.discountExpired(productsAsMap.get(item.productId).expireDiscount)"
+               class="cart-row-price-d">{{productsAsMap.get(item.productId).price - ((productsAsMap.get(item.productId).price * productsAsMap.get(item.productId).discountAmount) / 100)}}
+              <del>{{productsAsMap.get(item.productId).price}}</del>
+            </p>
+          </div>
+          <div>
+            <button (click)="deleteItemFromCart(item.cartItemId)" class="qa-btn-icon qa-btn-icon-danger qa-btn-icon-xlg"
+                    type="button">
+              <fa-icon icon="times"></fa-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="cart-checkout">
+        chekcgout
+      </div>
+
+    </div>
+
+
+  </div>
+</section>

@@ -6,7 +6,8 @@
         <li><a [routerLink]="['/landing', 'sale-products']" class="nav-main-item">offers</a></li>
         <li><a class="nav-main-item" href="#">who we are</a></li>
         <li><a class="nav-main-item" href="#">contact</a></li>
-        <li *ngIf="loggedUser"><a class="shopping-cart-notification" data-tooltip="22" href="#">
+        <li *ngIf="loggedUser"><a [attr.data-tooltip]="user.cartItems?.length" [routerLink]="['/user','cart']"
+                                  class="shopping-cart-notification">
           <fa-icon icon="shopping-cart"></fa-icon>
         </a></li>
         <li class="nav-main-search">
