@@ -11,5 +11,9 @@ public class ErrorConstants {
     public static final String PRODUCT_NOT_EXIST = "Product not found!";
     public static final String ITEM_EXIST_IN_CART = "Item already exists in the cart!";
     public static final String ITEM_NOT_EXIST_IN_CART = "Item does not exist in the cart!";
+    public static final String CART_EMPTY = "Cart is empty!";
+    public static final String INVALID_PRODUCT_QUANTITY = "One of the products does not have quantity!";
+    public static final String LOW_STOCK = "One of your products is out of stock or the quantity is too big for the current stock!";
+    public static final String ORDER_NOT_COMPLETE = "Order not placed! Something went wrong, please try again!";
 
 }

@@ -1,6 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 import { IdModel } from '../../../store/model/id.model';
 import { CartItems } from '../../model/CartItems';
+import { OrderDetails } from '../../model/OrderDetails';
 
 export const actionIdentifier = '[App User Cart] active';
 
@@ -13,6 +14,8 @@ export const CartItemTypes = {
   updateCartItemQuantityMinus: `${actionIdentifier} update CartItem Minus`,
   requestDeleteCartItem: `${actionIdentifier} Request Delete CartItem`,
   deleteCartItem: `${actionIdentifier} Delete CartItem`,
+  requestMakePayment: `${actionIdentifier} Request make payment`,
+  makePayment: `${actionIdentifier} make  payment`,
 };
 
 export const RequestAddCartItemAction = createAction(CartItemTypes.requestAddCartItem, props<CartItems>());
@@ -26,4 +29,7 @@ export const UpdateCartItemQuantityMinusAction = createAction(CartItemTypes.upda
 
 export const RequestDeleteCartItemAction = createAction(CartItemTypes.requestDeleteCartItem, props<IdModel>());
 export const DeleteCartItemAction = createAction(CartItemTypes.deleteCartItem, props<IdModel>());
+
+export const RequestMakePaymentAction = createAction(CartItemTypes.requestMakePayment, props<OrderDetails>());
+export const MakePaymentAction = createAction(CartItemTypes.makePayment, props<OrderDetails>());
 

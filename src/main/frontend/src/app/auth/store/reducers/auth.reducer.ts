@@ -147,6 +147,14 @@ const loginReducer: ActionReducer<AuthUserModel, Action> = createReducer(
       }
     })
   }),
+  on(CartActions.MakePaymentAction, (state: AuthUserModel, action: any) => ({
+    ...state,
+    authUser: {
+      ...state.authUser,
+      cartItems: [],
+      orderDetails: [...state.authUser.orderDetails, action],
+    }
+  }))
 );
 
 

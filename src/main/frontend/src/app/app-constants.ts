@@ -57,6 +57,7 @@ export const PRODUCT_RATED_UPDATED = 'Rating successfully received!';
 export const PRODUCT_REVIEW_ADD = 'Your review was successfully received!';
 //CART
 export const ITEM_ADDED = 'Item was successfully add into cart';
+export const ORDER_PLACED = 'Order successfully placed!';
 
 
 // ##########################################
@@ -75,13 +76,14 @@ export const ROUTE_PATH_DISPLAY_SALE_PRODUCTS = 'sale-products';
 export const ROUTE_PATH_CP_EDIT_PRODUCT = 'edit-product/';
 export const ROUTE_PATH_USER_PROFILE = 'profile';
 export const ROUTE_PATH_USER_CART = 'cart';
+export const ROUTE_PATH_USER_CHECKOUT = 'checkout';
+export const ROUTE_PATH_USER_CHECKOUT_COMPLETE = 'checkout-complete';
 
 // ##########################################
 // #             NGRX Constants             #
 // ##########################################
 export const NGRX_STATE_FEATURE_AUTH = 'auth';
 export const NGRX_STATE_FEATURE_APP = 'app';
-export const NGRX_STATE_CORE_APP = 'core';
 export const NGRX_STATE_CPANEL_APP = 'cpanel';
 
 

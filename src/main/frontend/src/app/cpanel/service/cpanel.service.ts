@@ -7,6 +7,7 @@ import { Product } from '../model/product.model';
 import { ProductComments } from '../model/product-comments.model';
 import { UpdatedStock } from '../model/updated-stock.model';
 import { UpdatedRating } from '../model/updated-rating.model';
+import { CartItems } from '../../auth/model/CartItems';
 
 
 @Injectable({providedIn: 'root'})
@@ -86,5 +87,22 @@ export class CpanelService {
   public discountExpired(date: Date | undefined): boolean {
     if (!date) return false;
     return new Date(date).setHours(0, 0, 0, 0) > new Date().setHours(0, 0, 0, 0);
+  }
+
+  public calculateTotal(cartItems: CartItems[], products: Map<number, Product>): number {
+    let cartTotal = 0;
+
+    if (!cartItems || !products) return 0;
+
+    cartItems.forEach(c => {
+      const isDiscounted = this.discountExpired(products.get(c.productId).expireDiscount);
+
+      if (isDiscounted) {
+        cartTotal += ((products.get(c.productId).price - (products.get(c.productId).price * products.get(c.productId).discountAmount) / 100) * c.productQuantity);
+      } else {
+        cartTotal += (products.get(c.productId).price * c.productQuantity)
+      }
+    })
+    return cartTotal
   }
 }

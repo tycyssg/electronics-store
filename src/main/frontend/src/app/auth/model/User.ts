@@ -2,6 +2,7 @@ import { UserAuthority } from './UserAuthority';
 import { PaymentDetails } from './PaymentDetails';
 import { Address } from './Address';
 import { CartItems } from './CartItems';
+import { OrderDetails } from './OrderDetails';
 
 export interface User {
   userId: string
@@ -13,6 +14,7 @@ export interface User {
   authorities: UserAuthority[];
   paymentDetails: PaymentDetails[];
   cartItems: CartItems[];
+  orderDetails: OrderDetails[];
   addresses: Address[];
   isActive: boolean;
   isLocked: boolean;

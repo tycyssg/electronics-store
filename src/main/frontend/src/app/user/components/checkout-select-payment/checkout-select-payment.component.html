@@ -1,0 +1,15 @@
+<div class="qa-card">
+  <div class="qa-card-header">
+    <h1 class="qa-card-title-container qa-card-title">Choose Different Payment</h1>
+    <div class="qa-card-settings-box">
+      <button (click)="onDialogClose()" class="qa-btn-icon qa-btn-icon-default qa-btn-icon-lg" title="Close Dialog">
+        <fa-icon icon="times"></fa-icon>
+      </button>
+    </div>
+  </div>
+  <div *ngFor="let p of data.payments">
+    <button [mat-dialog-close]="p" class="qa-btn qa-btn-primary qa-btn-s qa-btn-block mt-s">{{p.cardNoDisplay}}</button>
+  </div>
+
+</div>
+

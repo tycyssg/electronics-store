@@ -11,10 +11,15 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { CartComponent } from './components/cart/cart.component';
+import { CheckoutComponent } from './components/checkout/checkout.component';
+import { CheckoutSelectAddressComponent } from './components/checkout-select-address/checkout-select-address.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { CheckoutSelectPaymentComponent } from './components/checkout-select-payment/checkout-select-payment.component';
+import { CheckoutCompleteComponent } from './components/checkout-complete/checkout-complete.component';
 
 
 @NgModule({
-  declarations: [ProfileComponent, EditUserComponent, EditAddressComponent, EditPaymentComponent, CartComponent],
+  declarations: [ProfileComponent, EditUserComponent, EditAddressComponent, EditPaymentComponent, CartComponent, CheckoutComponent, CheckoutSelectAddressComponent, CheckoutSelectPaymentComponent, CheckoutCompleteComponent],
   imports: [
     CommonModule,
     UserRouterModule,
@@ -24,7 +29,8 @@ import { CartComponent } from './components/cart/cart.component';
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    MatInputModule
+    MatInputModule,
+    MatDialogModule
   ],
   providers: []
 })

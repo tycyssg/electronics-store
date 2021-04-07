@@ -163,4 +163,12 @@ public class UserController extends ExceptionHandling {
         cartItemService.deleteCartItem(cartItemId);
         return new ResponseEntity<>(cartItemId, OK);
     }
+
+    @PostMapping("/makePayment")
+    @ResponseBody
+    public ResponseEntity<OrderDetails> makePayment(@Valid @RequestBody OrderDetails orderDetails, BindingResult bindingResult) throws InvalidDataFormatException, NotExistException, ExistException {
+        if (bindingResult.hasErrors()) throw new InvalidDataFormatException();
+
+        return new ResponseEntity<>(cartItemService.makePayment(orderDetails), OK);
+    }
 }

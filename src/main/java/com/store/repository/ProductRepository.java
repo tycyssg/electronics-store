@@ -2,6 +2,7 @@ package com.store.repository;
 
 
 import com.store.models.Product;
+import com.store.selectInterfaces.OrderProduct;
 import com.store.selectInterfaces.UpdatedRating;
 import com.store.selectInterfaces.UpdatedStock;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -20,6 +21,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     UpdatedRating findUpdatedRatingByProductId(Long productId);
 
     UpdatedStock findUpdatedStockByProductId(Long productId);
+
+    OrderProduct findOrderProductByProductId(Long productId);
 
     @Modifying
     @Transactional
@@ -45,4 +48,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Transactional
     @Query("update Product p set p.title = ?1,p.manufactured = ?2,p.description = ?3,p.price = ?4,p.stock = ?5,p.discountAmount = ?6 ,p.expireDiscount = ?7,p.warranty = ?8  where p.productId = ?9")
     void updateProduct(String title, String manufactured, String description, Double price, Integer stock, Double discountAmount, Date expireDiscount, Integer warranty, Long productId);
+
+
 }

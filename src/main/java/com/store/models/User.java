@@ -58,6 +58,10 @@ public class User implements Serializable {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "userId")
+    private List<OrderDetails> orderDetails;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "userId")
     private List<CartItem> cartItems;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

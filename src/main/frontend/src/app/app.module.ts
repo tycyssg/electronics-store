@@ -35,6 +35,7 @@ import { CategoryEffects } from './cpanel/store/effects/category.effects';
 import { MatSelectModule } from '@angular/material/select';
 import { ProductEffects } from './cpanel/store/effects/product.effects';
 import { CartEffects } from './auth/store/effects/cart.effects';
+import { MatDialogRef } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -81,6 +82,7 @@ import { CartEffects } from './auth/store/effects/cart.effects';
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+    {provide: MatDialogRef, useValue: {}},
   ],
   bootstrap: [AppComponent]
 })

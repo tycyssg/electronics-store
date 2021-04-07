@@ -11,6 +11,14 @@
   }
 }
 
+.total-ck {
+  font-weight: 600;
+
+  &::before {
+    content: '\20AC';
+  }
+}
+
 .cart-container {
   display: grid;
   grid-gap: 2rem;
@@ -18,23 +26,19 @@
 }
 
 .cart-checkout {
-  border: 1px solid red;
-  height: 25rem;
+  height: 14rem;
+  min-width: 16rem;
+  padding: 2rem;
+  justify-items: center;
 }
 
 .cart-row {
   display: grid;
   grid-gap: 1rem;
-  grid-template-columns: repeat(2, 1fr) .5fr .5fr .2fr;
+  grid-template-columns: 1fr 4fr .5fr;
   border-bottom: 2px solid rgba($clr-black, .2);
-  padding-bottom: .5rem;
+  padding-bottom: .3rem;
 
-
-  & > * {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
 
   &-delete {
     font-size: 2rem;
@@ -51,7 +55,6 @@
     color: $clr-secondary;
     font-weight: 500;
     max-width: 40rem;
-    text-align: center;
   }
 
   &-quantity-wrapper {

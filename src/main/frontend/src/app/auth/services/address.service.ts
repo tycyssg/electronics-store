@@ -13,7 +13,7 @@ export class AddressService {
     addAddress: '/api/addAddress',
     updateAddress: '/api/updateAddress',
     makeBillingAddress: '/api/makeBillingAddress',
-    deleteAddress: '/api/deleteAddress'
+    deleteAddress: '/api/deleteAddress',
   };
 
   constructor(private readonly httpClient: HttpClient, private readonly store: Store<AuthState>) {

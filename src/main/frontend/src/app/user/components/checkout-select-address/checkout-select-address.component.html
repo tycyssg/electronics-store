@@ -1,0 +1,23 @@
+<div class="qa-card">
+  <div class="qa-card-header">
+    <h1 class="qa-card-title-container qa-card-title">Choose Different Address</h1>
+    <div class="qa-card-settings-box">
+      <button (click)="onDialogClose()" class="qa-btn-icon qa-btn-icon-default qa-btn-icon-lg" title="Close Dialog">
+        <fa-icon icon="times"></fa-icon>
+      </button>
+    </div>
+  </div>
+
+  <div class="address-change-wrapper">
+    <div *ngFor="let a of data.addresses" class="address-change-wrapper-item">
+      <p class="text-info">{{a.name}} {{a.surname}}</p>
+      <p>{{a.address1}}</p>
+      <p>{{a.city}} {{a.county}}</p>
+      <p>{{a.eirCode}}</p>
+      <p>{{a.country}}</p>
+      <button [mat-dialog-close]="a" class="qa-btn qa-btn-warning qa-btn-s qa-btn-block">Select this address</button>
+    </div>
+  </div>
+
+
+</div>

@@ -31,6 +31,7 @@ export class CartComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this._loadProducts();
     this._loadUser();
+    this.cartTotal = this.cpanelService.calculateTotal(this.currentUser.cartItems, this.productsAsMap);
   }
 
   ngOnDestroy(): void {
@@ -52,7 +53,6 @@ export class CartComponent implements OnInit, OnDestroy {
   private _loadUser() {
     this.subs.push(this.store.pipe(select(getAuthSelector)).subscribe(payload => {
       this.currentUser = payload.authUser;
-      this._calculateTotal();
     }));
   }
 
@@ -65,16 +65,4 @@ export class CartComponent implements OnInit, OnDestroy {
     }));
   }
 
-  private _calculateTotal() {
-    this.cartTotal = 0;
-    this.currentUser.cartItems.forEach(c => {
-      const isDiscounted = this.cpanelService.discountExpired(this.productsAsMap.get(c.productId).expireDiscount);
-
-      if (isDiscounted) {
-        this.cartTotal += ((this.productsAsMap.get(c.productId).price - (this.productsAsMap.get(c.productId).price * this.productsAsMap.get(c.productId).discountAmount) / 100) * c.productQuantity);
-      } else {
-        this.cartTotal += (this.productsAsMap.get(c.productId).price * c.productQuantity)
-      }
-    })
-  }
 }

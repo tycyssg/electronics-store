@@ -1,0 +1,15 @@
+@import 'src/styles/abstracts/variables';
+
+.address-change-wrapper {
+  display: grid;
+  grid-gap: 3rem;
+  grid-template-columns: repeat(3, 1fr);
+
+  &-item {
+    border: 1px solid rgba($clr-black, .3);
+    border-radius: .5rem;
+    padding: 1rem;
+    color: $clr-light-dark;
+    font-weight: 600;
+  }
+}

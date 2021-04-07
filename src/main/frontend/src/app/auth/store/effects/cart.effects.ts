@@ -5,9 +5,16 @@ import { Observable } from 'rxjs';
 import { Action } from '@ngrx/store';
 import * as CartActions from '../../../auth/store/actions/cart.actions';
 import { map, switchMap } from 'rxjs/operators';
-import { ITEM_ADDED, NOTIFICATION_TYPES, } from '../../../app-constants';
+import {
+  ITEM_ADDED,
+  NOTIFICATION_TYPES,
+  ORDER_PLACED,
+  ROUTE_PATH_USER_CHECKOUT_COMPLETE,
+} from '../../../app-constants';
 import { CartService } from '../../services/cart.service';
 import { CartItems } from '../../model/CartItems';
+import { OrderDetails } from '../../model/OrderDetails';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class CartEffects {
@@ -49,8 +56,17 @@ export class CartEffects {
     })
   ));
 
+  public makePayment$: Observable<Action> = createEffect(() => this.actions$.pipe(
+    ofType(CartActions.CartItemTypes.requestMakePayment),
+    switchMap((payload: any) => this.cartService.makePayment(payload)),
+    map((orderDetails: OrderDetails) => {
+      this.notifier.notify(NOTIFICATION_TYPES.success, ORDER_PLACED);
+      this.router.navigate(['/user', ROUTE_PATH_USER_CHECKOUT_COMPLETE])
+      return CartActions.MakePaymentAction(orderDetails)
+    })
+  ));
 
-  constructor(private readonly actions$: Actions, private readonly cartService: CartService, private readonly notifier: NotifierService) {
+  constructor(private readonly actions$: Actions, private readonly cartService: CartService, private readonly notifier: NotifierService, private readonly router: Router) {
   }
 
 }

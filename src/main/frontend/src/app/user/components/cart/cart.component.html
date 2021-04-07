@@ -16,26 +16,36 @@
     </div>
 
     <div class="cart-container">
-      <div>
+      <div class="cart-row-container">
         <div *ngFor="let item of currentUser.cartItems" class="cart-row">
           <div class="cart-row-img">
             <img *ngIf="productsAsMap.get(item.productId).images.length > 0"
                  [src]="'data:image/jpeg;base64,'+ productsAsMap.get(item.productId).images[0]?.image">
             <img *ngIf="productsAsMap.get(item.productId).images.length == 0" src="assets/images/nophoto.png">
           </div>
-          <div class="cart-row-title">{{productsAsMap.get(item.productId).title}}</div>
-          <div class="cart-row-quantity-wrapper">
-            <div>
-              <button (click)="decreaseQuantity(item.cartItemId)" [disabled]="item.productQuantity <= 1"
-                      class="qa-btn-icon qa-btn-icon-info qa-btn-icon-xlg" type="button">
-                <fa-icon icon="minus-square"></fa-icon>
-              </button>
+          <div>
+            <h1 class="cart-row-title">{{productsAsMap.get(item.productId).title}}</h1>
+            <p *ngIf="productsAsMap.get(item.productId).stock > 0" class="text-success">In Stock</p>
+            <div class="cart-row-quantity-wrapper">
+              <div>
+                <button (click)="decreaseQuantity(item.cartItemId)" [disabled]="item.productQuantity <= 1"
+                        class="qa-btn-icon qa-btn-icon-info qa-btn-icon-xlg" type="button">
+                  <fa-icon icon="minus-square"></fa-icon>
+                </button>
+              </div>
+              <div class="cart-row-quantity-wrapper-price">{{item.productQuantity}}</div>
+              <div>
+                <button (click)="increaseQuantity(item.cartItemId)" class="qa-btn-icon qa-btn-icon-info qa-btn-icon-xlg"
+                        type="button">
+                  <fa-icon icon="plus-square"></fa-icon>
+                </button>
+              </div>
             </div>
-            <div class="cart-row-quantity-wrapper-price">{{item.productQuantity}}</div>
             <div>
-              <button (click)="increaseQuantity(item.cartItemId)" class="qa-btn-icon qa-btn-icon-info qa-btn-icon-xlg"
+              <button (click)="deleteItemFromCart(item.cartItemId)" class="qa-btn qa-btn-danger qa-btn-icon-s"
                       type="button">
-                <fa-icon icon="plus-square"></fa-icon>
+                <fa-icon icon="times"></fa-icon>
+                Remove
               </button>
             </div>
           </div>
@@ -47,16 +57,13 @@
               <del>{{productsAsMap.get(item.productId).price}}</del>
             </p>
           </div>
-          <div>
-            <button (click)="deleteItemFromCart(item.cartItemId)" class="qa-btn-icon qa-btn-icon-danger qa-btn-icon-xlg"
-                    type="button">
-              <fa-icon icon="times"></fa-icon>
-            </button>
-          </div>
         </div>
       </div>
+
       <div class="cart-checkout">
-        chekcgout
+        <h1>Subtotal ({{currentUser.cartItems.length}} items) <span class="total-ck">{{cartTotal}}</span></h1>
+        <small>Eligible for FREE Shipping</small>
+        <a [routerLink]="['/user','checkout']" class="qa-btn qa-btn-warning qa-btn-block">Proceed to checkout</a>
       </div>
 
     </div>

@@ -13,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 public interface CartItemsRepository extends JpaRepository<CartItem, Long> {
     boolean existsByProductId(Long productId);
 
+    void deleteAllByUserId(Long userId);
+
     @Modifying
     @Transactional
     @Query("update CartItem c set c.productQuantity = c.productQuantity + ?1 where c.cartItemId = ?2")
@@ -22,5 +24,6 @@ public interface CartItemsRepository extends JpaRepository<CartItem, Long> {
     @Transactional
     @Query("update CartItem c set c.productQuantity = c.productQuantity - ?1 where c.cartItemId = ?2")
     void updateQuantityMinus(Integer productQuantity, Long cartItemId);
+
 
 }

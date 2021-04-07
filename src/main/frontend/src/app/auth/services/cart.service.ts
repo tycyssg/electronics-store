@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AuthState } from '../store/state/auth-state';
 import { CartItems } from '../model/CartItems';
+import { OrderDetails } from '../model/OrderDetails';
 
 @Injectable({providedIn: 'root'})
 export class CartService {
@@ -14,6 +15,7 @@ export class CartService {
     updateCartItemPlus: '/api/updateCartItemPlus',
     updateCartItemMinus: '/api/updateCartItemMinus',
     deleteCartItem: '/api/deleteCartItem',
+    makePayment: '/api/makePayment',
   };
 
   constructor(private readonly httpClient: HttpClient, private readonly store: Store<AuthState>) {
@@ -39,6 +41,10 @@ export class CartService {
     const url = `${this.urls.deleteCartItem}/${cartItemId}`;
 
     return this.httpClient.delete<number>(url);
+  }
+
+  public makePayment(order: OrderDetails): Observable<OrderDetails> {
+    return this.httpClient.post<OrderDetails>(this.urls.makePayment, order, {headers: HEADERS_FOR_POST});
   }
 
 }

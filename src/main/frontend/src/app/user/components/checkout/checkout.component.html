@@ -1,0 +1,67 @@
+<section class="qa-section">
+  <div class="qa-card">
+    <div class="qa-card-header">
+      <h1 class="qa-card-title-container qa-card-title">Review your order</h1>
+      <fa-icon [icon]="['fab','buffer']" class="qa-card-icon"></fa-icon>
+    </div>
+
+    <div class="main-wrapper">
+      <div class="main-left-side">
+        <div class="settings-wrapper">
+          <div class="products-side">
+            <div *ngFor="let item of currentUser.cartItems" class="products-side-wrapper">
+              <div class="products-side-wrapper-img">
+                <img *ngIf="productsAsMap.get(item.productId).images.length > 0"
+                     [src]="'data:image/jpeg;base64,'+ productsAsMap.get(item.productId).images[0]?.image">
+                <img *ngIf="productsAsMap.get(item.productId).images.length == 0" src="assets/images/nophoto.png">
+              </div>
+              <div class="products-side-wrapper-title">
+                <h1>{{productsAsMap.get(item.productId).title}}</h1>
+                <p class="products-side-wrapper-title-w">Produced
+                  by: {{productsAsMap.get(item.productId).manufactured}}</p>
+                <p class="products-side-wrapper-title-w">Warranty: {{productsAsMap.get(item.productId).warranty}}
+                  years</p>
+                <p class="products-side-wrapper-title-q">Quantity: {{item.productQuantity}}</p>
+              </div>
+              <div class="products-side-wrapper-price">
+                <span *ngIf="!cpanelService.discountExpired(productsAsMap.get(item.productId).expireDiscount)"
+                      class="cart-row-price-n">{{productsAsMap.get(item.productId).price}}</span>
+                <span *ngIf="cpanelService.discountExpired(productsAsMap.get(item.productId).expireDiscount)"
+                      class="cart-row-price-d">{{productsAsMap.get(item.productId).price - ((productsAsMap.get(item.productId).price * productsAsMap.get(item.productId).discountAmount) / 100)}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="settings-side">
+
+            <div class="settings-container" data-tooltip="Delivery Address">
+              <p
+                class="settings-container-main">{{orderForm.get('address').value['name']}} {{orderForm.get('address').value['surname']}}</p>
+              <p>{{orderForm.get('address').value['address1']}}</p>
+              <p>{{orderForm.get('address').value['city']}} {{orderForm.get('address').value['county']}}</p>
+              <p>{{orderForm.get('address').value['eirCode']}}</p>
+              <p>{{orderForm.get('address').value['country']}}</p>
+              <p (click)="onChangeAddress()" *ngIf="currentUser.addresses.length > 1" class="settings-container-change">
+                Change Address</p>
+            </div>
+
+            <div class="settings-container" data-tooltip="Payment Details">
+              <p class="settings-container-main">{{orderForm.get('payment').value['cardNoDisplay']}}</p>
+              <p>Expire: {{orderForm.get('payment').value['expireDate']}}</p>
+              <p (click)="onChangePayment()" *ngIf="currentUser.paymentDetails.length > 1"
+                 class="settings-container-change">Change Payment</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="main-right-side">
+        <button (click)="onPay()" class="qa-btn qa-btn-warning qa-btn-s text-dark qa-btn-block">Pay</button>
+        <hr class="hr-custom">
+        <h3 class="text-danger">Order Total: {{cartTotal}}</h3>
+      </div>
+
+    </div>
+
+
+  </div>
+</section>
