@@ -122,4 +122,26 @@
 
   </div>
 
+  <div class="qa-card mt-s">
+    <div class="qa-card-header">
+      <h1 class="qa-card-title-container qa-card-title">Simulate product buy</h1>
+      <fa-icon class="qa-card-icon" icon="shopping-cart"></fa-icon>
+    </div>
+
+    <form (ngSubmit)="onSimulateBuy()" [formGroup]="simulateProductForm">
+      <div class="font-xs">
+        <mat-form-field appearance="outline" class="w-25">
+          <mat-label>Product Quantity</mat-label>
+          <input formControlName="stock" matInput placeholder="Product Quantity" type="number">
+          <mat-error *ngIf="simulateProductForm.get('stock')?.hasError('required')" class="font-xs">Product quantity is
+            required!
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <button [disabled]="!simulateProductForm.valid" class="qa-btn qa-btn-s qa-btn-primary" type="submit">Simulate
+        buy
+      </button>
+    </form>
+
+  </div>
 </section>

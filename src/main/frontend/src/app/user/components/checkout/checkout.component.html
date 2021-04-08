@@ -1,4 +1,4 @@
-<section class="qa-section">
+<section *ngIf="currentUser.cartItems.length > 0" class="qa-section">
   <div class="qa-card">
     <div class="qa-card-header">
       <h1 class="qa-card-title-container qa-card-title">Review your order</h1>
@@ -57,7 +57,7 @@
       <div class="main-right-side">
         <button (click)="onPay()" class="qa-btn qa-btn-warning qa-btn-s text-dark qa-btn-block">Pay</button>
         <hr class="hr-custom">
-        <h3 class="text-danger">Order Total: {{cartTotal}}</h3>
+        <h3 class="text-danger">Order Total: {{cartTotal | number}}</h3>
       </div>
 
     </div>

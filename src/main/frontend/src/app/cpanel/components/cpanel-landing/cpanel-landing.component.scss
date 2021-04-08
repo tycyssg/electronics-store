@@ -47,7 +47,7 @@
     padding: .5rem 0;
 
     &:not(:last-child) {
-      border-bottom: 1px solid $qa-color-light-3;
+      border-bottom: 1px solid $clr-light-3;
     }
   }
 }
@@ -74,4 +74,29 @@
   margin-left: .2rem;
   color: $clr-info;
   cursor: pointer;
+}
+
+tr.detail-row {
+  height: 0;
+}
+
+tr.element-row:not(.expanded-row):hover {
+  background: whitesmoke;
+  cursor: pointer;
+}
+
+tr.element-row:not(.expanded-row):active {
+  background: #efefef;
+}
+
+.element-row td {
+  border-bottom-width: 0;
+}
+
+.element-detail {
+  overflow: hidden;
+}
+
+.bg-row {
+  background-color: rgba($clr-black, .1);
 }

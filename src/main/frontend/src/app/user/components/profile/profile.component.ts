@@ -13,6 +13,8 @@ import { EditPaymentComponent } from '../edit-payment/edit-payment.component';
 import { RequestChangePaymentAction, RequestDeletePaymentAction } from '../../../auth/store/actions/payment.actions';
 import { AuthService } from '../../../auth/services/auth.service';
 import { Subscription } from 'rxjs';
+import { getCategoriesSelector } from '../../../cpanel/store/selectors/cpanel.selector';
+import { Product } from '../../../cpanel/model/product.model';
 
 @Component({
   selector: 'app-profile',
@@ -21,9 +23,10 @@ import { Subscription } from 'rxjs';
 })
 export class ProfileComponent implements OnInit, OnDestroy {
 
+  public productsAsMap: Map<number, Product> = new Map<number, Product>();
   public currentUser: User = undefined;
   public roles: any = OPTION_ROLES;
-  private subs: Subscription = undefined;
+  private subs: Array<Subscription> = [];
 
   constructor(
     private readonly store: Store<AuthState>,
@@ -34,20 +37,30 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this._loadCurrentUser();
+    this._loadProducts();
+  }
+
+  ngOnDestroy(): void {
+    this.subs.forEach(s => s.unsubscribe());
   }
 
   public onEditUserDetails() {
     this.dialog.open(EditUserComponent, {width: '650px', disableClose: true, data: {user: this.currentUser}});
   }
 
-  ngOnDestroy(): void {
-    this.subs.unsubscribe();
+  private _loadProducts() {
+    this.subs.push(this.store.pipe(select(getCategoriesSelector)).subscribe(payload => {
+      this.productsAsMap = new Map<number, Product>();
+      payload.categories.forEach(c => {
+        c.products.forEach(p => this.productsAsMap.set(p.productId, p));
+      });
+    }));
   }
 
   private _loadCurrentUser() {
-    this.subs = this.store.pipe(select(getAuthSelector)).subscribe(payload => {
+    this.subs.push(this.store.pipe(select(getAuthSelector)).subscribe(payload => {
       this.currentUser = payload.authUser;
-    })
+    }));
   }
 
   public onAddAddress() {

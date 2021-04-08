@@ -9,6 +9,14 @@
 
     <div class="font-xs">
       <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Filter By Category</mat-label>
+        <mat-select (selectionChange)="filterByCategory($event)" [value]="0">
+          <mat-option [value]="0">All Categories</mat-option>
+          <mat-option *ngFor="let c of categoryList" [value]="c.categoryId">{{c.categoryName}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-100">
         <mat-label>Filter By title or manufactured</mat-label>
         <input [formControl]="filterControl" matInput placeholder="First impression about product" type="text">
       </mat-form-field>

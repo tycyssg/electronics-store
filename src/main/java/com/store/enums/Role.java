@@ -14,10 +14,11 @@ public enum Role {
     ROLE_USER(USER_AUTHORITIES),
     ROLE_SUPER_ADMIN(SUPER_ADMIN_AUTHORITIES);
 
-    private final List<Authority> authorities;
+    private List<Authority> authorities;
+
 
     Role(String... authorities) {
-        this.authorities = stream(authorities).map(Authority::new).collect(Collectors.toList());
+        this.authorities = stream(authorities).map(a -> new Authority(null, a)).collect(Collectors.toList());
     }
 
     public List<Authority> getAuthorities() {

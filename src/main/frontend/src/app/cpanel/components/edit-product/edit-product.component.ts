@@ -8,7 +8,11 @@ import { getCategoriesSelector } from '../../store/selectors/cpanel.selector';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import * as _moment from 'moment';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
-import { RequestUpdateProductAction, UpdateProductImageAction } from '../../store/actions/products.actions';
+import {
+  RequestSimulateBuyAction,
+  RequestUpdateProductAction,
+  UpdateProductImageAction
+} from '../../store/actions/products.actions';
 import { HttpEventType } from '@angular/common/http';
 import { UploadFilesModel } from '../../model/upload-files.model';
 import { CpanelService } from '../../service/cpanel.service';
@@ -28,6 +32,11 @@ export class EditProductComponent implements OnInit, OnDestroy {
   public imagesToUpload: UploadFilesModel[] = [];
   public uploadFilesPress: boolean = false;
   public imageObject: Array<object> = [];
+  public simulateProductForm: FormGroup = new FormGroup({
+    productId: new FormControl(null),
+    stock: new FormControl(null, Validators.required),
+  });
+
   public productForm: FormGroup = new FormGroup({
     productId: new FormControl(null),
     title: new FormControl(null, Validators.required),
@@ -41,6 +50,7 @@ export class EditProductComponent implements OnInit, OnDestroy {
     categoryId: new FormControl(null, Validators.required)
   });
   private subs: Subscription = undefined;
+
 
 
   constructor(private readonly store: Store<State>, private readonly route: ActivatedRoute, private readonly router: Router, private readonly cpanelService: CpanelService, private readonly sanitizer: DomSanitizer) {
@@ -130,6 +140,20 @@ export class EditProductComponent implements OnInit, OnDestroy {
     this.subs.unsubscribe();
   }
 
+  public onSimulateBuy() {
+    this.store.dispatch(RequestSimulateBuyAction(this.simulateProductForm.value));
+    this.simulateProductForm.reset({productId: this.editProduct.productId})
+  }
+
+  private _loadCategories() {
+    this.subs = this.store.pipe(select(getCategoriesSelector)).subscribe(payload => {
+      this.categoryList = payload.categories;
+      this.categoryAsMap = new Map<number, string>();
+      this.categoryList.forEach(c => this.categoryAsMap.set(c.categoryId, c.categoryName));
+      this._getParamFromRoute();
+    });
+  }
+
   private _getParamFromRoute() {
     this.route.params.subscribe(p => {
       const pId = p['productId']
@@ -142,17 +166,9 @@ export class EditProductComponent implements OnInit, OnDestroy {
 
       this.editProduct = this.categoryList[categoryIndex].products.find(p => p.productId == pId);
       this.productForm.patchValue(this.editProduct);
+      this.simulateProductForm.get('productId').setValue(this.editProduct.productId);
       this.productForm.disable({onlySelf: true})
       this.prepareImageToDisplay(this.editProduct.images);
-    });
-  }
-
-  private _loadCategories() {
-    this.subs = this.store.pipe(select(getCategoriesSelector)).subscribe(payload => {
-      this.categoryList = payload.categories;
-      this.categoryAsMap = new Map<number, string>();
-      this.categoryList.forEach(c => this.categoryAsMap.set(c.categoryId, c.categoryName));
-      this._getParamFromRoute();
     });
   }
 }

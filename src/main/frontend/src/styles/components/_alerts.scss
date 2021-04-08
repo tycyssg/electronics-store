@@ -3,7 +3,7 @@
 .alert {
   border-radius: 0;
   -webkit-border-radius: 0;
-  box-shadow: 0 .3rem .5rem rgba($qa-color-black, 0.15);
+  box-shadow: 0 .3rem .5rem rgba($clr-black, 0.15);
   min-width: 50vh;
   width: 100%;
   margin-bottom: 3rem;
@@ -11,10 +11,10 @@
   overflow: hidden;
   border: transparent;
   outline: 0;
-  color: $qa-color-dark;
+  color: $clr-dark;
   padding: 1.2rem 6.5rem;
   font-size: 1.6rem;
-  background-image: linear-gradient(to left bottom, $qa-color-white, $qa-color-light-1);
+  background-image: linear-gradient(to left bottom, $clr-white, $clr-light-1);
 
   &-rounded {
     border-radius: .5rem;
@@ -28,7 +28,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    background: $qa-color-dark;
+    background: $clr-dark;
     outline: 0;
     border: transparent;
 
@@ -46,7 +46,7 @@
       position: absolute;
       top: 50%;
       right: 0;
-      background: $qa-color-dark;
+      background: $clr-dark;
     }
 
     &-i {
@@ -56,7 +56,7 @@
       transform: translateY(-50%);
       top: 50%;
       z-index: 10;
-      color: $qa-color-white;
+      color: $clr-white;
     }
   }
 
@@ -66,7 +66,7 @@
     right: 0;
     outline: 0;
     border: 0;
-    background-color: $qa-color-light-2;
+    background-color: $clr-light-2;
     cursor: pointer;
     transition: all .3s ease-in-out;
 
@@ -78,105 +78,105 @@
 }
 
 .alert-danger {
-  color: $qa-color-danger-fade;
+  color: $clr-danger-fade;
 
   & > .alert-icon {
-    background: $qa-color-danger-fade;
+    background: $clr-danger-fade;
 
     &:after {
-      background: $qa-color-danger-fade;
+      background: $clr-danger-fade;
     }
   }
 
   & > .alert-close-button {
-    color: $qa-color-danger-fade;
+    color: $clr-danger-fade;
 
     :hover {
-      color: darken($qa-color-danger-fade, 10%);
+      color: darken($clr-danger-fade, 10%);
     }
   }
 
 }
 
 .alert-success {
-  color: $qa-color-success;
+  color: $clr-success;
 
   & > .alert-icon {
-    background: $qa-color-success;
+    background: $clr-success;
 
     &:after {
-      background: $qa-color-success;
+      background: $clr-success;
     }
   }
 
   & > .alert-close-button {
-    color: $qa-color-success;
+    color: $clr-success;
 
     :hover {
-      color: darken($qa-color-success, 10%);
+      color: darken($clr-success, 10%);
     }
   }
 
 }
 
 .alert-warning {
-  color: $qa-color-warning-fade;
+  color: $clr-warning-fade;
 
   & > .alert-icon {
-    background: $qa-color-warning-fade;
+    background: $clr-warning-fade;
 
     &:after {
-      background: $qa-color-warning-fade;
+      background: $clr-warning-fade;
     }
   }
 
   & > .alert-close-button {
-    color: $qa-color-warning-fade;
+    color: $clr-warning-fade;
 
     :hover {
-      color: darken($qa-color-warning-fade, 10%);
+      color: darken($clr-warning-fade, 10%);
     }
   }
 
 }
 
 .alert-info {
-  color: $qa-color-info-fade;
+  color: $clr-info-fade;
 
   & > .alert-icon {
-    background: $qa-color-info-fade;
+    background: $clr-info-fade;
 
     &:after {
-      background: $qa-color-info-fade;
+      background: $clr-info-fade;
     }
   }
 
   & > .alert-close-button {
-    color: $qa-color-info-fade;
+    color: $clr-info-fade;
 
     :hover {
-      color: darken($qa-color-info-fade, 10%);
+      color: darken($clr-info-fade, 10%);
     }
   }
 
 }
 
 .alert-primary {
-  color: $qa-color-primary-fade;
+  color: $clr-primary-fade;
 
   & > .alert-icon {
-    background: $qa-color-primary-fade;
+    background: $clr-primary-fade;
 
     &:after {
-      background: $qa-color-primary-fade;
+      background: $clr-primary-fade;
     }
   }
 
   & > .alert-close-button {
-    color: $qa-color-primary-fade;
+    color: $clr-primary-fade;
 
     :hover {
-      color: darken($qa-color-primary-fade, 10%);
+      color: darken($clr-primary-fade, 10%);
     }
   }
 

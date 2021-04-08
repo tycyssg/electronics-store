@@ -17,6 +17,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 import static com.store.constants.SecurityConstants.EXPIRATION_TIME;
 import static org.springframework.http.HttpStatus.OK;
@@ -69,8 +70,7 @@ public class UserController extends ExceptionHandling {
     public ResponseEntity<String> register(@Valid @RequestBody User user, BindingResult bindingResult) throws UsernameExistException, EmailExistException, InvalidDataFormatException {
         if (bindingResult.hasErrors()) throw new InvalidDataFormatException();
 
-        String response = userService.register(user);
-        return new ResponseEntity<>(response, OK);
+        return new ResponseEntity<>(userService.register(user), OK);
     }
 
 
@@ -102,6 +102,12 @@ public class UserController extends ExceptionHandling {
     public ResponseEntity<Long> makeBillingAddress(@PathVariable("addressId") Long addressId, @PathVariable("userId") String userId) throws NotExistException {
         addressService.makeAddressBillingAddress(addressId, userId);
         return new ResponseEntity<>(addressId, OK);
+    }
+
+    @GetMapping("/findAllUsers")
+    @ResponseBody
+    public ResponseEntity<List<User>> findAll() {
+        return new ResponseEntity<>(userService.findAllUsers(), OK);
     }
 
     @DeleteMapping("/deleteAddress/{addressId}")

@@ -3,10 +3,9 @@
     <div class="qa-card-header">
       <h1 class="qa-card-title-container qa-card-title">Your Shopping Cart</h1>
       <div class="qa-card-settings-box">
-        <span class="total">{{cartTotal}}</span>
+        <span class="total">{{cartTotal | number}}</span>
         <fa-icon class="qa-card-icon" icon="shopping-cart"></fa-icon>
       </div>
-
     </div>
 
     <div *ngIf="currentUser.cartItems.length == 0" class="empty-cart">
@@ -15,7 +14,7 @@
       <a [routerLink]="['/landing', 'products']" class="qa-btn qa-btn-primary qa-btn-m">Start Shopping</a>
     </div>
 
-    <div class="cart-container">
+    <div *ngIf="currentUser.cartItems.length > 0" class="cart-container">
       <div class="cart-row-container">
         <div *ngFor="let item of currentUser.cartItems" class="cart-row">
           <div class="cart-row-img">
@@ -61,7 +60,7 @@
       </div>
 
       <div class="cart-checkout">
-        <h1>Subtotal ({{currentUser.cartItems.length}} items) <span class="total-ck">{{cartTotal}}</span></h1>
+        <h1>Subtotal ({{currentUser.cartItems.length}} items) <span class="total-ck">{{cartTotal | number}}</span></h1>
         <small>Eligible for FREE Shipping</small>
         <a [routerLink]="['/user','checkout']" class="qa-btn qa-btn-warning qa-btn-block">Proceed to checkout</a>
       </div>

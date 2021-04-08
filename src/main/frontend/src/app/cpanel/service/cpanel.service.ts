@@ -8,6 +8,7 @@ import { ProductComments } from '../model/product-comments.model';
 import { UpdatedStock } from '../model/updated-stock.model';
 import { UpdatedRating } from '../model/updated-rating.model';
 import { CartItems } from '../../auth/model/CartItems';
+import { User } from '../../auth/model/User';
 
 
 @Injectable({providedIn: 'root'})
@@ -25,6 +26,8 @@ export class CpanelService {
     updateProductStock: '/api/updateProductStock',
     updateRating: '/api/updateRating',
     addProductComment: '/api/addProductComment',
+    simulateBuy: '/api/simulateBuy',
+    findAllUsers: '/api/findAllUsers'
   };
 
   constructor(private readonly httpClient: HttpClient) {
@@ -82,6 +85,17 @@ export class CpanelService {
 
   public addProductComment(comment: ProductComments): Observable<ProductComments> {
     return this.httpClient.post<ProductComments>(this.urls.addProductComment, comment, {headers: HEADERS_FOR_POST});
+  }
+
+  public simulateBuy(updateStock: UpdatedStock): Observable<Product> {
+    const url = `${this.urls.simulateBuy}/${updateStock.productId}`;
+    let body = new HttpParams();
+    body = body.set('quantity', updateStock.stock + '');
+    return this.httpClient.put<Product>(url, null, {headers: HEADERS_FOR_POST, params: body});
+  }
+
+  public findAllUsers(): Observable<User[]> {
+    return this.httpClient.get<User[]>(this.urls.findAllUsers);
   }
 
   public discountExpired(date: Date | undefined): boolean {

@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.Date;
+import java.util.List;
 
 import static com.store.constants.UserImplConstant.*;
 import static com.store.enums.Role.ROLE_USER;
@@ -60,6 +61,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public User findUserByUsername(String username) {
         return userRepository.findUserByUsername(username);
+    }
+
+    @Override
+    public List<User> findAllUsers() {
+        return userRepository.findAll();
     }
 
     @Override

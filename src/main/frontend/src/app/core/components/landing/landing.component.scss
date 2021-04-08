@@ -7,7 +7,7 @@
   margin: 0 auto;
 
   &-card {
-    background: linear-gradient($qa-color-light-dark-1, $qa-color-dark-2);
+    background: linear-gradient($clr-light-dark, $clr-light-dark);
     height: 60rem;
   }
 
@@ -21,7 +21,7 @@
   width: 40%;
 
   & h1 {
-    color: $qa-color-light-4;
+    color: $clr-light-4;
     text-transform: uppercase;
     font-size: 3.5rem;
     font-family: $qa-landing-font;
@@ -33,7 +33,7 @@
   & h3 {
     margin-top: 3rem;
     font-size: 1.7rem;
-    color: $qa-color-dark-grey-1;
+    color: $clr-dark-grey;
   }
 
   & a {

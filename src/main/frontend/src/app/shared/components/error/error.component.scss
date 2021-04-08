@@ -2,12 +2,12 @@
 
 .not-found {
   font-size: 10rem;
-  background: linear-gradient(to left bottom, $qa-color-danger, $qa-color-dark);
+  background: linear-gradient(to left bottom, $clr-danger, $clr-dark);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   font-weight: 700;
   letter-spacing: 2rem;
-  text-shadow: 0 .3rem .4rem rgba($qa-color-black, .4);
+  text-shadow: 0 .3rem .4rem rgba($clr-black, .4);
 
   & fa-icon {
     font-size: 8rem;

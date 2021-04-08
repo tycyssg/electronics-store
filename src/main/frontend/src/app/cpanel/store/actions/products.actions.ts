@@ -22,6 +22,8 @@ export const ProductTypes = {
   addProductRating: `${actionIdentifier} add Product rating`,
   requestAddProductComment: `${actionIdentifier} Request add Product Comment`,
   addProductComment: `${actionIdentifier} add Product Comment`,
+  requestSimulateBuy: `${actionIdentifier} Request simulate buy Product`,
+  simulateBuy: `${actionIdentifier} simulate buy Product`,
 };
 
 export const RequestAddProductAction = createAction(ProductTypes.requestAddProduct, props<Product>());
@@ -43,3 +45,6 @@ export const AddProductRatingAction = createAction(ProductTypes.addProductRating
 
 export const RequestAddProductCommentAction = createAction(ProductTypes.requestAddProductComment, props<ProductComments>());
 export const AddProductCommentAction = createAction(ProductTypes.addProductComment, props<ProductComments>());
+
+export const RequestSimulateBuyAction = createAction(ProductTypes.requestSimulateBuy, props<UpdatedStock>());
+export const SimulateBuyAction = createAction(ProductTypes.simulateBuy, props<UpdatedStock>());

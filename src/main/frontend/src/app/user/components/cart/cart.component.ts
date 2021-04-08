@@ -31,7 +31,6 @@ export class CartComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this._loadProducts();
     this._loadUser();
-    this.cartTotal = this.cpanelService.calculateTotal(this.currentUser.cartItems, this.productsAsMap);
   }
 
   ngOnDestroy(): void {
@@ -53,6 +52,7 @@ export class CartComponent implements OnInit, OnDestroy {
   private _loadUser() {
     this.subs.push(this.store.pipe(select(getAuthSelector)).subscribe(payload => {
       this.currentUser = payload.authUser;
+      this.cartTotal = this.cpanelService.calculateTotal(this.currentUser.cartItems, this.productsAsMap);
     }));
   }
 

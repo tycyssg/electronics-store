@@ -16,8 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 import static com.store.constants.ErrorConstants.CATEGORY_NOT_EXIST;
 import static com.store.constants.ErrorConstants.PRODUCT_NOT_EXIST;
 
@@ -126,16 +124,6 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product getProduct(Long productId) {
         return productRepository.findById(productId).orElse(null);
-    }
-
-    @Override
-    public List<Product> getAllProducts() {
-        return null;
-    }
-
-    @Override
-    public Product getSingleProduct(Long productId) {
-        return null;
     }
 
 }

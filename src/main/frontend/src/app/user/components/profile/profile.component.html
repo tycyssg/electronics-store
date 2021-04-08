@@ -98,4 +98,74 @@
     </div>
   </div>
 
+  <div class="qa-card mt-s">
+    <div class="qa-card-header">
+      <h1 class="qa-card-title-container qa-card-title">Order History</h1>
+      <fa-icon class="qa-card-icon" icon="history"></fa-icon>
+    </div>
+
+    <app-custom-alert *ngIf="currentUser.orderDetails.length == 0" alertIcon="info"
+                      alertText="You didn't place any order yet." alertType="info"
+                      strongText="No orders :("></app-custom-alert>
+
+
+    <div *ngIf="currentUser.orderDetails.length > 0">
+      <mat-accordion *ngFor="let o of currentUser.orderDetails">
+        <mat-expansion-panel hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Order Id: {{o.orderId}}
+            </mat-panel-title>
+            <mat-panel-description>
+              Placed at: {{o.orderDate | date}}
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+
+          <div class="settings-wrapper">
+            <div class="products-side">
+              <div *ngFor="let item of o.products" class="products-side-wrapper">
+                <div class="products-side-wrapper-img">
+                  <img *ngIf="productsAsMap.get(item.productId).images.length > 0"
+                       [src]="'data:image/jpeg;base64,'+ productsAsMap.get(item.productId).images[0]?.image">
+                  <img *ngIf="productsAsMap.get(item.productId).images.length == 0" src="assets/images/nophoto.png">
+                </div>
+                <div class="products-side-wrapper-title">
+                  <h1>{{productsAsMap.get(item.productId).title}}</h1>
+                  <p class="products-side-wrapper-title-w">Produced
+                    by: {{productsAsMap.get(item.productId).manufactured}}</p>
+                  <p class="products-side-wrapper-title-w">Warranty: {{productsAsMap.get(item.productId).warranty}}
+                    years</p>
+                  <p class="products-side-wrapper-title-q">Quantity: {{item.quantity}}</p>
+                </div>
+                <div class="products-side-wrapper-price">
+                  <span class="cart-row-price-n">{{productsAsMap.get(item.productId).price}}</span>
+                </div>
+              </div>
+            </div>
+            <div class="settings-side">
+              <div class="settings-container" data-tooltip="Delivery Address">
+                <p class="settings-container-main">{{o.address.name}} {{o.address.surname}}</p>
+                <p>{{o.address.address1}}</p>
+                <p>{{o.address.city}} {{o.address.county}}</p>
+                <p>{{o.address.eirCode}}</p>
+                <p>{{o.address.county}}</p>
+              </div>
+
+              <div class="settings-container" data-tooltip="Payment Details">
+                <p class="settings-container-main">{{o.payment.cardNoDisplay}}</p>
+                <p>Expire: {{o.payment.expireDate}}</p>
+              </div>
+
+              <div class="settings-container" data-tooltip="Total Paid">
+                <p class="settings-container-main">&euro;{{o.orderTotal}}</p>
+              </div>
+            </div>
+          </div>
+
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+
+  </div>
+
 </section>

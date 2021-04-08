@@ -8,17 +8,11 @@ import com.store.models.ProductImages;
 import com.store.selectInterfaces.UpdatedRating;
 import com.store.selectInterfaces.UpdatedStock;
 
-import java.util.List;
-
 public interface ProductService {
 
     Product addProduct(Product product) throws InvalidDataFormatException, NotExistException;
 
     Product updateProduct(Product product) throws NotExistException, InvalidDataFormatException;
-
-    List<Product> getAllProducts();
-
-    Product getSingleProduct(Long productId);
 
     void deleteProduct(Long productId) throws NotExistException;
 
@@ -33,4 +27,5 @@ public interface ProductService {
     ProductComments addProductComment(ProductComments productComments) throws NotExistException, InvalidDataFormatException;
 
     Product getProduct(Long productId);
+
 }

@@ -2,64 +2,33 @@
 $clr-dark: #0c1117;
 $clr-black: #000;
 $clr-light-dark: #313a46;
-$clr-white: #FFFFFF;
-$clr-secondary: #6c757d;
+
+
 $clr-danger: #CC0000;
+$clr-danger-fade: #da4932;
+
 $clr-success: #28a745;
-$clr-primary: #1A73E8;
+$clr-success-fade: #60c060;
+
+$clr-primary: #007BFF;
+$clr-primary-fade: #4d90fd;
+
+$clr-warning: #ffc107;
+$clr-warning-fade: #fc9700;
+
 $clr-info: #0099CC;
+$clr-info-fade: #009ed2;
 
+$clr-dark-grey: #c8c8c8;
+$clr-secondary: #6c757d;
+$clr-tertiary: lighten($clr-secondary, 25);
 
+$clr-light-1: #efefef;
+$clr-light-2: #fcfcfc;
+$clr-light-3: #f6f7fb;
+$clr-light-4: #F5F7FB;
+$clr-white: #FFFFFF;
 
-$qa-color-white: #ffffff;
-$qa-color-white-darken: #fafafa;
-
-$qa-color-light: #eeeeee;
-$qa-color-light-1: #efefef;
-$qa-color-light-2: #fcfcfc;
-$qa-color-light-3: #f6f7fb;
-$qa-color-light-4: #F5F7FB;
-
-$qa-color-black: #000;
-$qa-color-dark: #212121;
-$qa-color-dark-light: #666;
-$qa-color-dark-1: #171616;
-$qa-color-dark-2: #0c1117;
-$qa-color-light-dark: #263238;
-$qa-color-light-dark-1: #313a46;
-$qa-color-light-dark-2: #4a5769;
-$qa-color-dark-grey: #777;
-$qa-color-dark-grey-1: #c8c8c8;
-$qa-color-dark-grey-2: #98a6ad;
-$qa-color-dark-grey-3: #9aa1ab;
-
-
-$qa-color-primary: #1A73E8;
-$qa-color-primary-2: #007BFF;
-$qa-color-primary-fade: #4d90fd;
-$qa-color-secondary: #6c757d;
-$qa-color-tertiary: lighten($qa-color-secondary, 25);
-
-$qa-color-danger: #CC0000;
-$qa-color-danger-fade: #da4932;
-
-$qa-color-success: #28a745;
-$qa-color-success-fade: #60c060;
-
-$qa-color-warning: #ffc107;
-$qa-color-warning-fade: #fc9700;
-
-$qa-color-info: #0099CC;
-$qa-color-info-fade: #009ed2;
-
-$qa-color-login-top: #3B1A35;
-$qa-color-login-bottom: #597ca9;
-
-/* App Colors */
-$qa-menu-bg-color: #e3e3e3;
-$qa-side-menu-hover-color: #d4d4d4;
-$qa-menu-hover-color: #20b3fe;
-$qa-menu-disabled: #54c1ff;
 
 /* Font Sizes */
 $qa-default-font-size: 1.6rem;

@@ -213,6 +213,32 @@ const cpReducer: ActionReducer<CategoryState, Action> = createReducer(
       ]
     })
   }),
+  on(ProductAction.SimulateBuyAction, (state: CategoryState, action: any) => {
+    const categoryIndex = state.categories.findIndex(c => c.products.some(p => p.productId === action.productId));
+    const productIndex = state.categories[categoryIndex].products.findIndex(p => p.productId === action.productId);
+    const currentProduct = state.categories[categoryIndex].products[productIndex];
+
+    const updatedCategory = {
+      ...state.categories[categoryIndex],
+      products: [
+        ...state.categories[categoryIndex].products.slice(0, productIndex),
+        {
+          ...currentProduct,
+          stock: action.stock
+        },
+        ...state.categories[categoryIndex].products.slice(productIndex + 1, state.categories[categoryIndex].products.length)
+      ]
+    };
+
+    return ({
+      ...state,
+      categories: [
+        ...state.categories.slice(0, categoryIndex),
+        updatedCategory,
+        ...state.categories.slice(categoryIndex + 1, state.categories.length),
+      ]
+    })
+  }),
 );
 
 

@@ -55,6 +55,16 @@ export class ProductEffects {
     })
   ));
 
+  public simulateBuy$: Observable<Action> = createEffect(() => this.actions$.pipe(
+    ofType(ProductAction.ProductTypes.requestSimulateBuy),
+    switchMap((stock: any) => this.cpanelService.simulateBuy(stock)),
+    map((stock: UpdatedStock) => {
+      this.notifier.notify(NOTIFICATION_TYPES.info, PRODUCT_STOCK_UPDATED);
+      return ProductAction.SimulateBuyAction(stock);
+    })
+  ));
+
+
   public updateProductRating$: Observable<Action> = createEffect(() => this.actions$.pipe(
     ofType(ProductAction.ProductTypes.requestAddProductRating),
     switchMap((rating: any) => this.cpanelService.updateRating(rating)),

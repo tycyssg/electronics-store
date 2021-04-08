@@ -99,8 +99,14 @@ public class ProductController extends ExceptionHandling {
 
     @GetMapping("/getProduct/{productId}")
     @ResponseBody
-    public ResponseEntity<Product> getProduct(@PathVariable("productId") Long productId) throws NotExistException, InvalidDataFormatException {
+    public ResponseEntity<Product> getProduct(@PathVariable("productId") Long productId) {
         return new ResponseEntity<>(productService.getProduct(productId), HttpStatus.OK);
     }
 
+    @PutMapping("/simulateBuy/{productId}")
+    @ResponseBody
+    @PreAuthorize("hasAnyAuthority('u:a')")
+    public ResponseEntity<UpdatedStock> simulateBuy(@PathVariable("productId") Long productId, @RequestParam("quantity") Integer quantity) throws NotExistException, InvalidDataFormatException {
+        return new ResponseEntity<>(productService.updateProductStockOnBuy(quantity, productId), HttpStatus.OK);
+    }
 }

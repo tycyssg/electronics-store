@@ -46,86 +46,86 @@
   }
 
   &-light {
-    color: $qa-color-tertiary;
+    color: $clr-tertiary;
 
     &:hover {
-      color: darken($qa-color-tertiary, 10%);
+      color: darken($clr-tertiary, 10%);
     }
 
     &:disabled {
-      color: $qa-color-light;
+      color: $clr-light-1;
     }
   }
 
   &-primary {
-    color: $qa-color-primary;
+    color: $clr-primary;
 
     &:hover {
-      color: darken($qa-color-primary, 10%);
+      color: darken($clr-primary, 10%);
     }
 
     &:disabled {
-      color: lighten($qa-color-primary, 10%);
+      color: lighten($clr-primary, 10%);
     }
   }
 
   &-info {
-    color: $qa-color-info;
+    color: $clr-info;
 
     &:hover {
-      color: darken($qa-color-info, 10%);
+      color: darken($clr-info, 10%);
     }
 
     &:disabled {
-      color: lighten($qa-color-info, 10%);
+      color: lighten($clr-info, 10%);
     }
   }
 
   &-warning {
-    color: $qa-color-warning;
+    color: $clr-warning;
 
     &:hover {
-      color: darken($qa-color-warning, 10%);
+      color: darken($clr-warning, 10%);
     }
 
     &:disabled {
-      color: lighten($qa-color-warning, 10%);
+      color: lighten($clr-warning, 10%);
     }
   }
 
   &-success {
-    color: $qa-color-success;
+    color: $clr-success;
 
     &:hover {
-      color: darken($qa-color-success, 10%);
+      color: darken($clr-success, 10%);
     }
 
     &:disabled {
-      color: lighten($qa-color-success, 10%);
+      color: lighten($clr-success, 10%);
     }
   }
 
   &-danger {
-    color: $qa-color-danger;
+    color: $clr-danger;
 
     &:hover {
-      color: darken($qa-color-danger, 10%);
+      color: darken($clr-danger, 10%);
     }
 
     &:disabled {
-      color: lighten($qa-color-danger, 10%);
+      color: lighten($clr-danger, 10%);
     }
   }
 
   &-default {
-    color: $qa-color-dark;
+    color: $clr-dark;
 
     &:hover {
-      color: lighten($qa-color-dark, 10%);
+      color: lighten($clr-dark, 10%);
     }
 
     &:disabled {
-      color: lighten($qa-color-dark, 15%) !important;
+      color: lighten($clr-dark, 15%) !important;
     }
   }
 
@@ -148,7 +148,7 @@
   cursor: pointer;
   outline: 0;
   transition: all .15s ease-in-out;
-  box-shadow: 0 .3rem .6rem rgba($qa-color-black, .2);
+  box-shadow: 0 .3rem .6rem rgba($clr-black, .2);
   letter-spacing: .05rem;
 
   &:disabled {
@@ -184,129 +184,129 @@
   }
 
   &-default {
-    background: $qa-color-dark;
-    color: $qa-color-white;
+    background: $clr-dark;
+    color: $clr-white;
 
     &:hover {
-      background: lighten($qa-color-dark, 7%);
-      color: $qa-color-white;
+      background: lighten($clr-dark, 7%);
+      color: $clr-white;
     }
 
     &:disabled {
-      background: lighten($qa-color-light, 10%) !important;
-      color: $qa-color-dark !important;
+      background: lighten($clr-light-1, 10%) !important;
+      color: $clr-dark !important;
     }
 
   }
 
   &-light {
-    background: $qa-color-light;
-    color: $qa-color-dark;
+    background: $clr-light-1;
+    color: $clr-dark;
 
     &:hover {
-      background: darken($qa-color-light, 15%);
-      color: $qa-color-dark;
+      background: darken($clr-light-1, 15%);
+      color: $clr-dark;
     }
 
     &:disabled {
-      background: lighten($qa-color-light-dark, 10%) !important;
-      color: $qa-color-light !important;
+      background: lighten($clr-dark, 10%) !important;
+      color: $clr-light-1 !important;
     }
 
   }
 
   &-secondary {
-    background: $qa-color-secondary;
-    color: $qa-color-white;
+    background: $clr-secondary;
+    color: $clr-white;
 
     &:hover {
-      background: darken($qa-color-secondary, 15%);
-      color: $qa-color-white;
+      background: darken($clr-secondary, 15%);
+      color: $clr-white;
     }
 
     &:disabled {
-      background: lighten($qa-color-secondary, 10%) !important;
-      color: $qa-color-white !important;
+      background: lighten($clr-secondary, 10%) !important;
+      color: $clr-white !important;
     }
 
   }
 
   &-primary {
-    background: $qa-color-primary;
-    color: $qa-color-white;
+    background: $clr-primary;
+    color: $clr-white;
 
     &:hover {
-      background: darken($qa-color-primary, 15%);
-      color: $qa-color-white;
+      background: darken($clr-primary, 15%);
+      color: $clr-white;
     }
 
     &:disabled {
-      background: lighten($qa-color-primary, 10%) !important;
-      color: $qa-color-white !important;
+      background: lighten($clr-primary, 10%) !important;
+      color: $clr-white !important;
     }
 
   }
 
   &-success {
-    background: $qa-color-success;
-    color: $qa-color-white;
+    background: $clr-success;
+    color: $clr-white;
 
     &:hover {
-      background: darken($qa-color-success, 15%);
-      color: $qa-color-white;
+      background: darken($clr-success, 15%);
+      color: $clr-white;
     }
 
     &:disabled {
-      background: lighten($qa-color-success, 10%) !important;
-      color: $qa-color-white !important;
+      background: lighten($clr-success, 10%) !important;
+      color: $clr-white !important;
     }
 
   }
 
   &-danger {
-    background: $qa-color-danger;
-    color: $qa-color-white;
+    background: $clr-danger;
+    color: $clr-white;
 
     &:hover {
-      background: darken($qa-color-danger, 15%);
-      color: $qa-color-white;
+      background: darken($clr-danger, 15%);
+      color: $clr-white;
     }
 
     &:disabled {
-      background: lighten($qa-color-danger, 10%) !important;
-      color: $qa-color-white !important;
+      background: lighten($clr-danger, 10%) !important;
+      color: $clr-white !important;
     }
 
   }
 
   &-warning {
-    background: $qa-color-warning;
-    color: $qa-color-white;
+    background: $clr-warning;
+    color: $clr-white;
 
     &:hover {
-      background: darken($qa-color-warning, 15%);
-      color: $qa-color-white;
+      background: darken($clr-warning, 15%);
+      color: $clr-white;
     }
 
     &:disabled {
-      background: lighten($qa-color-warning, 10%) !important;
-      color: $qa-color-white !important;
+      background: lighten($clr-warning, 10%) !important;
+      color: $clr-white !important;
     }
 
   }
 
   &-info {
-    background: $qa-color-info;
-    color: $qa-color-white;
+    background: $clr-info;
+    color: $clr-white;
 
     &:hover {
-      background: darken($qa-color-info, 15%);
-      color: $qa-color-white;
+      background: darken($clr-info, 15%);
+      color: $clr-white;
     }
 
     &:disabled {
-      background: lighten($qa-color-info, 10%) !important;
-      color: $qa-color-white !important;
+      background: lighten($clr-info, 10%) !important;
+      color: $clr-white !important;
     }
 
   }
@@ -316,78 +316,78 @@
     background-image: none;
 
     &-default {
-      color: $qa-color-dark;
-      border-color: $qa-color-dark;
+      color: $clr-dark;
+      border-color: $clr-dark;
 
       &:hover {
-        background-color: $qa-color-dark;
-        color: $qa-color-white;
+        background-color: $clr-dark;
+        color: $clr-white;
       }
 
     }
 
     &-secondary {
-      color: $qa-color-secondary;
-      border-color: $qa-color-secondary;
+      color: $clr-secondary;
+      border-color: $clr-secondary;
 
       &:hover {
-        background-color: $qa-color-secondary;
-        color: $qa-color-white;
+        background-color: $clr-secondary;
+        color: $clr-white;
       }
 
     }
 
     &-primary {
-      color: $qa-color-primary;
-      border-color: $qa-color-primary;
+      color: $clr-primary;
+      border-color: $clr-primary;
 
       &:hover {
-        background-color: $qa-color-primary;
-        color: $qa-color-white;
+        background-color: $clr-primary;
+        color: $clr-white;
       }
 
     }
 
     &-success {
-      color: $qa-color-success;
-      border-color: $qa-color-success;
+      color: $clr-success;
+      border-color: $clr-success;
 
       &:hover {
-        background-color: $qa-color-success;
-        color: $qa-color-white;
+        background-color: $clr-success;
+        color: $clr-white;
       }
 
     }
 
     &-danger {
-      color: $qa-color-danger;
-      border-color: $qa-color-danger;
+      color: $clr-danger;
+      border-color: $clr-danger;
 
       &:hover {
-        background-color: $qa-color-danger;
-        color: $qa-color-white;
+        background-color: $clr-danger;
+        color: $clr-white;
       }
 
     }
 
     &-warning {
-      color: $qa-color-warning;
-      border-color: $qa-color-warning;
+      color: $clr-warning;
+      border-color: $clr-warning;
 
       &:hover {
-        background-color: $qa-color-warning;
-        color: $qa-color-white;
+        background-color: $clr-warning;
+        color: $clr-white;
       }
 
     }
 
     &-info {
-      color: $qa-color-info;
-      border-color: $qa-color-info;
+      color: $clr-info;
+      border-color: $clr-info;
 
       &:hover {
-        background-color: $qa-color-info;
-        color: $qa-color-white;
+        background-color: $clr-info;
+        color: $clr-white;
       }
 
     }
@@ -401,13 +401,13 @@
   letter-spacing: .1rem;
   transition: all .3s ease-in-out;
   font-weight: 700;
-  color: $qa-color-dark;
+  color: $clr-dark;
 
   &:link, :visited {
     text-decoration: none;
   }
 
   &:hover {
-    color: $qa-menu-hover-color;
+    color: $clr-info-fade;
   }
 }

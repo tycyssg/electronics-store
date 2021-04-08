@@ -15,6 +15,7 @@ import { CheckoutSelectAddressComponent } from '../checkout-select-address/check
 import { CheckoutSelectPaymentComponent } from '../checkout-select-payment/checkout-select-payment.component';
 import { ProductOrder } from '../../../auth/model/ProductOrder';
 import { RequestMakePaymentAction } from '../../../auth/store/actions/cart.actions';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-checkout',
@@ -36,7 +37,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   });
   private subs: Array<Subscription> = [];
 
-  constructor(private readonly store: Store<State>, public cpanelService: CpanelService, private readonly dialog: MatDialog) {
+  constructor(private readonly store: Store<State>, public cpanelService: CpanelService, private readonly dialog: MatDialog, private readonly router: Router) {
   }
 
   private static _selectMainAddress(addresses: Address[]): any {
@@ -101,6 +102,9 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     this.subs.push(this.store.pipe(select(getAuthSelector)).subscribe(payload => {
       this.currentUser = payload.authUser;
       this._populateOrderForm();
+      if (this.currentUser.cartItems.length == 0) {
+        this.router.navigate(['/landing', 'products'])
+      }
     }));
   }
 

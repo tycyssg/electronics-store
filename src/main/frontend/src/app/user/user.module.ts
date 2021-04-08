@@ -16,6 +16,8 @@ import { CheckoutSelectAddressComponent } from './components/checkout-select-add
 import { MatDialogModule } from '@angular/material/dialog';
 import { CheckoutSelectPaymentComponent } from './components/checkout-select-payment/checkout-select-payment.component';
 import { CheckoutCompleteComponent } from './components/checkout-complete/checkout-complete.component';
+import { SharedModule } from '../shared/shared.module';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 
 @NgModule({
@@ -30,7 +32,9 @@ import { CheckoutCompleteComponent } from './components/checkout-complete/checko
     MatInputModule,
     MatSelectModule,
     MatInputModule,
-    MatDialogModule
+    MatDialogModule,
+    SharedModule,
+    MatExpansionModule
   ],
   providers: []
 })

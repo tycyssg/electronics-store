@@ -8,7 +8,7 @@ import {
   RequestUpdateCategoryAction
 } from '../../store/actions/categories.actions';
 import { Category } from '../../model/category.model';
-import { getCategoriesSelector } from '../../store/selectors/cpanel.selector';
+import { getCategoriesSelector, getUsersSelector } from '../../store/selectors/cpanel.selector';
 import { DEFAULT_CONFIRM_MESSAGE } from '../../../app-constants';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateProductComponent } from '../create-product/create-product.component';
@@ -17,11 +17,22 @@ import { Product } from '../../model/product.model';
 import { MatTableDataSource } from '@angular/material/table';
 import { RequestDeleteProductAction, RequestUpdateProductStockAction } from '../../store/actions/products.actions';
 import { Subscription } from 'rxjs';
+import { RequestGetUsersAction } from '../../store/actions/users.actions';
+import { User } from '../../../auth/model/User';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { OrderDetails } from '../../../auth/model/OrderDetails';
 
 @Component({
   selector: 'app-cpanel-landing',
   templateUrl: './cpanel-landing.component.html',
-  styleUrls: ['./cpanel-landing.component.scss']
+  styleUrls: ['./cpanel-landing.component.scss'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
 export class CpanelLandingComponent implements OnInit, OnDestroy {
 
@@ -33,23 +44,45 @@ export class CpanelLandingComponent implements OnInit, OnDestroy {
   public categoryList: Category[] = [];
   private categoryEdit: boolean = false;
   public displayedColumns: string[] = ['position', 'friendly', 'manufactured', 'stock', 'price', 'goTo', 'delete'];
+  public userDisplayedColumns: string[] = ['username', 'email', 'phone', 'joinDate', 'lastLoginDate'];
   public dataSource: any;
-  private subs: Subscription = undefined;
+  public userDataSource = new MatTableDataSource<User>([]);
+  public expandedElement: OrderDetails | undefined;
+  public productsAsMap: Map<number, Product> = new Map<number, Product>();
+  private subs: Array<Subscription> = [];
 
   constructor(private readonly store: Store<State>, private readonly dialog: MatDialog) {
   }
 
   ngOnInit(): void {
-    this.subs = this.store.pipe(select(getCategoriesSelector)).subscribe(payload => {
-      this.categoryList = payload.categories;
-      let products = [];
-      this.categoryList.forEach(c => products = [...products, ...c.products])
-      this.dataSource = new MatTableDataSource(products);
-    });
+    this._loadCategories();
+    this._loadUsers();
   }
 
   ngOnDestroy(): void {
-    this.subs.unsubscribe();
+    this.subs.forEach(s => s.unsubscribe());
+  }
+
+  private _loadCategories() {
+    this.subs.push(this.store.pipe(select(getCategoriesSelector)).subscribe(payload => {
+      this.categoryList = payload.categories;
+      let products = [];
+      this.productsAsMap = new Map<number, Product>();
+      this.categoryList.forEach(c => {
+        c.products.forEach(p => {
+          this.productsAsMap.set(p.productId, p);
+          products.push(p);
+        });
+      });
+      this.dataSource = new MatTableDataSource(products);
+    }));
+  }
+
+  private _loadUsers() {
+    this.store.dispatch(RequestGetUsersAction());
+    this.subs.push(this.store.pipe(select(getUsersSelector)).subscribe(payload => {
+      this.userDataSource = new MatTableDataSource(payload.users);
+    }));
   }
 
   public onAddCategory() {
@@ -107,4 +140,6 @@ export class CpanelLandingComponent implements OnInit, OnDestroy {
 
     this.store.dispatch(RequestUpdateProductStockAction({productId: productId, stock: stockValue}))
   }
+
+
 }
