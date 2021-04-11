@@ -2,17 +2,65 @@
 @import 'src/styles/abstracts/fonts';
 
 .landing {
-  width: 75%;
   padding: 5rem 0;
   margin: 0 auto;
+  display: grid;
+  grid-template-columns: 75% 25%;
+  height: 43rem;
+  background: linear-gradient(90deg, #FFFFFF 75%, $clr-light-5 25%);
 
-  &-card {
-    background: linear-gradient($clr-light-dark, $clr-light-dark);
-    height: 60rem;
+  &-right {
+    position: relative;
+
+    & img {
+      position: absolute;
+      left: -50%;
+      display: block;
+      width: 49rem;
+    }
   }
 
-}
+  &-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 
+    &-title {
+      color: $clr-light-dark;
+      text-shadow: 0 .3rem .5rem rgba($clr-black, .4);
+      font-size: 5rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-left: 13%;
+      transition: all 0.3s ease-in-out;
+
+      &:hover {
+        transform: scale(1.05);
+        text-shadow: 0.5rem 1rem 2rem rgba($clr-black, 0.2);
+      }
+
+    }
+
+    &-sub-title {
+      color: $clr-light-dark;
+      text-shadow: 0 .3rem .5rem rgba($clr-black, .4);
+      font-size: 2rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-left: 15%;
+      width: 67rem;
+      text-align: center;
+      transition: all 0.3s ease-in-out;
+
+      &:hover {
+        transform: scale(1.02);
+        text-shadow: 0.5rem 1rem 2rem rgba($clr-black, 0.3);
+      }
+    }
+
+
+  }
+}
 
 .text-box {
   position: absolute;
@@ -45,4 +93,70 @@
   position: absolute;
   right: 0;
   bottom: 0;
+}
+
+.landing-section {
+  background: linear-gradient(90deg, #EEF3F7 75%, #BDC7D0 25%);
+  display: grid;
+  grid-template-columns: 75% 25%;
+  height: 45rem;
+
+  &-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    & p {
+      color: $clr-light-dark;
+      font-weight: 700;
+      font-size: 2rem;
+      letter-spacing: 3px;
+    }
+  }
+
+
+  &-left {
+    padding: 3rem;
+
+    &-products {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      grid-gap: 3rem;
+    }
+  }
+}
+
+.latest-product-wrapper {
+  display: flex;
+  flex-direction: column;
+
+  &-img {
+    display: block;
+    width: 100%;
+
+    & img {
+      display: block;
+      width: 100%;
+    }
+  }
+
+  &-desc {
+    border-top: 3px solid $clr-light-dark;
+    padding-top: 1rem;
+    height: 20rem;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+
+    & h1 {
+      color: $clr-success;
+      font-size: 3.5rem;
+      margin-top: auto;
+
+      &::before {
+        content: '\20AC';
+      }
+    }
+  }
 }

@@ -137,7 +137,7 @@ const cpReducer: ActionReducer<CategoryState, Action> = createReducer(
 
     const updatedProduct = {
       ...currentProduct,
-      images: [...currentProduct.images, action]
+      images: [...currentProduct?.images, action]
     }
 
     const updatedCategory = {

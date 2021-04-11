@@ -56,8 +56,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   public register() {
     this.store.dispatch(RegisterAction(this.registerForm.value))
-    // this.registerForm.reset();
-    // this.switchToRegister();
+    this.registerForm.reset();
+    this.switchToRegister();
   }
 
   public passwordNotMatch(control: FormControl): { [s: string]: boolean } {
