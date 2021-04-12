@@ -36,6 +36,7 @@ export class ViewProductComponent implements OnInit, OnDestroy {
     this._loadUser();
   }
 
+
   public onRatingChange(event: number) {
     if (this.currentProduct == undefined || isNaN(event)) return;
 

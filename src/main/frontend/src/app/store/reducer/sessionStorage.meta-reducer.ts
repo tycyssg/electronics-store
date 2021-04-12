@@ -24,7 +24,11 @@ export function sessionStorageMetaReducer(reducer: ActionReducer<any>): ActionRe
     const nextState = reducer(state, action);
 
     if (action.type === AuthActions.ApiActionTypes.logOutComplete) {
-      state = {} as State;
+      state = {
+        cpanel: {
+          categories: state['cpanel'].categories
+        }
+      } as State;
       localStorage.removeItem(SESSION_STORAGE_STATE_KEY);
       return reducer(state, action);
     }

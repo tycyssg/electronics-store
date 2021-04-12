@@ -16,7 +16,7 @@
     <div class="landing-section-left-products">
       <div *ngFor="let p of productsList | slice:0:5" [routerLink]="['/landing', 'products', p.productId]"
            class="latest-product-wrapper">
-        <div class="latest-product-wrapper-img"><img [src]="'data:image/jpeg;base64,'+ p.images[0]?.image"></div>
+        <div class="latest-product-wrapper-img"><img [src]="'data:image/jpeg;base64,'+ p.images[0]?.image"/></div>
         <div class="latest-product-wrapper-desc">
           <h2>{{p.title}}</h2>
           <h1>{{p.price}}</h1>
