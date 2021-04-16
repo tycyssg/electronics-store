@@ -30,7 +30,7 @@
           </div>
         </form>
 
-        <div *ngIf="categoryList.length > 0" class="category-container mt-s">
+        <div *ngIf="categoryList.length > 0" class="category-container mt-s" data-tooltip="Categories List">
           <ul class="cat-list">
             <li *ngFor="let category of categoryList">
               <div class="cat-row">
@@ -261,6 +261,70 @@
 
           <tr *matRowDef="let row; columns: ['expandedDetail']" class="detail-row" mat-row></tr>
         </table>
+      </div>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Discount Coupons
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="qa-card">
+        <div class="qa-card-header">
+          <h1 class="qa-card-title-container qa-card-title">Discount Coupons</h1>
+          <fa-icon class="qa-card-icon" icon="percentage"></fa-icon>
+        </div>
+
+
+        <form (ngSubmit)="onAddCoupon()" [formGroup]="couponsForm">
+          <div class="font-s">
+            <mat-form-field appearance="outline" class="w-50">
+              <mat-label>Coupon Code</mat-label>
+              <input formControlName="couponCode" matInput placeholder="Category Name" type="text">
+              <mat-icon (click)="onGenerateCouponCode()" class="text-primary cursor-pointer" matSuffix
+                        title="Generate coupon">sync
+              </mat-icon>
+            </mat-form-field>
+          </div>
+
+          <mat-form-field appearance="outline" class="w-50">
+            <mat-label>Choose expire coupon date</mat-label>
+            <input (dateChange)="onSelectedDate($event)" [matDatepicker]="picker" matInput>
+            <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+
+          <div class="font-s">
+            <mat-form-field appearance="outline" class="w-50">
+              <mat-label>Discount percentage ( e.g: 1 = 1%)</mat-label>
+              <input formControlName="discountPercentage" matInput placeholder="Discount percentage" type="number">
+            </mat-form-field>
+          </div>
+
+          <button class="qa-btn qa-btn-primary qa-btn-s" title="Add Coupon" type="submit">
+            Add Coupon
+          </button>
+        </form>
+
+
+        <hr class="hr-custom">
+
+        <div *ngIf="couponsList.length > 0" class="category-container mt-s" data-tooltip="Coupon List">
+          <ul class="cat-list">
+            <li *ngFor="let coupon of couponsList">
+              <div class="cat-row">
+                <span class="mr-5">{{coupon.couponCode}}</span> | <span class="mr-5 ml-5">{{coupon.discountPercentage}}
+                %</span> | <span class="ml-5">{{coupon.validTime | date}}</span>
+                <button (click)="onDeleteCoupon(coupon.couponId)" class="qa-btn-icon qa-btn-icon-danger"
+                        title="Delete Category" type="button">
+                  <fa-icon icon="trash"></fa-icon>
+                </button>
+              </div>
+            </li>
+          </ul>
+        </div>
+
       </div>
     </mat-expansion-panel>
   </mat-accordion>

@@ -16,6 +16,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { NgImageSliderModule } from 'ng-image-slider';
+import { MatIconModule } from '@angular/material/icon';
 
 
 export const DateFormats = {
@@ -48,6 +49,7 @@ export const DateFormats = {
     MatExpansionModule,
     MatDatepickerModule,
     NgImageSliderModule,
+    MatIconModule,
   ],
   providers: [
     {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},

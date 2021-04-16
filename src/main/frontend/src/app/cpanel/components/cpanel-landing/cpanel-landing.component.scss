@@ -24,7 +24,7 @@
   }
 
   &::before {
-    content: 'Categories List';
+    content: attr(data-tooltip);
     position: absolute;
     font-size: 1.1rem;
     top: -1rem;

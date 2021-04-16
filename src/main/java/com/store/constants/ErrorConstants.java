@@ -15,5 +15,9 @@ public class ErrorConstants {
     public static final String INVALID_PRODUCT_QUANTITY = "One of the products does not have quantity!";
     public static final String LOW_STOCK = "One of your products is out of stock or the quantity is too big for the current stock!";
     public static final String ORDER_NOT_COMPLETE = "Order not placed! Something went wrong, please try again!";
+    public static final String COUPON_EXITS = "A similar coupon already exists! Please change the coupon code.";
+    public static final String COUPON_NOT_EXITS = "Coupon not found!";
+    public static final String COUPON_DATE_INVALID = "Invalid  date. Please provide a feature date!";
+    public static final String COUPON_ALTERED = "Coupon altered! Please use a real one!";
 
 }

@@ -1,6 +1,7 @@
 import { Address } from './Address';
 import { PaymentDetails } from './PaymentDetails';
 import { ProductOrder } from './ProductOrder';
+import { CouponModel } from '../../cpanel/model/coupon.model';
 
 export interface OrderDetails {
   orderId?: number;
@@ -9,5 +10,6 @@ export interface OrderDetails {
   payment: PaymentDetails;
   orderDate: Date;
   orderTotal: number;
+  couponId: CouponModel;
   userId: number;
 }

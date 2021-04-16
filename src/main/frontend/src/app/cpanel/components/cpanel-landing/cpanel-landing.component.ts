@@ -8,7 +8,7 @@ import {
   RequestUpdateCategoryAction
 } from '../../store/actions/categories.actions';
 import { Category } from '../../model/category.model';
-import { getCategoriesSelector, getUsersSelector } from '../../store/selectors/cpanel.selector';
+import { getCategoriesSelector, getCouponsSelector, getUsersSelector } from '../../store/selectors/cpanel.selector';
 import { DEFAULT_CONFIRM_MESSAGE } from '../../../app-constants';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateProductComponent } from '../create-product/create-product.component';
@@ -21,6 +21,10 @@ import { RequestGetUsersAction } from '../../store/actions/users.actions';
 import { User } from '../../../auth/model/User';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { OrderDetails } from '../../../auth/model/OrderDetails';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import * as _moment from 'moment';
+import { RequestAddCouponAction, RequestDeleteCouponAction } from '../../store/actions/coupon.actions';
+import { CouponModel } from '../../model/coupon.model';
 
 @Component({
   selector: 'app-cpanel-landing',
@@ -41,7 +45,15 @@ export class CpanelLandingComponent implements OnInit, OnDestroy {
     categoryName: new FormControl(null, Validators.required),
   });
 
+  public couponsForm: FormGroup = new FormGroup({
+    couponId: new FormControl(null),
+    couponCode: new FormControl(null, Validators.required),
+    discountPercentage: new FormControl(null, Validators.required),
+    validTime: new FormControl(null, Validators.required),
+  });
+
   public categoryList: Category[] = [];
+  public couponsList: CouponModel[] = [];
   private categoryEdit: boolean = false;
   public displayedColumns: string[] = ['position', 'friendly', 'manufactured', 'stock', 'price', 'goTo', 'delete'];
   public userDisplayedColumns: string[] = ['username', 'email', 'phone', 'joinDate', 'lastLoginDate'];
@@ -54,9 +66,14 @@ export class CpanelLandingComponent implements OnInit, OnDestroy {
   constructor(private readonly store: Store<State>, private readonly dialog: MatDialog) {
   }
 
-  ngOnInit(): void {
-    this._loadCategories();
-    this._loadUsers();
+  private static _generateCoupon(): string {
+    let text = '';
+    const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+    for (let i = 0; i < 15; i++)
+      text += letters.charAt(Math.floor(Math.random() * letters.length));
+
+    return text;
   }
 
   ngOnDestroy(): void {
@@ -83,6 +100,12 @@ export class CpanelLandingComponent implements OnInit, OnDestroy {
     this.subs.push(this.store.pipe(select(getUsersSelector)).subscribe(payload => {
       this.userDataSource = new MatTableDataSource(payload.users);
     }));
+  }
+
+  ngOnInit(): void {
+    this._loadCategories();
+    this._loadUsers();
+    this._loadCoupons();
   }
 
   public onAddCategory() {
@@ -141,5 +164,28 @@ export class CpanelLandingComponent implements OnInit, OnDestroy {
     this.store.dispatch(RequestUpdateProductStockAction({productId: productId, stock: stockValue}))
   }
 
+  public onGenerateCouponCode() {
+    this.couponsForm.get('couponCode').setValue(CpanelLandingComponent._generateCoupon());
+  }
 
+  public onSelectedDate(event: MatDatepickerInputEvent<any, any>) {
+    const formatDate = _moment(event.value).format('MM/DD/YYYY');
+    this.couponsForm.get('validTime').setValue(new Date(formatDate));
+  }
+
+  public onAddCoupon() {
+    this.store.dispatch(RequestAddCouponAction(this.couponsForm.value));
+  }
+
+  public onDeleteCoupon(couponId: number) {
+    if (!confirm(DEFAULT_CONFIRM_MESSAGE) || couponId == null) return;
+
+    this.store.dispatch(RequestDeleteCouponAction({id: couponId}));
+  }
+
+  private _loadCoupons() {
+    this.subs.push(this.store.pipe(select(getCouponsSelector)).subscribe(payload => {
+      this.couponsList = payload.coupons;
+    }));
+  }
 }

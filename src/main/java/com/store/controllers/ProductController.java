@@ -109,4 +109,6 @@ public class ProductController extends ExceptionHandling {
     public ResponseEntity<UpdatedStock> simulateBuy(@PathVariable("productId") Long productId, @RequestParam("quantity") Integer quantity) throws NotExistException, InvalidDataFormatException {
         return new ResponseEntity<>(productService.updateProductStockOnBuy(quantity, productId), HttpStatus.OK);
     }
+
+
 }

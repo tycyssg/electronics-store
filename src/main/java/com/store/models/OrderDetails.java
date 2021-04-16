@@ -36,6 +36,9 @@ public class OrderDetails implements Serializable {
     @Column(columnDefinition = "jsonb")
     @NotNull
     private JsonNode payment;
+    @Type(type = "jsonb")
+    @Column(columnDefinition = "jsonb")
+    private JsonNode coupon;
     private Date orderDate = new Date();
     @NotNull
     @Min(value = 0)

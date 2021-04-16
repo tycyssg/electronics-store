@@ -58,6 +58,10 @@ export const PRODUCT_REVIEW_ADD = 'Your review was successfully received!';
 //CART
 export const ITEM_ADDED = 'Item was successfully add into cart';
 export const ORDER_PLACED = 'Order successfully placed!';
+//COUPONS
+export const COUPON_ADDED = 'Coupon successfully created!';
+export const COUPON_DELETED = 'Coupon successfully deleted!';
+export const COUPON_INVALID = 'Coupon invalid!';
 
 
 // ##########################################

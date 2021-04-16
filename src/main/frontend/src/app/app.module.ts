@@ -38,6 +38,8 @@ import { CartEffects } from './auth/store/effects/cart.effects';
 import { MatDialogRef } from '@angular/material/dialog';
 import { usersReducer } from './cpanel/store/reducers/users.reducer';
 import { UsersEffects } from './cpanel/store/effects/users.effects';
+import { couponReducer } from './cpanel/store/reducers/coupon.reducer';
+import { CouponsEffects } from './cpanel/store/effects/coupons.effects';
 
 
 @NgModule({
@@ -75,12 +77,13 @@ import { UsersEffects } from './cpanel/store/effects/users.effects';
       NGRX_STATE_CPANEL_APP,
       {
         categories: categoryReducer,
-        users: usersReducer
+        users: usersReducer,
+        coupons: couponReducer
       }
     ),
     StoreRouterConnectingModule.forRoot({navigationActionTiming: NavigationActionTiming.PostActivation}),
     StoreDevtoolsModule.instrument({logOnly: environment.production}),
-    EffectsModule.forRoot([AuthEffects, AddressEffects, PaymentEffects, CategoryEffects, ProductEffects, CartEffects, UsersEffects]),
+    EffectsModule.forRoot([AuthEffects, AddressEffects, PaymentEffects, CategoryEffects, ProductEffects, CartEffects, UsersEffects, CouponsEffects]),
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true},

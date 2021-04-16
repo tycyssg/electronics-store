@@ -9,6 +9,7 @@ import { UpdatedStock } from '../model/updated-stock.model';
 import { UpdatedRating } from '../model/updated-rating.model';
 import { CartItems } from '../../auth/model/CartItems';
 import { User } from '../../auth/model/User';
+import { CouponModel } from '../model/coupon.model';
 
 
 @Injectable({providedIn: 'root'})
@@ -27,7 +28,11 @@ export class CpanelService {
     updateRating: '/api/updateRating',
     addProductComment: '/api/addProductComment',
     simulateBuy: '/api/simulateBuy',
-    findAllUsers: '/api/findAllUsers'
+    findAllUsers: '/api/findAllUsers',
+    addCoupon: '/api/addCoupon',
+    deleteCoupon: '/api/deleteCoupon',
+    getCoupons: '/api/getCoupons',
+    verifyCoupon: '/api/verifyCoupon',
   };
 
   constructor(private readonly httpClient: HttpClient) {
@@ -96,6 +101,23 @@ export class CpanelService {
 
   public findAllUsers(): Observable<User[]> {
     return this.httpClient.get<User[]>(this.urls.findAllUsers);
+  }
+
+  public addCoupon(coupon: CouponModel): Observable<CouponModel> {
+    return this.httpClient.post<CouponModel>(this.urls.addCoupon, coupon, {headers: HEADERS_FOR_POST});
+  }
+
+  public verifyCoupon(coupon: CouponModel): Observable<boolean> {
+    return this.httpClient.post<boolean>(this.urls.addCoupon, coupon, {headers: HEADERS_FOR_POST});
+  }
+
+  public deleteCoupon(couponId: number): Observable<number> {
+    const url = `${this.urls.deleteCoupon}/${couponId}`;
+    return this.httpClient.delete<number>(url);
+  }
+
+  public getCoupons(): Observable<CouponModel[]> {
+    return this.httpClient.get<CouponModel[]>(this.urls.getCoupons);
   }
 
   public discountExpired(date: Date | undefined): boolean {

@@ -50,14 +50,28 @@
               <p (click)="onChangePayment()" *ngIf="currentUser.paymentDetails.length > 1"
                  class="settings-container-change">Change Payment</p>
             </div>
+
+            <div class="settings-container" data-tooltip="Coupons">
+              <div class="font-xs">
+                <mat-form-field appearance="outline" class="w-75">
+                  <mat-label>Coupon Code</mat-label>
+                  <input [formControl]="couponControl" matInput placeholder="CODE" type="text">
+                </mat-form-field>
+                <button (click)="onApplyCoupon()" class="qa-btn qa-btn-primary qa-btn-s ml-s">APPLY</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
       <div class="main-right-side">
         <button (click)="onPay()" class="qa-btn qa-btn-warning qa-btn-s text-dark qa-btn-block">Pay</button>
+        <div *ngIf="orderForm.get('coupon').value">
+          <hr class="hr-custom">
+          <h3 class="text-info">Coupon Applied: {{orderForm.get('coupon').value['discountPercentage']}}%</h3>
+        </div>
         <hr class="hr-custom">
-        <h3 class="text-danger">Order Total: {{cartTotal | number}}</h3>
+        <h3 class="text-danger">Order Total: &euro;{{cartTotal | number}}</h3>
       </div>
 
     </div>

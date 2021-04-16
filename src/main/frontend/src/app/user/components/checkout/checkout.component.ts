@@ -5,7 +5,7 @@ import { User } from '../../../auth/model/User';
 import { Subscription } from 'rxjs';
 import { Product } from '../../../cpanel/model/product.model';
 import { getAuthSelector } from '../../../auth/store/selectors/auth.selectors';
-import { getCategoriesSelector } from '../../../cpanel/store/selectors/cpanel.selector';
+import { getCategoriesSelector, getCouponsSelector } from '../../../cpanel/store/selectors/cpanel.selector';
 import { CpanelService } from '../../../cpanel/service/cpanel.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Address } from '../../../auth/model/Address';
@@ -16,6 +16,9 @@ import { CheckoutSelectPaymentComponent } from '../checkout-select-payment/check
 import { ProductOrder } from '../../../auth/model/ProductOrder';
 import { RequestMakePaymentAction } from '../../../auth/store/actions/cart.actions';
 import { Router } from '@angular/router';
+import { CouponModel } from '../../../cpanel/model/coupon.model';
+import { NotifierService } from 'angular-notifier';
+import { COUPON_INVALID, NOTIFICATION_TYPES } from '../../../app-constants';
 
 @Component({
   selector: 'app-checkout',
@@ -28,16 +31,19 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   public cartTotal: number = 0;
   public dialogRef: MatDialogRef<CheckoutSelectAddressComponent>;
   public dialogRefPayment: MatDialogRef<CheckoutSelectPaymentComponent>;
+  public couponControl: FormControl = new FormControl();
   public orderForm: FormGroup = new FormGroup({
     products: new FormControl([]),
     address: new FormControl(null),
     payment: new FormControl(null),
     orderTotal: new FormControl(null),
+    coupon: new FormControl(null),
     userId: new FormControl(null),
   });
+  private couponsList: CouponModel[] = [];
   private subs: Array<Subscription> = [];
 
-  constructor(private readonly store: Store<State>, public cpanelService: CpanelService, private readonly dialog: MatDialog, private readonly router: Router) {
+  constructor(private readonly store: Store<State>, public cpanelService: CpanelService, private readonly dialog: MatDialog, private readonly router: Router, private readonly notifier: NotifierService) {
   }
 
   private static _selectMainAddress(addresses: Address[]): any {
@@ -51,6 +57,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this._loadProducts();
     this._loadUser();
+    this._loadCoupons();
     this.cartTotal = this.cpanelService.calculateTotal(this.currentUser.cartItems, this.productsAsMap);
   }
 
@@ -117,8 +124,29 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     }));
   }
 
+  public onApplyCoupon() {
+    const coupon = this.couponsList.find(c => c.couponCode === this.couponControl.value);
+
+    if (!coupon) {
+      this.notifier.notify(NOTIFICATION_TYPES.error, COUPON_INVALID);
+    } else if (!this.cpanelService.discountExpired(coupon.validTime)) {
+      this.notifier.notify(NOTIFICATION_TYPES.error, COUPON_INVALID);
+    } else {
+      this.orderForm.get('coupon').setValue(coupon);
+      this.cartTotal = (this.cartTotal - (this.cartTotal * coupon.discountPercentage) / 100)
+    }
+
+    this.couponControl.reset();
+  }
+
   private _populateOrderForm() {
     this.orderForm.get('address').setValue(CheckoutComponent._selectMainAddress(this.currentUser.addresses));
     this.orderForm.get('payment').setValue(CheckoutComponent._selectMainPayment(this.currentUser.paymentDetails));
+  }
+
+  private _loadCoupons() {
+    this.subs.push(this.store.pipe(select(getCouponsSelector)).subscribe(payload => {
+      this.couponsList = payload.coupons;
+    }));
   }
 }
