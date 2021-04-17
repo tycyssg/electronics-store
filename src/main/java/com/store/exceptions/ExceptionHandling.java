@@ -86,6 +86,11 @@ public class ExceptionHandling {
         return createHttpResponse(BAD_REQUEST, INVALID_DATA_FORMAT);
     }
 
+    @ExceptionHandler(InvalidDataFormatParameterizedException.class)
+    public ResponseEntity<HttpCustomResponse> invalidDataFormatM(InvalidDataFormatParameterizedException e) {
+        return createHttpResponse(BAD_REQUEST, e.getMessage());
+    }
+
     @ExceptionHandler(NoContentException.class)
     public ResponseEntity<HttpCustomResponse> noContentException() {
         return createHttpResponse(NO_CONTENT, NO_DATA_FOUND);

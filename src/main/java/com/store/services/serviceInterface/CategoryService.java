@@ -11,7 +11,7 @@ public interface CategoryService {
 
     Category addCategory(Category category) throws ExistException;
 
-    Category updateCategory(Category category) throws InvalidDataFormatException, NotExistException, ExistException;
+    Category updateCategory(Category category) throws NotExistException, ExistException, InvalidDataFormatException;
 
     void deleteCategory(Long categoryId) throws InvalidDataFormatException, NotExistException;
 

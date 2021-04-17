@@ -2,7 +2,7 @@ package com.store.services;
 
 
 import com.store.exceptions.model.ExistException;
-import com.store.exceptions.model.InvalidDataFormatException;
+import com.store.exceptions.model.InvalidDataFormatParameterizedException;
 import com.store.exceptions.model.NotExistException;
 import com.store.models.Coupon;
 import com.store.repository.CouponRepository;
@@ -26,13 +26,13 @@ public class CouponServiceImpl implements CouponService {
     }
 
     @Override
-    public Coupon addCoupon(Coupon coupon) throws ExistException, InvalidDataFormatException {
+    public Coupon addCoupon(Coupon coupon) throws ExistException, InvalidDataFormatParameterizedException {
 
         if (couponRepository.existsByCouponCode(coupon.getCouponCode()))
             throw new ExistException(COUPON_EXITS);
 
         if (coupon.getValidTime().before(new Date()))
-            throw new InvalidDataFormatException(COUPON_DATE_INVALID);
+            throw new InvalidDataFormatParameterizedException(COUPON_DATE_INVALID);
 
         return couponRepository.save(coupon);
     }
@@ -50,22 +50,4 @@ public class CouponServiceImpl implements CouponService {
         couponRepository.deleteById(couponId);
     }
 
-    @Override
-    public boolean validateCoupon(Coupon coupon) throws InvalidDataFormatException {
-        Coupon c = couponRepository.findById(coupon.getCouponId()).orElse(null);
-
-        if (c == null)
-            return false;
-
-        if (c.getValidTime().before(new Date()))
-            return false;
-
-        if (!c.getCouponCode().equals(coupon.getCouponCode()))
-            throw new InvalidDataFormatException(COUPON_ALTERED);
-
-        if (!c.getDiscountPercentage().equals(coupon.getDiscountPercentage()))
-            throw new InvalidDataFormatException(COUPON_ALTERED);
-
-        return true;
-    }
 }

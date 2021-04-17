@@ -19,5 +19,6 @@ public class ErrorConstants {
     public static final String COUPON_NOT_EXITS = "Coupon not found!";
     public static final String COUPON_DATE_INVALID = "Invalid  date. Please provide a feature date!";
     public static final String COUPON_ALTERED = "Coupon altered! Please use a real one!";
+    public static final String COUPON_EXPIRED = "Coupon Expired! Please use a real one!";
 
 }

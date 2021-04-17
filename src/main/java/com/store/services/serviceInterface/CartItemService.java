@@ -1,7 +1,7 @@
 package com.store.services.serviceInterface;
 
 import com.store.exceptions.model.ExistException;
-import com.store.exceptions.model.InvalidDataFormatException;
+import com.store.exceptions.model.InvalidDataFormatParameterizedException;
 import com.store.exceptions.model.NotExistException;
 import com.store.models.CartItem;
 import com.store.models.OrderDetails;
@@ -17,5 +17,5 @@ public interface CartItemService {
 
     void updateCartItemQuantityMinus(Long cartItemId) throws NotExistException;
 
-    OrderDetails makePayment(OrderDetails orderDetails) throws ExistException, NotExistException, InvalidDataFormatException;
+    OrderDetails makePayment(OrderDetails orderDetails) throws ExistException, NotExistException, InvalidDataFormatParameterizedException;
 }

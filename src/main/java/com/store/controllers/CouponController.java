@@ -3,6 +3,7 @@ package com.store.controllers;
 import com.store.exceptions.ExceptionHandling;
 import com.store.exceptions.model.ExistException;
 import com.store.exceptions.model.InvalidDataFormatException;
+import com.store.exceptions.model.InvalidDataFormatParameterizedException;
 import com.store.exceptions.model.NotExistException;
 import com.store.models.Coupon;
 import com.store.services.serviceInterface.CouponService;
@@ -32,7 +33,7 @@ public class CouponController extends ExceptionHandling {
     @PostMapping("/addCoupon")
     @ResponseBody
     @PreAuthorize("hasAnyAuthority('u:a')")
-    public ResponseEntity<Coupon> addCoupon(@Valid @RequestBody Coupon coupon, BindingResult bindingResult) throws InvalidDataFormatException, ExistException {
+    public ResponseEntity<Coupon> addCoupon(@Valid @RequestBody Coupon coupon, BindingResult bindingResult) throws InvalidDataFormatException, ExistException, InvalidDataFormatParameterizedException {
         if (bindingResult.hasErrors())
             throw new InvalidDataFormatException();
 
@@ -42,7 +43,7 @@ public class CouponController extends ExceptionHandling {
     @DeleteMapping("/deleteCoupon/{couponId}")
     @ResponseBody
     @PreAuthorize("hasAnyAuthority('u:a')")
-    public ResponseEntity<Long> deleteCoupon(@PathVariable("couponId") Long couponId) throws NotExistException, InvalidDataFormatException {
+    public ResponseEntity<Long> deleteCoupon(@PathVariable("couponId") Long couponId) throws NotExistException {
         couponService.deleteCoupon(couponId);
 
         return new ResponseEntity<>(couponId, HttpStatus.OK);
@@ -53,16 +54,6 @@ public class CouponController extends ExceptionHandling {
     @ResponseBody
     public ResponseEntity<List<Coupon>> getCoupons() {
         return new ResponseEntity<>(couponService.getAllCoupons(), HttpStatus.OK);
-    }
-
-
-    @PostMapping("/verifyCoupon")
-    @ResponseBody
-    public ResponseEntity<Boolean> verifyCoupon(@Valid @RequestBody Coupon coupon, BindingResult bindingResult) throws InvalidDataFormatException {
-        if (bindingResult.hasErrors())
-            throw new InvalidDataFormatException();
-
-        return new ResponseEntity<>(couponService.validateCoupon(coupon), HttpStatus.OK);
     }
 
 }

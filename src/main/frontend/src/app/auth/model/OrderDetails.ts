@@ -10,6 +10,6 @@ export interface OrderDetails {
   payment: PaymentDetails;
   orderDate: Date;
   orderTotal: number;
-  couponId: CouponModel;
+  coupon: CouponModel;
   userId: number;
 }

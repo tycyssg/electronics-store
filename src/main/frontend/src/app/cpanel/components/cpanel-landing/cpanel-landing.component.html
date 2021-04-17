@@ -242,6 +242,11 @@
                           <p>Expire: {{o['payment']['expireDate']}}</p>
                         </div>
 
+                        <div *ngIf="o['coupon']" class="settings-container" data-tooltip="Coupon Used">
+                          <p class="settings-container-main">{{o['coupon']['couponCode']}}</p>
+                          <p>Discount Percentage: {{o['coupon']['discountPercentage']}}%</p>
+                        </div>
+
                         <div class="settings-container" data-tooltip="Total Paid">
                           <p class="settings-container-main">&euro;{{o['orderTotal']}}</p>
                         </div>

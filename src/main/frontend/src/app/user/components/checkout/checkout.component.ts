@@ -125,8 +125,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   }
 
   public onApplyCoupon() {
-    const coupon = this.couponsList.find(c => c.couponCode === this.couponControl.value);
-
+    const coupon = this.couponsList.find(c => c.couponCode === this.couponControl.value.trim());
     if (!coupon) {
       this.notifier.notify(NOTIFICATION_TYPES.error, COUPON_INVALID);
     } else if (!this.cpanelService.discountExpired(coupon.validTime)) {

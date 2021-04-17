@@ -23,7 +23,11 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { OrderDetails } from '../../../auth/model/OrderDetails';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import * as _moment from 'moment';
-import { RequestAddCouponAction, RequestDeleteCouponAction } from '../../store/actions/coupon.actions';
+import {
+  RequestAddCouponAction,
+  RequestDeleteCouponAction,
+  RequestGetCouponsAction
+} from '../../store/actions/coupon.actions';
 import { CouponModel } from '../../model/coupon.model';
 
 @Component({
@@ -184,6 +188,7 @@ export class CpanelLandingComponent implements OnInit, OnDestroy {
   }
 
   private _loadCoupons() {
+    this.store.dispatch(RequestGetCouponsAction());
     this.subs.push(this.store.pipe(select(getCouponsSelector)).subscribe(payload => {
       this.couponsList = payload.coupons;
     }));

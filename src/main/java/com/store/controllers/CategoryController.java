@@ -40,7 +40,7 @@ public class CategoryController extends ExceptionHandling {
     @PutMapping("/updateCategory")
     @ResponseBody
     @PreAuthorize("hasAnyAuthority('u:a')")
-    public ResponseEntity<Category> updateCategory(@Valid @RequestBody Category category, BindingResult bindingResult) throws InvalidDataFormatException, NotExistException, ExistException {
+    public ResponseEntity<Category> updateCategory(@Valid @RequestBody Category category, BindingResult bindingResult) throws NotExistException, ExistException, InvalidDataFormatException {
         if (bindingResult.hasErrors())
             throw new InvalidDataFormatException();
 
@@ -56,7 +56,7 @@ public class CategoryController extends ExceptionHandling {
     @DeleteMapping("/deleteCategory/{categoryId}")
     @ResponseBody
     @PreAuthorize("hasAnyAuthority('u:a')")
-    public ResponseEntity<Long> deleteCategory(@PathVariable("categoryId") Long categoryId) throws InvalidDataFormatException, NotExistException {
+    public ResponseEntity<Long> deleteCategory(@PathVariable("categoryId") Long categoryId) throws NotExistException, InvalidDataFormatException {
         categoryService.deleteCategory(categoryId);
         return new ResponseEntity<>(categoryId, HttpStatus.OK);
     }

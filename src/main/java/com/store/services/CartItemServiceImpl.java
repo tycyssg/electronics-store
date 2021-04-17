@@ -3,14 +3,12 @@ package com.store.services;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.store.exceptions.model.ExistException;
-import com.store.exceptions.model.InvalidDataFormatException;
+import com.store.exceptions.model.InvalidDataFormatParameterizedException;
 import com.store.exceptions.model.NotExistException;
 import com.store.models.CartItem;
+import com.store.models.Coupon;
 import com.store.models.OrderDetails;
-import com.store.repository.CartItemsRepository;
-import com.store.repository.OrderRepository;
-import com.store.repository.ProductRepository;
-import com.store.repository.UserRepository;
+import com.store.repository.*;
 import com.store.selectInterfaces.OrderProduct;
 import com.store.selectInterfaces.UserDetails;
 import com.store.services.serviceInterface.CartItemService;
@@ -29,13 +27,15 @@ public class CartItemServiceImpl implements CartItemService {
     private final CartItemsRepository cartItemsRepository;
     private final ProductRepository productRepository;
     private final OrderRepository orderRepository;
+    private final CouponRepository couponRepository;
 
     @Autowired
-    public CartItemServiceImpl(UserRepository userRepository, CartItemsRepository cartItemsRepository, ProductRepository productRepository, OrderRepository orderRepository) {
+    public CartItemServiceImpl(UserRepository userRepository, CartItemsRepository cartItemsRepository, ProductRepository productRepository, OrderRepository orderRepository, CouponRepository couponRepository) {
         this.userRepository = userRepository;
         this.cartItemsRepository = cartItemsRepository;
         this.productRepository = productRepository;
         this.orderRepository = orderRepository;
+        this.couponRepository = couponRepository;
     }
 
     @Override
@@ -86,7 +86,7 @@ public class CartItemServiceImpl implements CartItemService {
     }
 
     @Override
-    public OrderDetails makePayment(OrderDetails orderDetails) throws ExistException, NotExistException, InvalidDataFormatException {
+    public OrderDetails makePayment(OrderDetails orderDetails) throws ExistException, NotExistException, InvalidDataFormatParameterizedException {
         if (orderDetails.getUserId() == null)
             throw new NotExistException(NO_USER_FOUND_BY_USERNAME);
 
@@ -102,14 +102,36 @@ public class CartItemServiceImpl implements CartItemService {
 
         List<OrderProduct> dbProducts = extractCartProductsFromDb(productMap);
 
+
+        Double couponDiscount = 0.0;
+        if (!orderDetails.getCoupon().isEmpty()) {
+            JsonNode coupon = orderDetails.getCoupon();
+            Long couponId = Long.valueOf(coupon.get("couponId").toString());
+            Coupon dbCoupon = couponRepository.findById(couponId).orElse(null);
+
+            if (dbCoupon == null)
+                throw new NotExistException(COUPON_NOT_EXITS);
+
+            if (dbCoupon.getValidTime().before(new Date()))
+                throw new NotExistException(COUPON_EXPIRED);
+
+            if (!dbCoupon.getCouponCode().equals(coupon.get("couponCode").textValue()))
+                throw new InvalidDataFormatParameterizedException(COUPON_ALTERED);
+
+            if (!dbCoupon.getDiscountPercentage().equals(coupon.get("discountPercentage").doubleValue()))
+                throw new InvalidDataFormatParameterizedException(COUPON_ALTERED);
+
+            couponDiscount = dbCoupon.getDiscountPercentage();
+        }
+
         boolean stockIsCorrect = checkIfStockIsCorrect(dbProducts, productMap);
-        boolean correctPrice = checkTotalPrice(dbProducts, productMap, orderDetails.getOrderTotal());
+        boolean correctPrice = checkTotalPrice(dbProducts, productMap, orderDetails.getOrderTotal(), couponDiscount);
 
         if (stockIsCorrect && correctPrice) {
             reduceTheStock(productMap);
             clearTheCart(user.getId());
         } else {
-            throw new InvalidDataFormatException(ORDER_NOT_COMPLETE);
+            throw new InvalidDataFormatParameterizedException(ORDER_NOT_COMPLETE);
         }
 
         orderDetails.setUserId(user.getId());
@@ -135,20 +157,20 @@ public class CartItemServiceImpl implements CartItemService {
         return products;
     }
 
-    private boolean checkIfStockIsCorrect(List<OrderProduct> dbProducts, Map<Long, Integer> productMap) throws InvalidDataFormatException {
+    private boolean checkIfStockIsCorrect(List<OrderProduct> dbProducts, Map<Long, Integer> productMap) throws InvalidDataFormatParameterizedException {
         for (OrderProduct o : dbProducts) {
             Integer cartQuantity = productMap.get(o.getProductId());
             if (cartQuantity == null)
-                throw new InvalidDataFormatException(INVALID_PRODUCT_QUANTITY);
+                throw new InvalidDataFormatParameterizedException(INVALID_PRODUCT_QUANTITY);
 
             if (o.getStock() - cartQuantity < 0)
-                throw new InvalidDataFormatException(LOW_STOCK);
+                throw new InvalidDataFormatParameterizedException(LOW_STOCK);
         }
 
         return true;
     }
 
-    private boolean checkTotalPrice(List<OrderProduct> dbProducts, Map<Long, Integer> productMap, Double totalPrice) {
+    private boolean checkTotalPrice(List<OrderProduct> dbProducts, Map<Long, Integer> productMap, Double totalPrice, Double couponDiscount) {
         Double calculatedTotal = 0.0;
         for (OrderProduct o : dbProducts) {
             Integer productQuantity = productMap.get(o.getProductId());
@@ -160,6 +182,11 @@ public class CartItemServiceImpl implements CartItemService {
                 calculatedTotal += result;
             }
         }
+
+        if (couponDiscount > 0) {
+            calculatedTotal = (calculatedTotal - (calculatedTotal * couponDiscount) / 100);
+        }
+
         return calculatedTotal.equals(totalPrice);
     }
 
